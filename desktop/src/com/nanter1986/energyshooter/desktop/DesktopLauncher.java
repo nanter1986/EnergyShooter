@@ -1,0 +1,12 @@
+package com.nanter1986.energyshooter.desktop;
+
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.nanter1986.energyshooter.EnergyShooter;
+
+public class DesktopLauncher {
+	public static void main (String[] arg) {
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		new LwjglApplication(new EnergyShooter(), config);
+	}
+}
