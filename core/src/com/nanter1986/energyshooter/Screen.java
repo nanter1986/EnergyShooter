@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Created by user on 11/2/2017.
  */
@@ -29,9 +32,11 @@ public class Screen extends ScreenAdapter {
     private Texture spaceship;
     private Texture level;
     private Texture laser;
+    private Texture enemy1;
     private int spaceshipX;
     private int spaceshipY;
     private int laserY;
+    ArrayList<Enemy>enemies=new ArrayList<Enemy>();
 
     int width;
     int height;
@@ -41,6 +46,7 @@ public class Screen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        createEnemies();
         checkForShooting();
         updatePosition();
         updateCamera();
@@ -54,8 +60,27 @@ public class Screen extends ScreenAdapter {
 
         batch.draw(level, 0, 0, 480 , 4000);
         batch.draw(spaceship, spaceshipX, spaceshipY, 50f, 100f);
-        batch.draw(laser, spaceshipX+25, spaceshipY+laserY, 25f , 50f);
+        batch.draw(laser, spaceshipX+13, spaceshipY+laserY, 25f , 50f);
+        drawEnemies();
         batch.end();
+    }
+
+    private void drawEnemies() {
+        for(Enemy e:enemies){
+            if(e.health>0 && e.y>spaceshipY && e.x>0 && e.x<640){
+                e.updatePosition(batch);
+            }
+        }
+    }
+
+    private void createEnemies() {
+        Random randomSpawn=new Random();
+        Random whereToRandomlySpawnX=new Random();
+        int spawn=randomSpawn.nextInt(100);
+        int xRandom=whereToRandomlySpawnX.nextInt(560);
+        if (spawn==1){
+            enemies.add(new Enemy(xRandom+40,spaceshipY,"enemyBlue1.png"));
+        }
     }
 
     private void checkForShooting() {
@@ -108,6 +133,7 @@ public class Screen extends ScreenAdapter {
         spaceship = new Texture(Gdx.files.internal("F5S1.png"));
         level = new Texture(Gdx.files.internal("milky.jpeg"));
         laser = new Texture(Gdx.files.internal("laserRed.png"));
+        enemy1 = new Texture(Gdx.files.internal("enemyBlue1.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spaceshipX = 300;
         laserY=5000;
