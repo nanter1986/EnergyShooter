@@ -25,19 +25,23 @@ public class Screen extends ScreenAdapter {
 
     SpriteBatch batch;
     private OrthographicCamera camera;
-    private Viewport viewport;
+
     private Texture spaceship;
     private Texture level;
+    private Texture laser;
     private int spaceshipX;
     private int spaceshipY;
+    private int laserY;
 
     int width;
     int height;
     float originX;
     float originY;
+    private boolean cooledDown=true;
 
     @Override
     public void render(float delta) {
+        checkForShooting();
         updatePosition();
         updateCamera();
         camera.update();
@@ -50,7 +54,15 @@ public class Screen extends ScreenAdapter {
 
         batch.draw(level, 0, 0, 480 , 4000);
         batch.draw(spaceship, spaceshipX, spaceshipY, 50f, 100f);
+        batch.draw(laser, spaceshipX+25, spaceshipY+laserY, 25f , 50f);
         batch.end();
+    }
+
+    private void checkForShooting() {
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && cooledDown==true){
+            laserY=spaceshipY+100;
+            cooledDown=false;
+        }
     }
 
     private void updateCamera() {
@@ -59,11 +71,15 @@ public class Screen extends ScreenAdapter {
             camera.translate(0,5,0);
             spaceshipY+=5;
         }
-        
+
         camera.update();
     }
 
     private void updatePosition() {
+        laserY+=5;
+        if(laserY>spaceshipY+640){
+            cooledDown=true;
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             spaceshipX = spaceshipX - 5;
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -91,8 +107,10 @@ public class Screen extends ScreenAdapter {
         camera.update();
         spaceship = new Texture(Gdx.files.internal("F5S1.png"));
         level = new Texture(Gdx.files.internal("milky.jpeg"));
+        laser = new Texture(Gdx.files.internal("laserRed.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spaceshipX = 300;
+        laserY=5000;
 
     }
 
