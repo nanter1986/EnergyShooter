@@ -21,7 +21,7 @@ public class LaserOfEnemy {
         if(x>spaceshipX){
             direction="left";
         }else{
-            direction="left";
+            direction="right";
         }
     }
 
@@ -30,12 +30,12 @@ public class LaserOfEnemy {
             y = y - 3;
             x = x - 3;
 
-            b.draw(texture, x, y, 25f, 50f);
+            b.draw(texture, x, y, 10f, 20f);
         }else{
             y = y - 3;
             x = x + 3;
 
-            b.draw(texture, x, y, 25f, 50f);
+            b.draw(texture, x, y, 10f, 20f);
         }
     }
 

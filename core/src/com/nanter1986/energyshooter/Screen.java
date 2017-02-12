@@ -37,12 +37,14 @@ public class Screen extends ScreenAdapter {
     Sound explosionBig;
     Sound explosionSmall;
     Sound laserSound;
+    Sound touchedEnemyLaser;
 
     private Texture spaceship;
     private Texture level;
     private Texture laser;
     private Texture enemy1;
     private Texture explosion;
+    private Texture enemyLaser;
     int explosionAnimationX;
     int explosionAnimationY;
     private int spaceshipX;
@@ -56,8 +58,9 @@ public class Screen extends ScreenAdapter {
 
     private boolean cooledDown;
     private boolean died;
-    private int stateOfGame=3;
+    private int stateOfGame=1;
     private int howOftenSpawn;
+    private int howOftenLaser;
     private int enemyHealth;
 
     @Override
@@ -92,6 +95,7 @@ public class Screen extends ScreenAdapter {
         drawLaser();
 
         drawEnemies();
+        drawEnemyLasers();
         drawFonts();
         batch.end();
     }
@@ -148,6 +152,7 @@ public class Screen extends ScreenAdapter {
                 int damage = e.checkCollisionWithPlayer(spaceshipX, spaceshipY);
                 e.checkCollisionWithLaser(laserX,laserY);
                 spaceshipHealth -= damage;
+                createEnemyLasers(e.x,e.y);
             }else if(e.health<=0 && e.y>spaceshipY && e.x>0 && e.x<640){
                 if(e.explodedSound==false){
                     explosionSmall.play();
@@ -155,6 +160,27 @@ public class Screen extends ScreenAdapter {
                 }
                 e.updatePosition(batch);
                 e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
+            }
+        }
+    }
+
+    private void createEnemyLasers(int x,int y) {
+        Random randomSpawn=new Random();
+        int spawn=randomSpawn.nextInt(150);
+        if (spawn==1){
+            laserOfEnemies.add(new LaserOfEnemy(x+20,y,spaceshipX,enemyLaser));
+        }
+    }
+
+    private void drawEnemyLasers(){
+        for(LaserOfEnemy l:laserOfEnemies){
+            if(l.y>spaceshipY && l.x>0 && l.x<640 && l.used==false) {
+                l.updatePosition(batch);
+                int damage = l.checkCollisionWithPlayer(spaceshipX, spaceshipY);
+                spaceshipHealth -= damage;
+                if(damage>0){
+                    touchedEnemyLaser.play();
+                }
             }
         }
     }
@@ -233,6 +259,7 @@ public class Screen extends ScreenAdapter {
 
     private void makePlayLevel(Playlevel pl) {
         howOftenSpawn=pl.spawnFrequency;
+        howOftenLaser=pl.laserFrequency;
         font = new BitmapFont();
         enemies=new ArrayList<Enemy>();
         laserOfEnemies=new ArrayList<LaserOfEnemy>();
@@ -250,10 +277,12 @@ public class Screen extends ScreenAdapter {
         explosionBig = Gdx.audio.newSound(Gdx.files.internal("explosionBig.wav"));
         explosionSmall = Gdx.audio.newSound(Gdx.files.internal("explosionSmall.wav"));
         laserSound = Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
+        touchedEnemyLaser = Gdx.audio.newSound(Gdx.files.internal("touchedEnemyLaser.wav"));
         font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
         spaceship = new Texture(Gdx.files.internal("F5S1.png"));
         level = new Texture(Gdx.files.internal(pl.backImage));
         laser = new Texture(Gdx.files.internal("laserRed.png"));
+        enemyLaser = new Texture(Gdx.files.internal("laserEnemy.png"));
         enemy1 = new Texture(Gdx.files.internal(pl.enemy));
         explosion = new Texture(Gdx.files.internal("explosion.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
