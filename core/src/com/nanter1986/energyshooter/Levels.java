@@ -13,6 +13,8 @@ public class Levels {
             l=new Playlevel("summer.mp3","enemyBlue1.png","milky.jpeg",5,100,1);
         }else if(s.equals("mars")){
             l=new Playlevel("darkfuture.mp3","enemyBlue1.png","mars.jpg",6,90,2);
+        }else if(s.equals("jupiter")){
+            l=new Playlevel("graysky.mp3","enemyRed1.png","jupiter.jpg",7,80,3);
         }
         return l;
     }

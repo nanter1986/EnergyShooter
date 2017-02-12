@@ -51,11 +51,12 @@ public class Screen extends ScreenAdapter {
     private int laserX;
     private int laserY;
     ArrayList<Enemy>enemies;
+    ArrayList<LaserOfEnemy>laserOfEnemies;
 
 
     private boolean cooledDown;
     private boolean died;
-    private int stateOfGame=1;
+    private int stateOfGame=3;
     private int howOftenSpawn;
     private int enemyHealth;
 
@@ -67,7 +68,7 @@ public class Screen extends ScreenAdapter {
             batch.dispose();
             show();
         }
-        if(spaceshipY>7400){
+        if(spaceshipY>7450){
             backgroundMusic.dispose();
             batch.dispose();
             stateOfGame++;
@@ -164,7 +165,7 @@ public class Screen extends ScreenAdapter {
         int spawn=randomSpawn.nextInt(howOftenSpawn);
         int xRandom=whereToRandomlySpawnX.nextInt(560);
         if (spawn==1){
-            enemies.add(new Enemy(xRandom+40,spaceshipY,enemyHealth,"enemyBlue1.png"));
+            enemies.add(new Enemy(xRandom+40,spaceshipY,enemyHealth,l.enemy));
         }
     }
 
@@ -216,6 +217,8 @@ public class Screen extends ScreenAdapter {
             makeMenu();
         }else if(stateOfGame==2){
             l= Levels.levelReturner("mars");
+        }else if(stateOfGame==3){
+            l= Levels.levelReturner("jupiter");
         }
         makePlayLevel(l);
     }
@@ -232,6 +235,7 @@ public class Screen extends ScreenAdapter {
         howOftenSpawn=pl.spawnFrequency;
         font = new BitmapFont();
         enemies=new ArrayList<Enemy>();
+        laserOfEnemies=new ArrayList<LaserOfEnemy>();
         cooledDown=true;
         died=false;
         explosionAnimationX=0;
