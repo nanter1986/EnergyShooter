@@ -21,12 +21,12 @@ public class Enemy {
 
     int health;
 
-    public Enemy(int x, int spaceshipY, String textureLocation) {
+    public Enemy(int x, int spaceshipY,int health, String textureLocation) {
         this.x = x;
         this.y = spaceshipY+380;
         texture=new Texture(Gdx.files.internal(textureLocation));
         explosion=new Texture(Gdx.files.internal("explosion.png"));
-        this.health=5;
+        this.health=health;
     }
 
     public void updatePosition(SpriteBatch b){
