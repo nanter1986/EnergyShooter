@@ -25,4 +25,14 @@ public class Enemy {
         y=y-2;
         b.draw(texture,x,y,25f,50f);
     }
+
+    public int checkCollisionWithPlayer(int spaceshipX,int spaceshipY){
+        int damage=0;
+        if(x>spaceshipX && x<spaceshipX+50 && y>spaceshipY && y<spaceshipY+100){
+            health=0;
+            damage=2;
+        }
+        return damage;
+
+    }
 }

@@ -35,6 +35,7 @@ public class Screen extends ScreenAdapter {
     private Texture enemy1;
     private int spaceshipX;
     private int spaceshipY;
+    private int spaceshipHealth;
     private int laserY;
     ArrayList<Enemy>enemies=new ArrayList<Enemy>();
 
@@ -69,6 +70,7 @@ public class Screen extends ScreenAdapter {
         for(Enemy e:enemies){
             if(e.health>0 && e.y>spaceshipY && e.x>0 && e.x<640){
                 e.updatePosition(batch);
+                e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
             }
         }
     }
@@ -136,6 +138,7 @@ public class Screen extends ScreenAdapter {
         enemy1 = new Texture(Gdx.files.internal("enemyBlue1.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spaceshipX = 300;
+        spaceshipHealth=10;
         laserY=5000;
 
     }
