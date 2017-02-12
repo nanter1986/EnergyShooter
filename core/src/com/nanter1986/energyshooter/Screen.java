@@ -54,6 +54,7 @@ public class Screen extends ScreenAdapter {
     private int laserY;
     ArrayList<Enemy>enemies;
     ArrayList<LaserOfEnemy>laserOfEnemies;
+    ArrayList<BackGround>backPlanets;
 
 
     private boolean cooledDown;
@@ -71,7 +72,7 @@ public class Screen extends ScreenAdapter {
             batch.dispose();
             show();
         }
-        if(spaceshipY>7450){
+        if(spaceshipY>15450){
             backgroundMusic.dispose();
             batch.dispose();
             stateOfGame++;
@@ -79,6 +80,7 @@ public class Screen extends ScreenAdapter {
         }
         checkHealth();
         createEnemies();
+        createBackgrounds();
         updatePosition();
         updateCamera();
         camera.update();
@@ -100,8 +102,19 @@ public class Screen extends ScreenAdapter {
         batch.end();
     }
 
+    private void createBackgrounds() {
+        Random randomSpawn=new Random();
+        int create=randomSpawn.nextInt(100);
+        if (create==1){
+            backPlanets.add(BackGenerator.maybeGiveBack(spaceshipX,spaceshipY));
+        }
+    }
+
     private void drawLevelBackground() {
-        batch.draw(level, 0, 0, 480 , 8000);
+        //batch.draw(level, 0, 0, 480 , 8000);
+        for(BackGround b:backPlanets){
+            b.updatePosition(batch,spaceshipY);
+        }
     }
 
     private void drawLaser() {
@@ -263,6 +276,7 @@ public class Screen extends ScreenAdapter {
         font = new BitmapFont();
         enemies=new ArrayList<Enemy>();
         laserOfEnemies=new ArrayList<LaserOfEnemy>();
+        backPlanets=new ArrayList<BackGround>();
         cooledDown=true;
         died=false;
         explosionAnimationX=0;
