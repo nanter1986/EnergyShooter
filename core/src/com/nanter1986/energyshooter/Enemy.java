@@ -11,19 +11,36 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Enemy {
     int x;
     int y;
+    boolean exploded=false;
+    int explosionAnimationX;
+    int explosionAnimationY;
     Texture texture;
+    Texture explosion;
     int health;
 
     public Enemy(int x, int spaceshipY, String textureLocation) {
         this.x = x;
         this.y = spaceshipY+380;
         texture=new Texture(Gdx.files.internal(textureLocation));
+        explosion=new Texture(Gdx.files.internal("explosion.png"));
         this.health=5;
     }
 
     public void updatePosition(SpriteBatch b){
-        y=y-2;
-        b.draw(texture,x,y,25f,50f);
+        if(health>0) {
+            y = y - 2;
+            b.draw(texture, x, y, 25f, 50f);
+        }else if(exploded==false){
+            b.draw(explosion,x,y,25,25,explosionAnimationX*100,500-explosionAnimationY*100,100,100,false,false);
+            explosionAnimationX++;
+            if(explosionAnimationX==6){
+                explosionAnimationX=0;
+                explosionAnimationY++;
+            }
+            if(explosionAnimationY==6){
+                exploded=true;
+            }
+        }
     }
 
     public int checkCollisionWithPlayer(int spaceshipX,int spaceshipY){

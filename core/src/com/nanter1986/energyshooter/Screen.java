@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -28,25 +29,27 @@ public class Screen extends ScreenAdapter {
 
     SpriteBatch batch;
     private OrthographicCamera camera;
+    BitmapFont font = new BitmapFont();
 
     private Texture spaceship;
     private Texture level;
     private Texture laser;
     private Texture enemy1;
+    private Texture explosion;
+    int explosionAnimationX=0;
+    int explosionAnimationY=0;
     private int spaceshipX;
     private int spaceshipY;
     private int spaceshipHealth;
     private int laserY;
     ArrayList<Enemy>enemies=new ArrayList<Enemy>();
 
-    int width;
-    int height;
-    float originX;
-    float originY;
+
     private boolean cooledDown=true;
 
     @Override
     public void render(float delta) {
+        checkHealth();
         createEnemies();
         checkForShooting();
         updatePosition();
@@ -60,15 +63,58 @@ public class Screen extends ScreenAdapter {
         batch.begin();
 
         batch.draw(level, 0, 0, 480 , 4000);
-        batch.draw(spaceship, spaceshipX, spaceshipY, 50f, 100f);
-        batch.draw(laser, spaceshipX+13, spaceshipY+laserY, 25f , 50f);
+        drawSpaceship();
+
+        drawLaser();
+
         drawEnemies();
+        drawFonts();
         batch.end();
+    }
+
+    private void drawLaser() {
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && cooledDown==true){
+            laserY=spaceshipY+100;
+            cooledDown=false;
+
+        }
+        batch.draw(laser, spaceshipX+13, spaceshipY+laserY, 25f , 50f);
+
+    }
+
+    private void drawSpaceship() {
+        if(spaceshipHealth>0){
+            batch.draw(spaceship, spaceshipX, spaceshipY, 50f, 100f);
+        }else if(explosionAnimationY==6){
+            font.draw(batch, "Game Over" , 100, spaceshipY+200);
+        }else{
+            batch.draw(explosion,spaceshipX,spaceshipY,explosionAnimationX*100,500-explosionAnimationY*100,100,100);
+            explosionAnimationX++;
+            if(explosionAnimationX==6){
+                explosionAnimationX=0;
+                explosionAnimationY++;
+            }
+        }
+
+    }
+
+    private void checkHealth() {
+        if(spaceshipHealth==0){
+
+        }
+    }
+
+    private void drawFonts() {
+        font.draw(batch, "Health:" + spaceshipHealth, 100, spaceshipY+50);
     }
 
     private void drawEnemies() {
         for(Enemy e:enemies){
             if(e.health>0 && e.y>spaceshipY && e.x>0 && e.x<640){
+                e.updatePosition(batch);
+                int damage=e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
+                spaceshipHealth-=damage;
+            }else if(e.health<=0 && e.y>spaceshipY && e.x>0 && e.x<640){
                 e.updatePosition(batch);
                 e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
             }
@@ -86,10 +132,7 @@ public class Screen extends ScreenAdapter {
     }
 
     private void checkForShooting() {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && cooledDown==true){
-            laserY=spaceshipY+100;
-            cooledDown=false;
-        }
+
     }
 
     private void updateCamera() {
@@ -103,8 +146,8 @@ public class Screen extends ScreenAdapter {
     }
 
     private void updatePosition() {
-        laserY+=5;
-        if(laserY>spaceshipY+640){
+        laserY+=10;
+        if(laserY>spaceshipY+550){
             cooledDown=true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -132,10 +175,12 @@ public class Screen extends ScreenAdapter {
         camera = new OrthographicCamera(640,480);
         camera.position.set(320,240,0);
         camera.update();
+        font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
         spaceship = new Texture(Gdx.files.internal("F5S1.png"));
         level = new Texture(Gdx.files.internal("milky.jpeg"));
         laser = new Texture(Gdx.files.internal("laserRed.png"));
         enemy1 = new Texture(Gdx.files.internal("enemyBlue1.png"));
+        explosion = new Texture(Gdx.files.internal("explosion.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spaceshipX = 300;
         spaceshipHealth=10;
