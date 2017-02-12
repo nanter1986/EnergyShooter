@@ -3,6 +3,8 @@ package com.nanter1986.energyshooter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -31,6 +33,11 @@ public class Screen extends ScreenAdapter {
     private OrthographicCamera camera;
     BitmapFont font = new BitmapFont();
 
+    Music backgroundMusic;
+    Sound explosionBig;
+    Sound explosionSmall;
+    Sound laserSound;
+
     private Texture spaceship;
     private Texture level;
     private Texture laser;
@@ -41,6 +48,7 @@ public class Screen extends ScreenAdapter {
     private int spaceshipX;
     private int spaceshipY;
     private int spaceshipHealth;
+    private int laserX;
     private int laserY;
     ArrayList<Enemy>enemies=new ArrayList<Enemy>();
 
@@ -75,10 +83,12 @@ public class Screen extends ScreenAdapter {
     private void drawLaser() {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && cooledDown==true){
             laserY=spaceshipY+100;
+            laserX=spaceshipX+13;
             cooledDown=false;
+            laserSound.play();
 
         }
-        batch.draw(laser, spaceshipX+13, spaceshipY+laserY, 25f , 50f);
+        batch.draw(laser, laserX, laserY, 25f , 50f);
 
     }
 
@@ -89,6 +99,7 @@ public class Screen extends ScreenAdapter {
             font.draw(batch, "Game Over" , 100, spaceshipY+200);
         }else{
             batch.draw(explosion,spaceshipX,spaceshipY,explosionAnimationX*100,500-explosionAnimationY*100,100,100);
+            explosionBig.play();
             explosionAnimationX++;
             if(explosionAnimationX==6){
                 explosionAnimationX=0;
@@ -110,11 +121,16 @@ public class Screen extends ScreenAdapter {
 
     private void drawEnemies() {
         for(Enemy e:enemies){
-            if(e.health>0 && e.y>spaceshipY && e.x>0 && e.x<640){
+            if(e.health>0 && e.y>spaceshipY && e.x>0 && e.x<640) {
                 e.updatePosition(batch);
-                int damage=e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
-                spaceshipHealth-=damage;
+                int damage = e.checkCollisionWithPlayer(spaceshipX, spaceshipY);
+                e.checkCollisionWithLaser(laserX,laserY);
+                spaceshipHealth -= damage;
             }else if(e.health<=0 && e.y>spaceshipY && e.x>0 && e.x<640){
+                if(e.explodedSound==false){
+                    explosionSmall.play();
+                    e.explodedSound=true;
+                }
                 e.updatePosition(batch);
                 e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
             }
@@ -175,6 +191,12 @@ public class Screen extends ScreenAdapter {
         camera = new OrthographicCamera(640,480);
         camera.position.set(320,240,0);
         camera.update();
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("summer.mp3"));
+        backgroundMusic.setLooping(true);
+        backgroundMusic.play();
+        explosionBig = Gdx.audio.newSound(Gdx.files.internal("explosionBig.wav"));
+        explosionSmall = Gdx.audio.newSound(Gdx.files.internal("explosionSmall.wav"));
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
         font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
         spaceship = new Texture(Gdx.files.internal("F5S1.png"));
         level = new Texture(Gdx.files.internal("milky.jpeg"));

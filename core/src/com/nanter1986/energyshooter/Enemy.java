@@ -1,6 +1,7 @@
 package com.nanter1986.energyshooter;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,10 +13,12 @@ public class Enemy {
     int x;
     int y;
     boolean exploded=false;
+    boolean explodedSound=false;
     int explosionAnimationX;
     int explosionAnimationY;
     Texture texture;
     Texture explosion;
+
     int health;
 
     public Enemy(int x, int spaceshipY, String textureLocation) {
@@ -52,4 +55,14 @@ public class Enemy {
         return damage;
 
     }
+
+    public void checkCollisionWithLaser(int laserX,int laserY){
+        if(x>laserX-10 && x<laserX+35 && y>laserY && y<laserY+50){
+            health=0;
+
+        }
+
+    }
+
+
 }
