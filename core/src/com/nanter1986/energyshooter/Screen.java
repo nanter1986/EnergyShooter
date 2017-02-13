@@ -41,9 +41,7 @@ public class Screen extends ScreenAdapter {
     private Texture spaceship;
     private Texture level;
     private Texture laser;
-    private Texture enemy1;
     private Texture explosion;
-    private Texture enemyLaser;
     int explosionAnimationX;
     int explosionAnimationY;
     private int spaceshipX;
@@ -112,7 +110,7 @@ public class Screen extends ScreenAdapter {
         //batch.draw(level, 0, 0, 480 , 8000);
         for(int i=0;i<backPlanets.size();i++){
             if(backPlanets.get(i).passedShip==true){
-                backPlanets.remove(i);
+                backPlanets.remove(backPlanets.get(i));
             }
         }
         for (BackGround b : backPlanets) {
@@ -168,7 +166,7 @@ public class Screen extends ScreenAdapter {
     private void drawEnemies() {
         for(int i=0;i<enemies.size();i++){
             if(enemies.get(i).exploded==true || enemies.get(i).y < spaceshipY ){
-                enemies.remove(i);
+                enemies.remove(enemies.get(i));
             }
         }
         for (Enemy e : enemies) {
@@ -195,7 +193,7 @@ public class Screen extends ScreenAdapter {
         Random randomSpawn = new Random();
         int spawn = randomSpawn.nextInt(150);
         if (spawn == 1) {
-            laserOfEnemies.add(new LaserOfEnemy(x + 20, y, spaceshipX, enemyLaser));
+            laserOfEnemies.add(new LaserOfEnemy(x + 20, y, spaceshipX));
         }
         Gdx.app.log("laser"," "+laserOfEnemies.size());
 
@@ -312,8 +310,8 @@ public class Screen extends ScreenAdapter {
         spaceship = new Texture(Gdx.files.internal("F5S1.png"));
         level = new Texture(Gdx.files.internal(pl.backImage));
         laser = new Texture(Gdx.files.internal("laserRed.png"));
-        enemyLaser = new Texture(Gdx.files.internal("laserEnemy.png"));
-        enemy1 = new Texture(Gdx.files.internal(pl.enemy));
+
+
         explosion = new Texture(Gdx.files.internal("explosion.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spaceshipX = 300;

@@ -1,5 +1,6 @@
 package com.nanter1986.energyshooter;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -10,14 +11,13 @@ public class LaserOfEnemy {
     int x;
     int y;
     String direction;
-    Texture texture;
+    static final Texture texture=new Texture(Gdx.files.internal("laserEnemy.png"));
     boolean used;
 
-    public LaserOfEnemy(int x, int y,int spaceshipX, Texture texture) {
+    public LaserOfEnemy(int x, int y,int spaceshipX) {
         used=false;
         this.x = x;
         this.y = y;
-        this.texture = texture;
         if(x>spaceshipX){
             direction="left";
         }else{

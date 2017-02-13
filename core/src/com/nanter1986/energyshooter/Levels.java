@@ -10,11 +10,11 @@ public class Levels {
     public static Playlevel levelReturner(String s){
         Playlevel l=null;
         if(s.equals("milkyWay")){
-            l=new Playlevel("summer.mp3","enemyBlue1.png","milky.jpeg",5,100,150,1);
+            l=new Playlevel("summer.mp3","blue","milky.jpeg",5,100,150,1);
         }else if(s.equals("mars")){
-            l=new Playlevel("darkfuture.mp3","enemyBlue1.png","mars.jpg",6,90,135,2);
+            l=new Playlevel("darkfuture.mp3","blue","mars.jpg",6,90,135,2);
         }else if(s.equals("jupiter")){
-            l=new Playlevel("graysky.mp3","enemyRed1.png","jupiter.jpg",7,80,120,3);
+            l=new Playlevel("graysky.mp3","red","jupiter.jpg",7,80,120,3);
         }
         return l;
     }

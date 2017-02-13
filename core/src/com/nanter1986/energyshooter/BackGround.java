@@ -46,7 +46,7 @@ public class BackGround {
         x = spaceshipX + (randomX.nextInt(800) - 400);
         y =600;
         yRelativeToShip = y-spaceshipY;
-        w = 100*(randomW.nextInt(3)+1);
+        w = 40*(randomW.nextInt(3)+1);
         h = w;
 
         this.speed = w/100;

@@ -12,9 +12,9 @@ public class Playlevel {
     int laserFrequency;
     int gameStageID;
 
-    public Playlevel(String music, String enemy, String backImage, int enemyHealth, int spawnFrequency,int laserFrequency,int id) {
+    public Playlevel(String music, String enemyType, String backImage, int enemyHealth, int spawnFrequency,int laserFrequency,int id) {
         this.music = music;
-        this.enemy = enemy;
+        this.enemy = enemyType;
         this.backImage = backImage;
         this.enemyHealth = enemyHealth;
         this.spawnFrequency = spawnFrequency;

@@ -16,23 +16,27 @@ public class Enemy {
     boolean explodedSound=false;
     int explosionAnimationX;
     int explosionAnimationY;
-    Texture texture;
-    Texture explosion;
-
+    static final Texture blue=new Texture(Gdx.files.internal("enemyBlue1.png"));
+    static final Texture red=new Texture(Gdx.files.internal("enemyRed1.png"));
+    static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
     int health;
+    String type;
 
-    public Enemy(int x, int spaceshipY,int health, String textureLocation) {
+    public Enemy(int x, int spaceshipY,int health, String type) {
         this.x = x;
         this.y = spaceshipY+380;
-        texture=new Texture(Gdx.files.internal(textureLocation));
-        explosion=new Texture(Gdx.files.internal("explosion.png"));
         this.health=health;
+        this.type=type;
     }
 
     public void updatePosition(SpriteBatch b){
         if(health>0) {
             y = y - 2;
-            b.draw(texture, x, y, 25f, 50f);
+            if(type.equals("blue")){
+                b.draw(blue, x, y, 25f, 50f);
+            }else if(type.equals("red")){
+                b.draw(red, x, y, 25f, 50f);
+            }
         }else if(exploded==false){
             b.draw(explosion,x,y,25,25,explosionAnimationX*100,500-explosionAnimationY*100,100,100,false,false);
             explosionAnimationX++;
