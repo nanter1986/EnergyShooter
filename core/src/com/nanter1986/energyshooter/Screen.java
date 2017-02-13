@@ -27,7 +27,6 @@ public class Screen extends ScreenAdapter {
             0f, 1.0f);
 
 
-
     Playlevel l;
     SpriteBatch batch;
     private OrthographicCamera camera;
@@ -52,27 +51,26 @@ public class Screen extends ScreenAdapter {
     private int spaceshipHealth;
     private int laserX;
     private int laserY;
-    ArrayList<Enemy>enemies;
-    ArrayList<LaserOfEnemy>laserOfEnemies;
-    ArrayList<BackGround>backPlanets;
+    ArrayList<Enemy> enemies;
+    ArrayList<LaserOfEnemy> laserOfEnemies;
+    ArrayList<BackGround> backPlanets;
 
 
     private boolean cooledDown;
     private boolean died;
-    private int stateOfGame=1;
+    private int stateOfGame = 1;
     private int howOftenSpawn;
     private int howOftenLaser;
     private int enemyHealth;
 
     @Override
     public void render(float delta) {
-        Gdx.app.log("where","y:"+spaceshipY);
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && died==true){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && died == true) {
             backgroundMusic.dispose();
             batch.dispose();
             show();
         }
-        if(spaceshipY>15450){
+        if (spaceshipY > 7450) {
             backgroundMusic.dispose();
             batch.dispose();
             stateOfGame++;
@@ -103,45 +101,54 @@ public class Screen extends ScreenAdapter {
     }
 
     private void createBackgrounds() {
-        Random randomSpawn=new Random();
-        int create=randomSpawn.nextInt(100);
-        if (create==1){
-            backPlanets.add(BackGenerator.maybeGiveBack(spaceshipX,spaceshipY));
+        Random randomSpawn = new Random();
+        int create = randomSpawn.nextInt(70);
+        if (create == 1) {
+            backPlanets.add(new BackGround(spaceshipX, spaceshipY));
         }
     }
 
     private void drawLevelBackground() {
         //batch.draw(level, 0, 0, 480 , 8000);
-        for(BackGround b:backPlanets){
-            b.updatePosition(batch,spaceshipY);
+        for(int i=0;i<backPlanets.size();i++){
+            if(backPlanets.get(i).passedShip==true){
+                backPlanets.remove(i);
+            }
         }
+        for (BackGround b : backPlanets) {
+
+            b.updatePosition(batch, spaceshipY);
+
+
+        }
+        Gdx.app.log("planets"," "+backPlanets.size());
     }
 
     private void drawLaser() {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && cooledDown==true){
-            laserY=spaceshipY+100;
-            laserX=spaceshipX+13;
-            cooledDown=false;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && cooledDown == true) {
+            laserY = spaceshipY + 100;
+            laserX = spaceshipX + 13;
+            cooledDown = false;
             laserSound.play();
 
         }
-        batch.draw(laser, laserX, laserY, 25f , 50f);
+        batch.draw(laser, laserX, laserY, 25f, 50f);
 
     }
 
     private void drawSpaceship() {
-        if(spaceshipHealth>0){
+        if (spaceshipHealth > 0) {
             batch.draw(spaceship, spaceshipX, spaceshipY, 50f, 100f);
-        }else if(explosionAnimationY==6){
-            font.draw(batch, "Game Over" , 100, spaceshipY+200);
-            died=true;
+        } else if (explosionAnimationY == 6) {
+            font.draw(batch, "Game Over", 100, spaceshipY + 200);
+            died = true;
 
-        }else{
-            batch.draw(explosion,spaceshipX,spaceshipY,explosionAnimationX*100,500-explosionAnimationY*100,100,100);
+        } else {
+            batch.draw(explosion, spaceshipX, spaceshipY, explosionAnimationX * 100, 500 - explosionAnimationY * 100, 100, 100);
             explosionBig.play();
             explosionAnimationX++;
-            if(explosionAnimationX==6){
-                explosionAnimationX=0;
+            if (explosionAnimationX == 6) {
+                explosionAnimationX = 0;
                 explosionAnimationY++;
             }
         }
@@ -149,49 +156,58 @@ public class Screen extends ScreenAdapter {
     }
 
     private void checkHealth() {
-        if(spaceshipHealth==0){
+        if (spaceshipHealth == 0) {
 
         }
     }
 
     private void drawFonts() {
-        font.draw(batch, "Health:" + spaceshipHealth, 100, spaceshipY+50);
+        font.draw(batch, "Health:" + spaceshipHealth, 100, spaceshipY + 50);
     }
 
     private void drawEnemies() {
-        for(Enemy e:enemies){
-            if(e.health>0 && e.y>spaceshipY && e.x>0 && e.x<640) {
-                e.updatePosition(batch);
-                int damage = e.checkCollisionWithPlayer(spaceshipX, spaceshipY);
-                e.checkCollisionWithLaser(laserX,laserY);
-                spaceshipHealth -= damage;
-                createEnemyLasers(e.x,e.y);
-            }else if(e.health<=0 && e.y>spaceshipY && e.x>0 && e.x<640){
-                if(e.explodedSound==false){
-                    explosionSmall.play();
-                    e.explodedSound=true;
-                }
-                e.updatePosition(batch);
-                e.checkCollisionWithPlayer(spaceshipX,spaceshipY);
+        for(int i=0;i<enemies.size();i++){
+            if(enemies.get(i).exploded==true || enemies.get(i).y < spaceshipY ){
+                enemies.remove(i);
             }
         }
-    }
-
-    private void createEnemyLasers(int x,int y) {
-        Random randomSpawn=new Random();
-        int spawn=randomSpawn.nextInt(150);
-        if (spawn==1){
-            laserOfEnemies.add(new LaserOfEnemy(x+20,y,spaceshipX,enemyLaser));
+        for (Enemy e : enemies) {
+            if (e.health > 0 && e.y > spaceshipY && e.x > 0 && e.x < 640) {
+                e.updatePosition(batch);
+                int damage = e.checkCollisionWithPlayer(spaceshipX, spaceshipY);
+                e.checkCollisionWithLaser(laserX, laserY);
+                spaceshipHealth -= damage;
+                createEnemyLasers(e.x, e.y);
+            } else if (e.health <= 0 && e.y > spaceshipY && e.x > 0 && e.x < 640) {
+                if (e.explodedSound == false) {
+                    explosionSmall.play();
+                    e.explodedSound = true;
+                }
+                e.updatePosition(batch);
+                e.checkCollisionWithPlayer(spaceshipX, spaceshipY);
+            }
         }
+        Gdx.app.log("enemies"," "+enemies.size());
+
     }
 
-    private void drawEnemyLasers(){
-        for(LaserOfEnemy l:laserOfEnemies){
-            if(l.y>spaceshipY && l.x>0 && l.x<640 && l.used==false) {
+    private void createEnemyLasers(int x, int y) {
+        Random randomSpawn = new Random();
+        int spawn = randomSpawn.nextInt(150);
+        if (spawn == 1) {
+            laserOfEnemies.add(new LaserOfEnemy(x + 20, y, spaceshipX, enemyLaser));
+        }
+        Gdx.app.log("laser"," "+laserOfEnemies.size());
+
+    }
+
+    private void drawEnemyLasers() {
+        for (LaserOfEnemy l : laserOfEnemies) {
+            if (l.y > spaceshipY && l.x > 0 && l.x < 640 && l.used == false) {
                 l.updatePosition(batch);
                 int damage = l.checkCollisionWithPlayer(spaceshipX, spaceshipY);
                 spaceshipHealth -= damage;
-                if(damage>0){
+                if (damage > 0) {
                     touchedEnemyLaser.play();
                 }
             }
@@ -199,30 +215,30 @@ public class Screen extends ScreenAdapter {
     }
 
     private void createEnemies() {
-        Random randomSpawn=new Random();
-        Random whereToRandomlySpawnX=new Random();
-        int spawn=randomSpawn.nextInt(howOftenSpawn);
-        int xRandom=whereToRandomlySpawnX.nextInt(560);
-        if (spawn==1){
-            enemies.add(new Enemy(xRandom+40,spaceshipY,enemyHealth,l.enemy));
+        Random randomSpawn = new Random();
+        Random whereToRandomlySpawnX = new Random();
+        int spawn = randomSpawn.nextInt(howOftenSpawn);
+        int xRandom = whereToRandomlySpawnX.nextInt(560);
+        if (spawn == 1) {
+            enemies.add(new Enemy(xRandom + 40, spaceshipY, enemyHealth, l.enemy));
         }
     }
 
 
     private void updateCamera() {
 
-        if(Gdx.input.isKeyPressed(Input.Keys.UP) && camera.position.y<7700){
-            camera.translate(0,5,0);
-            spaceshipY+=5;
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && camera.position.y < 7700) {
+            camera.translate(0, 5, 0);
+            spaceshipY += 5;
         }
 
         camera.update();
     }
 
     private void updatePosition() {
-        laserY+=10;
-        if(laserY>spaceshipY+550){
-            cooledDown=true;
+        laserY += 10;
+        if (laserY > spaceshipY + 550) {
+            cooledDown = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             spaceshipX = spaceshipX - 5;
@@ -250,14 +266,14 @@ public class Screen extends ScreenAdapter {
 
     private void changeGameState() {
 
-        if(stateOfGame==1) {
-            l= Levels.levelReturner("milkyWay");
-        }else if(stateOfGame==0){
+        if (stateOfGame == 1) {
+            l = Levels.levelReturner("milkyWay");
+        } else if (stateOfGame == 0) {
             makeMenu();
-        }else if(stateOfGame==2){
-            l= Levels.levelReturner("mars");
-        }else if(stateOfGame==3){
-            l= Levels.levelReturner("jupiter");
+        } else if (stateOfGame == 2) {
+            l = Levels.levelReturner("mars");
+        } else if (stateOfGame == 3) {
+            l = Levels.levelReturner("jupiter");
         }
         makePlayLevel(l);
     }
@@ -271,19 +287,19 @@ public class Screen extends ScreenAdapter {
     }
 
     private void makePlayLevel(Playlevel pl) {
-        howOftenSpawn=pl.spawnFrequency;
-        howOftenLaser=pl.laserFrequency;
+        howOftenSpawn = pl.spawnFrequency;
+        howOftenLaser = pl.laserFrequency;
         font = new BitmapFont();
-        enemies=new ArrayList<Enemy>();
-        laserOfEnemies=new ArrayList<LaserOfEnemy>();
-        backPlanets=new ArrayList<BackGround>();
-        cooledDown=true;
-        died=false;
-        explosionAnimationX=0;
-        explosionAnimationY=0;
+        enemies = new ArrayList<Enemy>();
+        laserOfEnemies = new ArrayList<LaserOfEnemy>();
+        backPlanets = new ArrayList<BackGround>();
+        cooledDown = true;
+        died = false;
+        explosionAnimationX = 0;
+        explosionAnimationY = 0;
         batch = new SpriteBatch();
-        camera = new OrthographicCamera(640,480);
-        camera.position.set(320,240,0);
+        camera = new OrthographicCamera(640, 480);
+        camera.position.set(320, 240, 0);
         camera.update();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(pl.music));
         backgroundMusic.setLooping(true);
@@ -302,9 +318,9 @@ public class Screen extends ScreenAdapter {
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         spaceshipX = 300;
         spaceshipY = 0;
-        spaceshipHealth=10;
-        laserY=5000;
-        enemyHealth=pl.enemyHealth;
+        spaceshipHealth = 10;
+        laserY = 5000;
+        enemyHealth = pl.enemyHealth;
     }
 
     @Override
