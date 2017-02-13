@@ -5,6 +5,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
+
 /**
  * Created by user on 12/2/2017.
  */
@@ -60,11 +62,14 @@ public class Enemy {
 
     }
 
-    public void checkCollisionWithLaser(int laserX,int laserY){
-        if(x>laserX-10 && x<laserX+35 && y>laserY && y<laserY+50){
-            health=0;
+    public void checkCollisionWithLaser(ArrayList<LaserOfPlayer>lasers){
+        for(LaserOfPlayer l:lasers){
+            if(x>l.x-10 && x<l.x+35 && y>l.y && y<l.y+50){
+                health=0;
 
+            }
         }
+
 
     }
 

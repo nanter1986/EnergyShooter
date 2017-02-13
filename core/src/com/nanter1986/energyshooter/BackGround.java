@@ -46,10 +46,11 @@ public class BackGround {
         x = spaceshipX + (randomX.nextInt(800) - 400);
         y =600;
         yRelativeToShip = y-spaceshipY;
-        w = 40*(randomW.nextInt(3)+1);
+        w = randomW.nextInt(300);
         h = w;
 
         this.speed = w/100;
+
     }
 
     public void updatePosition(SpriteBatch b,int spY){
@@ -61,12 +62,16 @@ public class BackGround {
 
         if(passedShip==false) {
             if(whichTexture==1){
+
                 b.draw(texture1, x, tempY, w, h);
             }else if(whichTexture==2){
+
                 b.draw(texture2, x, tempY, w, h);
             }else if(whichTexture==3){
+
                 b.draw(texture3, x, tempY, w, h);
             }else if(whichTexture==4){
+
                 b.draw(texture4, x, tempY, w, h);
             }
 
