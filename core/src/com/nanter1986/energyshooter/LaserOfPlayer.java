@@ -29,17 +29,17 @@ public class LaserOfPlayer {
             this.w = 25;
             this.h = 50;
             this.y = spaceshipY+spaceshipH;
-            this.x = spaceshipX+spaceshipW/2-w;
+            this.x = spaceshipX+spaceshipW/2-w/2;
         }else if(typeOfLaser.equals("straightL")){
             this.w = 25;
             this.h = 50;
             this.y = spaceshipY+spaceshipH;
-            this.x = spaceshipX+spaceshipW/2-w+20;
+            this.x = spaceshipX+spaceshipW/2-w/2+20;
         }else if(typeOfLaser.equals("straightR")){
             this.w = 25;
             this.h = 50;
             this.y = spaceshipY+spaceshipH;
-            this.x = spaceshipX+spaceshipW/2-w+20;
+            this.x = spaceshipX+spaceshipW/2-w/2+20;
         }else if(typeOfLaser.equals("midL")){
             this.w=25;
             this.h=25;

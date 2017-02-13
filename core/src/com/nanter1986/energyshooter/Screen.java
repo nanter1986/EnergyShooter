@@ -32,6 +32,9 @@ public class Screen extends ScreenAdapter {
     private OrthographicCamera camera;
     BitmapFont font;
 
+    int fps;
+    int fpsHelper;
+
     Music backgroundMusic;
     Sound explosionBig;
     Sound explosionSmall;
@@ -52,7 +55,6 @@ public class Screen extends ScreenAdapter {
 
 
     private boolean cooledDown;
-    private boolean died;
     private int stateOfGame = 1;
     private int howOftenSpawn;
     private int howOftenLaser;
@@ -62,7 +64,7 @@ public class Screen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && died == true) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && spaceshipPlayer.died == true) {
             backgroundMusic.dispose();
             batch.dispose();
             show();
@@ -93,7 +95,7 @@ public class Screen extends ScreenAdapter {
 
         drawEnemies();
         drawEnemyLasers();
-        drawFonts();
+        drawFonts(delta);
         batch.end();
     }
 
@@ -129,7 +131,7 @@ public class Screen extends ScreenAdapter {
             }
         } else {
             if(spaceshipPlayer.spaceshipHealth > 199){
-                LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straight");
+                LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straightS");
                 LaserOfPlayer b = new LaserOfPlayer(spaceshipPlayer.spaceshipX ,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH, spaceshipPlayer.spaceshipY,"midL");
                 LaserOfPlayer c = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,spaceshipPlayer.spaceshipY,"midR");
                 LaserOfPlayer f = new LaserOfPlayer(spaceshipPlayer.spaceshipX ,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH, spaceshipPlayer.spaceshipY,"sideL");
@@ -145,32 +147,11 @@ public class Screen extends ScreenAdapter {
                 f.playSound();
                 e.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.04f;
+                timeLeftToReload = 0.1f;
 
             }else if(spaceshipPlayer.spaceshipHealth > 99){
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ) {
-                    LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straight");
-                    LaserOfPlayer b = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midL");
-                    LaserOfPlayer c = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midR");
-                    LaserOfPlayer f = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"sideL");
-                    LaserOfPlayer e = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"sideR");
-                    laserOfPlayer.add(a);
-                    laserOfPlayer.add(b);
-                    laserOfPlayer.add(c);
-                    laserOfPlayer.add(f);
-                    laserOfPlayer.add(e);
-                    a.playSound();
-                    b.playSound();
-                    c.playSound();
-                    f.playSound();
-                    e.playSound();
-                    cooledDown = false;
-                    timeLeftToReload = 0.1f;
-
-                }
-            }else if(spaceshipPlayer.spaceshipHealth > 49){
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ) {
-                    LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straight");
+                    LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straightS");
                     LaserOfPlayer b = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midL");
                     LaserOfPlayer c = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midR");
                     LaserOfPlayer f = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"sideL");
@@ -189,9 +170,9 @@ public class Screen extends ScreenAdapter {
                     timeLeftToReload = 0.3f;
 
                 }
-            }else if (spaceshipPlayer.spaceshipHealth > 29) {
+            }else if(spaceshipPlayer.spaceshipHealth > 49){
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ) {
-                    LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straight");
+                    LaserOfPlayer a = new LaserOfPlayer(spaceshipPlayer.spaceshipX, spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"straightS");
                     LaserOfPlayer b = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midL");
                     LaserOfPlayer c = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midR");
                     LaserOfPlayer f = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"sideL");
@@ -202,6 +183,27 @@ public class Screen extends ScreenAdapter {
                     laserOfPlayer.add(f);
                     laserOfPlayer.add(e);
                     a.playSound();
+                    b.playSound();
+                    c.playSound();
+                    f.playSound();
+                    e.playSound();
+                    cooledDown = false;
+                    timeLeftToReload = 0.5f;
+
+                }
+            }else if (spaceshipPlayer.spaceshipHealth > 29) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) ) {
+
+                    LaserOfPlayer b = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midL");
+                    LaserOfPlayer c = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"midR");
+                    LaserOfPlayer f = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"sideL");
+                    LaserOfPlayer e = new LaserOfPlayer(spaceshipPlayer.spaceshipX , spaceshipPlayer.spaceshipY,spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipH,"sideR");
+
+                    laserOfPlayer.add(b);
+                    laserOfPlayer.add(c);
+                    laserOfPlayer.add(f);
+                    laserOfPlayer.add(e);
+
                     b.playSound();
                     c.playSound();
                     f.playSound();
@@ -262,13 +264,20 @@ public class Screen extends ScreenAdapter {
         }
     }
 
-    private void drawFonts() {
+    private void drawFonts(float delta) {
+        fpsHelper++;
+        if(fpsHelper==200){
+            fps= (int) ((Integer)1/delta);
+            fpsHelper=0;
+        }
+
+        font.draw(batch, "FPS:"+fps, 0, spaceshipPlayer.spaceshipY + 75);
         if(spaceshipPlayer.spaceshipHealth<1){
             font.draw(batch, "Game Over", 200, spaceshipPlayer.spaceshipY + 200);
-            font.draw(batch, "Health:0" , 100, spaceshipPlayer.spaceshipY + 50);
+            font.draw(batch, "Health:0" , 0, spaceshipPlayer.spaceshipY + 50);
         }else {
-            font.draw(batch, "Health:" +spaceshipPlayer.spaceshipHealth, 100, spaceshipPlayer.spaceshipY + 50);
-            font.draw(batch, "Kills:" + killsTotal, 100, spaceshipPlayer.spaceshipY + 25);
+            font.draw(batch, "Health:" +spaceshipPlayer.spaceshipHealth, 0, spaceshipPlayer.spaceshipY + 50);
+            font.draw(batch, "Kills:" + killsTotal, 0, spaceshipPlayer.spaceshipY + 25);
         }
     }
 
@@ -413,7 +422,6 @@ public class Screen extends ScreenAdapter {
         laserOfPlayer = new ArrayList<LaserOfPlayer>();
         backPlanets = new ArrayList<BackGround>();
         cooledDown = true;
-        died = false;
         batch = new SpriteBatch();
         camera = new OrthographicCamera(640, 480);
         camera.position.set(320, 240, 0);
