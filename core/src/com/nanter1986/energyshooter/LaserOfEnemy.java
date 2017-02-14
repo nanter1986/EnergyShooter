@@ -31,13 +31,13 @@ public class LaserOfEnemy {
 
     public void updatePosition(SpriteBatch b){
         if(direction.equals("left")) {
-            y = y - 3;
-            x = x - 3;
+            y = y - widthFactor/2;
+            x = x - widthFactor/2;
 
             b.draw(texture, x, y, widthFactor, heightFactor);
         }else{
-            y = y - 3;
-            x = x + 3;
+            y = y - widthFactor/2;
+            x = x + widthFactor/2;
 
             b.draw(texture, x, y, widthFactor, heightFactor);
         }

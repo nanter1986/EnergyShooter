@@ -13,6 +13,8 @@ public class LaserOfPlayer {
     static final Texture laserMulti=new Texture(Gdx.files.internal("laserRedMulti.png"));
     static final Sound laserSound=Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
 
+    int widthFactor;
+    int heightFactor;
     int x;
     int y;
     int w;
@@ -21,43 +23,45 @@ public class LaserOfPlayer {
     boolean used;
 
 
-    public LaserOfPlayer(int spaceshipX, int spaceshipY,int spaceshipW,int spaceshipH,String type) {
+    public LaserOfPlayer(int spaceshipX, int spaceshipY,int spaceshipW,int spaceshipH,String type,int screenW,int screenH) {
 
+        this.widthFactor=screenW/20;
+        this.heightFactor=screenH/20;
         this.typeOfLaser=type;
         this.used = false;
         if(typeOfLaser.equals("straightS")) {
-            this.w = 25;
-            this.h = 50;
+            this.w = widthFactor;
+            this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }else if(typeOfLaser.equals("straightL")){
-            this.w = 25;
-            this.h = 50;
+            this.w = widthFactor;
+            this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2+20;
         }else if(typeOfLaser.equals("straightR")){
-            this.w = 25;
-            this.h = 50;
+            this.w = widthFactor;
+            this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2+20;
         }else if(typeOfLaser.equals("midL")){
-            this.w=25;
-            this.h=25;
+            this.w=widthFactor;
+            this.h=widthFactor;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }else if(typeOfLaser.equals("midR")){
-            this.w=25;
-            this.h=25;
+            this.w=widthFactor;
+            this.h=widthFactor;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }else if(typeOfLaser.equals("sideL")){
-            this.w=25;
-            this.h=25;
+            this.w=widthFactor;
+            this.h=widthFactor;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }else if(typeOfLaser.equals("sideR")){
-            this.w=25;
-            this.h=25;
+            this.w=widthFactor;
+            this.h=widthFactor;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }
@@ -69,27 +73,27 @@ public class LaserOfPlayer {
 
     public void updatePosition(SpriteBatch b){
         if(typeOfLaser.equals("straightS")){
-            y = y + 15;
+            y = y + widthFactor;
             b.draw(laser, x, y, w, h);
         }else if(typeOfLaser.equals("straightL")){
-            y = y + 15;
+            y = y + widthFactor;
             b.draw(laser, x, y, w, h);
         }else if(typeOfLaser.equals("straightR")){
-            y = y + 15;
+            y = y + widthFactor;
             b.draw(laser, x, y, w, h);
         }else if(typeOfLaser.equals("midL")){
-            y = y + 10;
-            x = x - 10;
+            y = y + widthFactor;
+            x = x - widthFactor;
             b.draw(laserMulti, x, y, w, h);
         }else if(typeOfLaser.equals("midR")){
-            y = y + 10;
-            x = x + 10;
+            y = y + widthFactor;
+            x = x + widthFactor;
             b.draw(laserMulti, x, y, w, h);
         }else if(typeOfLaser.equals("sideL")){
-            x = x - 15;
+            x = x - widthFactor;
             b.draw(laserMulti, x, y, w, h);
         }else if(typeOfLaser.equals("sideR")){
-            x = x + 15;
+            x = x + widthFactor;
             b.draw(laserMulti, x, y, w, h);
         }
 

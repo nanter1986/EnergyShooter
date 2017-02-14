@@ -30,18 +30,18 @@ public class Enemy {
         this.widthFactor=screenW/10;
         this.heightFactor=screenH/10;
         this.x = x;
-        this.y = spaceshipY+380;
+        this.y = spaceshipY+screenW+heightFactor;
         this.health=health;
         this.type=type;
     }
 
     public void updatePosition(SpriteBatch b){
         if(health>0) {
-            y = y - 2;
+            y = y - widthFactor/10;
             if(type.equals("blue")){
-                b.draw(blue, x, y, widthFactor, heightFactor);
+                b.draw(blue, x, y, widthFactor, widthFactor*2);
             }else if(type.equals("red")){
-                b.draw(red, x, y, widthFactor, heightFactor);
+                b.draw(red, x, y, widthFactor, widthFactor*2);
             }
         }else if(exploded==false){
             b.draw(explosion,x,y,widthFactor/2,heightFactor/2,explosionAnimationX*100,500-explosionAnimationY*100,100,100,false,false);
@@ -56,9 +56,9 @@ public class Enemy {
         }
     }
 
-    public int checkCollisionWithPlayer(int spaceshipX,int spaceshipY){
+    public int checkCollisionWithPlayer(PlayerShip ship){
         int damage=0;
-        if(x>spaceshipX && x<spaceshipX+50 && y>spaceshipY && y<spaceshipY+100){
+        if(x>ship.spaceshipX && x<ship.spaceshipX+ship.spaceshipW && y>ship.spaceshipY && y<ship.spaceshipY+ship.spaceshipH){
             health=0;
             damage=2;
         }

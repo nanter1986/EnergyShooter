@@ -25,7 +25,7 @@ public class BackGround {
     boolean passedShip;
 
 
-    public BackGround(int spaceshipX, int spaceshipY) {
+    public BackGround(PlayerShip ship,int screeW,int screenH) {
         this.passedShip=false;
         Random r = new Random();
         int which = r.nextInt(4);
@@ -43,10 +43,10 @@ public class BackGround {
         Random randomY = new Random();
         Random randomW = new Random();
 
-        x = spaceshipX + (randomX.nextInt(800) - 400);
-        y =600;
-        yRelativeToShip = y-spaceshipY;
-        w = randomW.nextInt(300);
+        x = randomX.nextInt(screeW);
+        y =ship.spaceshipY+screenH;
+        yRelativeToShip = y-ship.spaceshipY;
+        w = (randomW.nextInt(screeW))+1;
         h = w;
 
         this.speed = w/100;
