@@ -27,7 +27,7 @@ public class Enemy {
     String type;
 
     public Enemy(int x, int spaceshipY,int health, String type,int screenW,int screenH) {
-        this.widthFactor=screenW/10;
+        this.widthFactor=screenW/25;
         this.heightFactor=screenH/10;
         this.x = x;
         this.y = spaceshipY+screenW+heightFactor;

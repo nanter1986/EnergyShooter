@@ -11,10 +11,10 @@ import java.util.Random;
  */
 
 public class BackGround {
-    public static final Texture texture1=new Texture(Gdx.files.internal("meteor1.png"));
-    public static final Texture texture2=new Texture(Gdx.files.internal("meteor2.png"));
-    public static final Texture texture3=new Texture(Gdx.files.internal("meteor3.png"));
-    public static final Texture texture4=new Texture(Gdx.files.internal("meteor4.png"));
+    public static final Texture texture1=new Texture(Gdx.files.internal("m1.png"));
+    public static final Texture texture2=new Texture(Gdx.files.internal("m2.png"));
+    public static final Texture texture3=new Texture(Gdx.files.internal("m3.png"));
+
     int x;
     int y;
     int yRelativeToShip;
@@ -28,15 +28,13 @@ public class BackGround {
     public BackGround(PlayerShip ship,int screeW,int screenH) {
         this.passedShip=false;
         Random r = new Random();
-        int which = r.nextInt(4);
+        int which = r.nextInt(3);
         if (which == 0) {
             whichTexture = 1;
         } else if (which == 1) {
             whichTexture = 2;
         } else if (which == 2) {
             whichTexture = 3;
-        } else if (which == 3) {
-            whichTexture = 4;
         }
 
         Random randomX = new Random();
@@ -46,7 +44,7 @@ public class BackGround {
         x = randomX.nextInt(screeW);
         y =ship.spaceshipY+screenH;
         yRelativeToShip = y-ship.spaceshipY;
-        w = (randomW.nextInt(screeW))+1;
+        w = (randomW.nextInt(screeW/5))+1;
         h = w;
 
         this.speed = w/100;
@@ -70,9 +68,6 @@ public class BackGround {
             }else if(whichTexture==3){
 
                 b.draw(texture3, x, tempY, w, h);
-            }else if(whichTexture==4){
-
-                b.draw(texture4, x, tempY, w, h);
             }
 
         }
