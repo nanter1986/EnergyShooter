@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 
 public class Enemy {
+    int widthFactor;
+    int heightFactor;
     int x;
     int y;
     boolean exploded=false;
@@ -24,7 +26,9 @@ public class Enemy {
     int health;
     String type;
 
-    public Enemy(int x, int spaceshipY,int health, String type) {
+    public Enemy(int x, int spaceshipY,int health, String type,int screenW,int screenH) {
+        this.widthFactor=screenW/10;
+        this.heightFactor=screenH/10;
         this.x = x;
         this.y = spaceshipY+380;
         this.health=health;
@@ -35,12 +39,12 @@ public class Enemy {
         if(health>0) {
             y = y - 2;
             if(type.equals("blue")){
-                b.draw(blue, x, y, 25f, 50f);
+                b.draw(blue, x, y, widthFactor, heightFactor);
             }else if(type.equals("red")){
-                b.draw(red, x, y, 25f, 50f);
+                b.draw(red, x, y, widthFactor, heightFactor);
             }
         }else if(exploded==false){
-            b.draw(explosion,x,y,25,25,explosionAnimationX*100,500-explosionAnimationY*100,100,100,false,false);
+            b.draw(explosion,x,y,widthFactor/2,heightFactor/2,explosionAnimationX*100,500-explosionAnimationY*100,100,100,false,false);
             explosionAnimationX++;
             if(explosionAnimationX==6){
                 explosionAnimationX=0;
@@ -64,7 +68,7 @@ public class Enemy {
 
     public void checkCollisionWithLaser(ArrayList<LaserOfPlayer>lasers){
         for(LaserOfPlayer l:lasers){
-            if(x>l.x-10 && x<l.x+35 && y>l.y && y<l.y+50){
+            if(x>l.x-20 && x<l.x+45 && y>l.y && y<l.y+50){
                 health=0;
 
             }

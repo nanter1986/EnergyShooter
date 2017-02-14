@@ -8,13 +8,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by user on 12/2/2017.
  */
 public class LaserOfEnemy {
+    int widthFactor;
+    int heightFactor;
     int x;
     int y;
     String direction;
     static final Texture texture=new Texture(Gdx.files.internal("laserEnemy.png"));
     boolean used;
 
-    public LaserOfEnemy(int x, int y,int spaceshipX) {
+    public LaserOfEnemy(int x, int y,int spaceshipX,int screenW,int screenH) {
+        this.widthFactor=screenW/20;
+        this.heightFactor=screenH/20;
         used=false;
         this.x = x;
         this.y = y;
@@ -30,18 +34,18 @@ public class LaserOfEnemy {
             y = y - 3;
             x = x - 3;
 
-            b.draw(texture, x, y, 10f, 20f);
+            b.draw(texture, x, y, widthFactor, heightFactor);
         }else{
             y = y - 3;
             x = x + 3;
 
-            b.draw(texture, x, y, 10f, 20f);
+            b.draw(texture, x, y, widthFactor, heightFactor);
         }
     }
 
-    public int checkCollisionWithPlayer(int spaceshipX,int spaceshipY){
+    public int checkCollisionWithPlayer(PlayerShip ship){
         int damage=0;
-        if(x>spaceshipX && x<spaceshipX+50 && y>spaceshipY && y<spaceshipY+100){
+        if(x>ship.spaceshipX && x<ship.spaceshipX+ship.spaceshipW && y>ship.spaceshipY && y<ship.spaceshipY+ship.spaceshipH){
             damage=3;
             used=true;
         }

@@ -23,15 +23,17 @@ public class PlayerShip {
     int spaceshipY;
     int spaceshipW;
     int spaceshipH;
+    int widthFactor;
     String whichShipImage="f5";
     boolean died;
     private int explosionAnimationX;
     private int explosionAnimationY;
 
-    public PlayerShip() {
+    public PlayerShip(int screenW) {
         this.spaceshipHealth = 10;
-        this.spaceshipX = 300;
+        this.spaceshipX = screenW/2;
         this.spaceshipY = 0;
+        this.widthFactor=screenW/10;
 
 
         this.died = false;
@@ -39,28 +41,28 @@ public class PlayerShip {
 
     public void updatePosition(SpriteBatch b){
         if(spaceshipHealth>199){
-            spaceshipW=75;
-            spaceshipH=150;
+            spaceshipW=widthFactor;
+            spaceshipH=widthFactor*2;
             whichShipImage="sinister";
         }else if(spaceshipHealth>99){
-            spaceshipW=75;
-            spaceshipH=150;
+            spaceshipW=widthFactor;
+            spaceshipH=widthFactor*2;
             whichShipImage="coolBlue";
         }else if(spaceshipHealth>49){
-            spaceshipW=75;
-            spaceshipH=150;
+            spaceshipW=widthFactor;
+            spaceshipH=widthFactor*2;
             whichShipImage="wingship";
         }else if(spaceshipHealth>29){
-            spaceshipW=150;
-            spaceshipH=75;
+            spaceshipW=widthFactor*2;
+            spaceshipH=widthFactor;
             whichShipImage="good";
         }else if(spaceshipHealth>19){
-            spaceshipW=75;
-            spaceshipH=150;
+            spaceshipW=widthFactor;
+            spaceshipH=widthFactor*2;
             whichShipImage="f5";
         }else{
-            spaceshipW=50;
-            spaceshipH=100;
+            spaceshipW=widthFactor;
+            spaceshipH=widthFactor;
             whichShipImage="f5";
         }
         if(spaceshipHealth>0){

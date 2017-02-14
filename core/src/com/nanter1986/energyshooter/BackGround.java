@@ -11,10 +11,10 @@ import java.util.Random;
  */
 
 public class BackGround {
-    public static final Texture texture1=new Texture(Gdx.files.internal("meteors/meteor1.png"));
-    public static final Texture texture2=new Texture(Gdx.files.internal("meteors/meteor2.png"));
-    public static final Texture texture3=new Texture(Gdx.files.internal("meteors/meteor3.png"));
-    public static final Texture texture4=new Texture(Gdx.files.internal("meteors/meteor4.png"));
+    public static final Texture texture1=new Texture(Gdx.files.internal("meteor1.png"));
+    public static final Texture texture2=new Texture(Gdx.files.internal("meteor2.png"));
+    public static final Texture texture3=new Texture(Gdx.files.internal("meteor3.png"));
+    public static final Texture texture4=new Texture(Gdx.files.internal("meteor4.png"));
     int x;
     int y;
     int yRelativeToShip;
