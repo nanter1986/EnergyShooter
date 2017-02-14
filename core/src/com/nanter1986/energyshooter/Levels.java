@@ -7,14 +7,14 @@ import java.util.logging.Level;
  */
 
 public class Levels {
-    public static Playlevel levelReturner(String s){
+    public static Playlevel levelReturner(int gamestate){
         Playlevel l=null;
-        if(s.equals("milkyWay")){
-            l=new Playlevel("summer.mp3","blue","milky.jpeg",5,100,150,1);
-        }else if(s.equals("mars")){
-            l=new Playlevel("darkfuture.mp3","blue","mars.jpg",6,90,135,2);
-        }else if(s.equals("jupiter")){
-            l=new Playlevel("graysky.mp3","red","jupiter.jpg",7,80,120,3);
+        if(gamestate==1){
+            l=new Playlevel("summer.mp3","blue","neptune.jpg",5,100,150,1,100);
+        }else if(gamestate==2){
+            l=new Playlevel("darkfuture.mp3","blue","uranus.jpg",6,90,135,2,150);
+        }else if(gamestate==3){
+            l=new Playlevel("graysky.mp3","red","saturn.png",7,80,120,3,200);
         }
         return l;
     }

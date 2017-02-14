@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by user on 13/2/2017.
  */
-public class LaserOfPlayer {
+public class LaserOfPlayer implements Collidable{
     static final Texture laser=new Texture(Gdx.files.internal("laserRed.png"));
     static final Texture laserMulti=new Texture(Gdx.files.internal("laserRedMulti.png"));
     static final Sound laserSound=Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
@@ -106,6 +106,23 @@ public class LaserOfPlayer {
     }
 
 
+    @Override
+    public int positionX() {
+        return x;
+    }
 
+    @Override
+    public int positionY() {
+        return y;
+    }
 
+    @Override
+    public int width() {
+        return w;
+    }
+
+    @Override
+    public int height() {
+        return h;
+    }
 }

@@ -115,7 +115,7 @@ public class Screen extends ScreenAdapter {
     }
 
     private void drawLevelBackground() {
-        batch.draw(neptune, 0, spaceshipPlayer.spaceshipY, screenWidth , screenHeight);
+        batch.draw(level, 0, spaceshipPlayer.spaceshipY, screenWidth , screenHeight);
         ArrayList<BackGround> toRemove = new ArrayList<BackGround>();
         for (BackGround b : backPlanets) {
             if (b.passedShip == true) {
@@ -303,7 +303,7 @@ public class Screen extends ScreenAdapter {
             if (e.health > 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
                 e.updatePosition(batch);
                 int damage = e.checkCollisionWithPlayer(spaceshipPlayer);
-                e.checkCollisionWithLaser(laserOfPlayer);
+                e.checkCollisionWithLaser(laserOfPlayer,spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 createEnemyLasers(e.x, e.y);
             } else if (e.health <= 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
@@ -414,13 +414,13 @@ public class Screen extends ScreenAdapter {
     private void changeGameState() {
 
         if (stateOfGame == 1) {
-            l = Levels.levelReturner("milkyWay");
+            l = Levels.levelReturner(1);
         } else if (stateOfGame == 0) {
             makeMenu();
         } else if (stateOfGame == 2) {
-            l = Levels.levelReturner("mars");
+            l = Levels.levelReturner(2);
         } else if (stateOfGame == 3) {
-            l = Levels.levelReturner("jupiter");
+            l = Levels.levelReturner(3);
         }
         makePlayLevel(l);
     }

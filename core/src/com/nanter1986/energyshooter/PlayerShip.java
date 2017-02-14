@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
  * Created by user on 13/2/2017.
  */
 
-public class PlayerShip {
+public class PlayerShip implements Collidable{
     private static final Texture spaceship= new Texture(Gdx.files.internal("F5S1.png"));
     private static final Texture spaceshipGood=new Texture(Gdx.files.internal("spaceshipGood.png"));
     private static final Texture spaceshipSinister=new Texture(Gdx.files.internal("sinister.png"));
@@ -96,5 +96,23 @@ public class PlayerShip {
     }
 
 
+    @Override
+    public int positionX() {
+        return spaceshipX;
+    }
 
+    @Override
+    public int positionY() {
+        return spaceshipY;
+    }
+
+    @Override
+    public int width() {
+        return spaceshipW;
+    }
+
+    @Override
+    public int height() {
+        return spaceshipH;
+    }
 }

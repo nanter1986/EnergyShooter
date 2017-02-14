@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by user on 12/2/2017.
  */
 
-public class Enemy {
+public class Enemy implements Collidable{
     int widthFactor;
     int heightFactor;
     int x;
@@ -58,7 +58,7 @@ public class Enemy {
 
     public int checkCollisionWithPlayer(PlayerShip ship){
         int damage=0;
-        if(x>ship.spaceshipX && x<ship.spaceshipX+ship.spaceshipW && y>ship.spaceshipY && y<ship.spaceshipY+ship.spaceshipH){
+        if(CollisionChecker.checkCollision(this,ship)){
             health=0;
             damage=2;
         }
@@ -66,9 +66,9 @@ public class Enemy {
 
     }
 
-    public void checkCollisionWithLaser(ArrayList<LaserOfPlayer>lasers){
+    public void checkCollisionWithLaser(ArrayList<LaserOfPlayer>lasers,PlayerShip ship){
         for(LaserOfPlayer l:lasers){
-            if(x>l.x-20 && x<l.x+45 && y>l.y && y<l.y+50){
+            if(CollisionChecker.checkCollision(l,this)){
                 health=0;
 
             }
@@ -78,4 +78,23 @@ public class Enemy {
     }
 
 
+    @Override
+    public int positionX() {
+        return x;
+    }
+
+    @Override
+    public int positionY() {
+        return y;
+    }
+
+    @Override
+    public int width() {
+        return widthFactor;
+    }
+
+    @Override
+    public int height() {
+        return widthFactor*2;
+    }
 }

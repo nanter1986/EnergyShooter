@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by user on 12/2/2017.
  */
-public class LaserOfEnemy {
+public class LaserOfEnemy implements Collidable{
     int widthFactor;
     int heightFactor;
     int x;
@@ -45,11 +45,31 @@ public class LaserOfEnemy {
 
     public int checkCollisionWithPlayer(PlayerShip ship){
         int damage=0;
-        if(x>ship.spaceshipX && x<ship.spaceshipX+ship.spaceshipW && y>ship.spaceshipY && y<ship.spaceshipY+ship.spaceshipH){
+        if(CollisionChecker.checkCollision(this,ship)){
             damage=3;
             used=true;
         }
         return damage;
 
+    }
+
+    @Override
+    public int positionX() {
+        return x;
+    }
+
+    @Override
+    public int positionY() {
+        return y;
+    }
+
+    @Override
+    public int width() {
+        return widthFactor;
+    }
+
+    @Override
+    public int height() {
+        return heightFactor;
     }
 }
