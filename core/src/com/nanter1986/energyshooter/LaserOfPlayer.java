@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by user on 13/2/2017.
  */
 public class LaserOfPlayer implements Collidable{
+    static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
     static final Texture laser=new Texture(Gdx.files.internal("laserRed.png"));
     static final Texture laserMulti=new Texture(Gdx.files.internal("laserRedMulti.png"));
     static final Sound laserSound=Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
@@ -21,6 +22,11 @@ public class LaserOfPlayer implements Collidable{
     int h;
     String typeOfLaser;
     boolean used;
+    private int explosionAnimationX;
+    private int explosionAnimationY;
+    public boolean exploded;
+    public boolean collided;
+    private boolean dealt;
 
 
     public LaserOfPlayer(int spaceshipX, int spaceshipY,int spaceshipW,int spaceshipH,String type,int screenW,int screenH) {
@@ -68,38 +74,73 @@ public class LaserOfPlayer implements Collidable{
         this.y = spaceshipY+spaceshipH;
         this.x = spaceshipX+spaceshipW/2-w/2;
 
-        Gdx.app.log("lasers",""+x+" "+y+" "+w+" "+h);
+        //Gdx.app.log("lasers",""+x+" "+y+" "+w+" "+h);
     }
 
     public void updatePosition(SpriteBatch b){
-        if(typeOfLaser.equals("straightS")){
-            y = y + widthFactor;
-            b.draw(laser, x, y, w, h);
-        }else if(typeOfLaser.equals("straightL")){
-            y = y + widthFactor;
-            b.draw(laser, x, y, w, h);
-        }else if(typeOfLaser.equals("straightR")){
-            y = y + widthFactor;
-            b.draw(laser, x, y, w, h);
-        }else if(typeOfLaser.equals("midL")){
-            y = y + widthFactor;
-            x = x - widthFactor;
-            b.draw(laserMulti, x, y, w, h);
-        }else if(typeOfLaser.equals("midR")){
-            y = y + widthFactor;
-            x = x + widthFactor;
-            b.draw(laserMulti, x, y, w, h);
-        }else if(typeOfLaser.equals("sideL")){
-            x = x - widthFactor;
-            b.draw(laserMulti, x, y, w, h);
-        }else if(typeOfLaser.equals("sideR")){
-            x = x + widthFactor;
-            b.draw(laserMulti, x, y, w, h);
+        
+        if(exploded==true){
+
+        }else if(dealt==true){
+           
+            explode(b);
+
+        }else{
+            if(typeOfLaser.equals("straightS")){
+                y = y + widthFactor;
+                b.draw(laser, x, y, w, h);
+            }else if(typeOfLaser.equals("straightL")){
+                y = y + widthFactor;
+                b.draw(laser, x, y, w, h);
+            }else if(typeOfLaser.equals("straightR")){
+                y = y + widthFactor;
+                b.draw(laser, x, y, w, h);
+            }else if(typeOfLaser.equals("midL")){
+                y = y + widthFactor;
+                x = x - widthFactor;
+                b.draw(laserMulti, x, y, w, h);
+            }else if(typeOfLaser.equals("midR")){
+                y = y + widthFactor;
+                x = x + widthFactor;
+                b.draw(laserMulti, x, y, w, h);
+            }else if(typeOfLaser.equals("sideL")){
+                x = x - widthFactor;
+                b.draw(laserMulti, x, y, w, h);
+            }else if(typeOfLaser.equals("sideR")){
+                x = x + widthFactor;
+                b.draw(laserMulti, x, y, w, h);
+            }
         }
+
+        
+
 
 
 
     }
+
+    public int dealDamage(Enemy e){
+        int damage=0;
+        if(CollisionChecker.checkCollision(this,e) && dealt==false){
+            damage=5;
+            dealt=true;
+        }
+        return damage;
+    }
+
+    public void explode(SpriteBatch b){
+        b.draw(explosion,x,y,widthFactor,widthFactor,explosionAnimationX*100,500-explosionAnimationY*100,100,100,false,false);
+        explosionAnimationX++;
+        if(explosionAnimationX==6){
+            explosionAnimationX=0;
+            explosionAnimationY++;
+        }
+        if(explosionAnimationY==6){
+            exploded=true;
+        }
+    }
+
+
 
     public void playSound(){
         laserSound.play();

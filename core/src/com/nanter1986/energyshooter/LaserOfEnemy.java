@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by user on 12/2/2017.
  */
-public class LaserOfEnemy implements Collidable{
+public abstract class LaserOfEnemy implements Collidable{
     int widthFactor;
     int heightFactor;
     int x;
     int y;
     String direction;
-    static final Texture texture=new Texture(Gdx.files.internal("laserEnemy.png"));
+    static final Texture star=new Texture(Gdx.files.internal("laserEnemy.png"));
+    static final Texture green=new Texture(Gdx.files.internal("laserenemygreen.png"));
     boolean used;
 
     public LaserOfEnemy(int x, int y,int spaceshipX,int screenW,int screenH) {
@@ -29,29 +30,9 @@ public class LaserOfEnemy implements Collidable{
         }
     }
 
-    public void updatePosition(SpriteBatch b){
-        if(direction.equals("left")) {
-            y = y - widthFactor/2;
-            x = x - widthFactor/2;
+    public abstract void updatePosition(SpriteBatch b);
 
-            b.draw(texture, x, y, widthFactor, heightFactor);
-        }else{
-            y = y - widthFactor/2;
-            x = x + widthFactor/2;
-
-            b.draw(texture, x, y, widthFactor, heightFactor);
-        }
-    }
-
-    public int checkCollisionWithPlayer(PlayerShip ship){
-        int damage=0;
-        if(CollisionChecker.checkCollision(this,ship)){
-            damage=3;
-            used=true;
-        }
-        return damage;
-
-    }
+    public abstract int checkCollisionWithPlayer(PlayerShip ship);
 
     @Override
     public int positionX() {

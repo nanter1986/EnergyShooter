@@ -9,8 +9,10 @@ import java.util.ArrayList;
  */
 
 public class EnemyBad extends Enemy {
+
     String xDirection;
     public EnemyBad(int x, int spaceshipY,int screenW,int screenH) {
+        energyBonus=5;
         this.widthFactor=screenW/10;
         this.heightFactor=screenH/5;
         this.x = x;
@@ -23,20 +25,22 @@ public class EnemyBad extends Enemy {
     }
 
     @Override
-    public void updatePosition(SpriteBatch b) {
+    public void updatePosition(SpriteBatch b,PlayerShip ship) {
+        int badCenter=x+width()/2;
+        int goodCenter=ship.positionX()+ship.spaceshipW/2;
         if(health>0) {
             if(y>screenHeight-widthFactor*2){
                 y = y - widthFactor/50;
             }else{
-                if(xDirection.equals("left")){
+                if(badCenter>goodCenter){
                     x = x - widthFactor/50;
-                    if(x<5){
-                        xDirection="right";
+                    if(this.x<5){
+                        this.x=5;
                     }
                 }else{
                     x = x + widthFactor/50;
-                    if(x>screenWidth-widthFactor-5){
-                        xDirection="left";
+                    if(this.x>screenWidth-5){
+                        this.x=screenWidth-5;
                     }
                 }
             }
@@ -51,6 +55,11 @@ public class EnemyBad extends Enemy {
     }
 
     @Override
+    public LaserOfEnemy laserMaker(int spX) {
+        return new LaserEnemyGreen(x + 20, y, spX, screenWidth, screenHeight);
+    }
+
+    @Override
     public int checkCollisionWithPlayer(PlayerShip ship) {
         int damage=0;
         if(CollisionChecker.checkCollision(this,ship)){
@@ -60,13 +69,5 @@ public class EnemyBad extends Enemy {
         return damage;
     }
 
-    @Override
-    public void checkCollisionWithLaser(ArrayList<LaserOfPlayer> lasers, PlayerShip ship) {
-        for(LaserOfPlayer l:lasers){
-            if(CollisionChecker.checkCollision(l,this)){
-                health-=5;
 
-            }
-        }
-    }
 }

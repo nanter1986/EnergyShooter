@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 
 public abstract class Enemy implements Collidable{
+    int energyBonus;
     int widthFactor;
     int heightFactor;
     int x;
@@ -24,6 +25,7 @@ public abstract class Enemy implements Collidable{
     int explosionAnimationY;
     Texture currentTexture;
     static final Texture blue=new Texture(Gdx.files.internal("enemyBlue1.png"));
+    static final Texture ufo=new Texture(Gdx.files.internal("ufoBlue.png"));
     static final Texture badass=new Texture(Gdx.files.internal("badassenemy.png"));
     static final Texture red=new Texture(Gdx.files.internal("enemyRed1.png"));
     static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
@@ -31,13 +33,13 @@ public abstract class Enemy implements Collidable{
 
 
 
-    public abstract void updatePosition(SpriteBatch b);
+    public abstract void updatePosition(SpriteBatch b,PlayerShip ship);
 
-
+    public abstract LaserOfEnemy laserMaker(int spX);
 
     public abstract int checkCollisionWithPlayer(PlayerShip ship);
 
-    public abstract void checkCollisionWithLaser(ArrayList<LaserOfPlayer>lasers,PlayerShip ship);
+
 
 
 

@@ -82,6 +82,7 @@ public class Screen extends ScreenAdapter {
             stateOfGame++;
             show();
         }
+        nukeField();
         checkHealth();
         createEnemies();
         createBackgrounds();
@@ -98,12 +99,35 @@ public class Screen extends ScreenAdapter {
 
         drawSpaceship();
 
-        drawLaser(delta);
-
         drawEnemies();
+        drawLaser(delta,enemies);
+
+
         drawEnemyLasers();
         drawFonts(delta);
         batch.end();
+    }
+
+    private void nukeField() {
+        if (spaceshipPlayer.spaceshipHealth > 30) {
+            if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+                if (Gdx.input.isKeyPressed(Input.Keys.N)) {
+                    for (Enemy e : enemies) {
+                        e.health = 0;
+                    }
+                    spaceshipPlayer.spaceshipHealth -= 20;
+                }
+
+            } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
+                if (Gdx.input.justTouched()) {
+                    for (Enemy e : enemies) {
+                        e.health = 0;
+                    }
+                    spaceshipPlayer.spaceshipHealth -= 20;
+
+                }
+            }
+        }
     }
 
     private void createBackgrounds() {
@@ -131,10 +155,10 @@ public class Screen extends ScreenAdapter {
         backPlanets.removeAll(toRemove);
     }
 
-    private void drawLaser(float d) {
+    private void drawLaser(float d,ArrayList<Enemy>enemies) {
         if (cooledDown == false) {
             timeLeftToReload -= d;
-            if (timeLeftToReload < 0.01f) {
+            if (timeLeftToReload < 0.01f && spaceshipPlayer.spaceshipHealth>0) {
                 cooledDown = true;
             }
         } else {
@@ -246,17 +270,25 @@ public class Screen extends ScreenAdapter {
         }
         ArrayList<LaserOfPlayer> toRemove = new ArrayList<LaserOfPlayer>();
         for (LaserOfPlayer l : laserOfPlayer) {
-            if (l.y > spaceshipPlayer.spaceshipY + screenHeight || l.x < 0 || l.x > screenWidth) {
+            if (l.y > spaceshipPlayer.spaceshipY + screenHeight || l.x < 0 || l.x > screenWidth || l.exploded==true) {
                 toRemove.add(l);
             }
         }
 
-
-        for (LaserOfPlayer l : laserOfPlayer) {
-            l.updatePosition(batch);
-        }
-
         laserOfPlayer.removeAll(toRemove);
+
+
+
+            for (LaserOfPlayer l : laserOfPlayer) {
+                l.updatePosition(batch);
+                for(Enemy e:enemies) {
+                    int damage=l.dealDamage(e);
+                    e.health-=damage;
+                }
+            }
+
+
+
 
 
     }
@@ -301,19 +333,18 @@ public class Screen extends ScreenAdapter {
         enemies.removeAll(toRemove);
         for (Enemy e : enemies) {
             if (e.health > 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
-                e.updatePosition(batch);
+                e.updatePosition(batch,spaceshipPlayer);
                 int damage = e.checkCollisionWithPlayer(spaceshipPlayer);
-                e.checkCollisionWithLaser(laserOfPlayer,spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
-                createEnemyLasers(e.x, e.y);
+                createEnemyLasers(e);
             } else if (e.health <= 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
                 if (e.explodedSound == false) {
                     explosionSmall.play();
                     e.explodedSound = true;
-                    spaceshipPlayer.spaceshipHealth++;
-                    killsTotal++;
+                    spaceshipPlayer.spaceshipHealth+=e.energyBonus;
+                    killsTotal+=e.energyBonus;
                 }
-                e.updatePosition(batch);
+                e.updatePosition(batch,spaceshipPlayer);
                 e.checkCollisionWithPlayer(spaceshipPlayer);
             }
         }
@@ -321,13 +352,18 @@ public class Screen extends ScreenAdapter {
 
     }
 
-    private void createEnemyLasers(int x, int y) {
+    private void createEnemyLasers(Enemy e) {
         Random randomSpawn = new Random();
         int spawn = randomSpawn.nextInt(150);
         if (spawn == 1) {
-            laserOfEnemies.add(new LaserOfEnemy(x + 20, y, spaceshipPlayer.spaceshipX, screenWidth, screenHeight));
+            if(e.laserMaker(spaceshipPlayer.positionX())==null){
+
+            }else{
+                laserOfEnemies.add(e.laserMaker(spaceshipPlayer.positionX()));
+            }
+
         }
-        // Gdx.app.log("laser"," "+laserOfEnemies.size());
+        //Gdx.app.log("laser"," "+e.getClass().toString());
 
     }
 
@@ -343,6 +379,7 @@ public class Screen extends ScreenAdapter {
         for (LaserOfEnemy l : laserOfEnemies) {
             if (l.y > spaceshipPlayer.spaceshipY && l.x > 0 && l.x < screenWidth && l.used == false) {
                 l.updatePosition(batch);
+                Gdx.app.log("lasers",l.getClass().toString());
                 int damage = l.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
@@ -357,12 +394,14 @@ public class Screen extends ScreenAdapter {
         Random whereToRandomlySpawnX = new Random();
         int spawn = randomSpawn.nextInt(howOftenSpawn);
         int xRandom = whereToRandomlySpawnX.nextInt(screenWidth - screenWidth / 10);
-        if (spawn<10) {
+        if (spawn<30) {
             enemies.add(new EnemySmallBlue(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
-        }else if(spawn == 11) {
+        }else if(spawn == 101) {
             enemies.add(new EnemyBad(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
-        }else if(spawn == 12) {
+        }else if(spawn == 102) {
             enemies.add(new EnemySuperBad(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+        }else if(spawn == 103) {
+            enemies.add(new EnemyUFO(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
         }
     }
 
@@ -378,22 +417,25 @@ public class Screen extends ScreenAdapter {
     }
 
     private void updatePosition() {
-        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                spaceshipPlayer.spaceshipX -= screenWidth / 100;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                spaceshipPlayer.spaceshipX += screenWidth / 100;
+        if(spaceshipPlayer.spaceshipHealth>0){
+            if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                    spaceshipPlayer.spaceshipX -= screenWidth / 100;
+                } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                    spaceshipPlayer.spaceshipX += screenWidth / 100;
 
-            }
+                }
 
-        } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            float accel = Gdx.input.getAccelerometerX();
-            if (accel > 0) {
-                spaceshipPlayer.spaceshipX -= screenWidth / 100;
-            } else if (accel < 0) {
-                spaceshipPlayer.spaceshipX += screenWidth / 100;
+            } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
+                float accel = Gdx.input.getAccelerometerX();
+                if (accel > 0) {
+                    spaceshipPlayer.spaceshipX -= screenWidth / 100;
+                } else if (accel < 0) {
+                    spaceshipPlayer.spaceshipX += screenWidth / 100;
+                }
             }
         }
+
 
         if (spaceshipPlayer.spaceshipX < 0) {
             spaceshipPlayer.spaceshipX = 0;
