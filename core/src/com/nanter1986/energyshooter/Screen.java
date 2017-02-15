@@ -357,8 +357,12 @@ public class Screen extends ScreenAdapter {
         Random whereToRandomlySpawnX = new Random();
         int spawn = randomSpawn.nextInt(howOftenSpawn);
         int xRandom = whereToRandomlySpawnX.nextInt(screenWidth - screenWidth / 10);
-        if (spawn == 1) {
-            enemies.add(new Enemy(xRandom + 40, spaceshipPlayer.spaceshipY, enemyHealth, l.enemy, screenWidth, screenHeight));
+        if (spawn<10) {
+            enemies.add(new EnemySmallBlue(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+        }else if(spawn == 11) {
+            enemies.add(new EnemyBad(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+        }else if(spawn == 12) {
+            enemies.add(new EnemySuperBad(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
         }
     }
 
