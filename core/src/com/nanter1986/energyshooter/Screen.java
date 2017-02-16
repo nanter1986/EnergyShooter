@@ -515,9 +515,9 @@ public class Screen extends ScreenAdapter {
 
             } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
                 float accel = Gdx.input.getAccelerometerX();
-                if (accel > 0) {
+                if (accel > 1) {
                     spaceshipPlayer.spaceshipX -= screenWidth / 100;
-                } else if (accel < 0) {
+                } else if (accel < -1) {
                     spaceshipPlayer.spaceshipX += screenWidth / 100;
                 }
             }
