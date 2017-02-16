@@ -203,6 +203,8 @@ public class Screen extends ScreenAdapter {
                 }else{
                     timeLeftToReload = 0.02f;
                     spaceshipPlayer.spaceshipHealth--;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-1",1.0f,"red"));
+
                 }
 
 
@@ -229,6 +231,8 @@ public class Screen extends ScreenAdapter {
                 }else{
                     timeLeftToReload = 0.1f;
                     spaceshipPlayer.spaceshipHealth--;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-1",1.0f,"red"));
+
                 }
 
 
@@ -255,6 +259,8 @@ public class Screen extends ScreenAdapter {
                 }else{
                     timeLeftToReload = 0.12f;
                     spaceshipPlayer.spaceshipHealth--;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-1",1.0f,"red"));
+
                 }
 
 
@@ -281,6 +287,8 @@ public class Screen extends ScreenAdapter {
                 }else{
                     timeLeftToReload = 0.12f;
                     spaceshipPlayer.spaceshipHealth--;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-1",1.0f,"red"));
+
                 }
 
 
@@ -298,6 +306,8 @@ public class Screen extends ScreenAdapter {
                 }else{
                     timeLeftToReload = 0.12f;
                     spaceshipPlayer.spaceshipHealth--;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-1",1.0f,"red"));
+
                 }
 
 
@@ -312,6 +322,8 @@ public class Screen extends ScreenAdapter {
                 }else{
                     timeLeftToReload = 0.12f;
                     spaceshipPlayer.spaceshipHealth--;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-1",1.0f,"red"));
+
                 }
 
 
@@ -534,15 +546,9 @@ public class Screen extends ScreenAdapter {
 
     private void changeGameState() {
 
-        if (stateOfGame == 1) {
-            l = Levels.levelReturner(1);
-        } else if (stateOfGame == 0) {
-            makeMenu();
-        } else if (stateOfGame == 2) {
-            l = Levels.levelReturner(2);
-        } else if (stateOfGame == 3) {
-            l = Levels.levelReturner(3);
-        }
+
+            l = Levels.levelReturner(stateOfGame);
+
         makePlayLevel(l);
     }
 
