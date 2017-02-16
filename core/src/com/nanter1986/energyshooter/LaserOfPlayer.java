@@ -96,11 +96,11 @@ public class LaserOfPlayer implements Collidable{
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
             }else if(typeOfLaser.equals("midL")){
-                y = y + widthFactor;
+                y = y +2* widthFactor;
                 x = x - widthFactor;
                 b.draw(laserMulti, x, y, w, h);
             }else if(typeOfLaser.equals("midR")){
-                y = y + widthFactor;
+                y = y + 2*widthFactor;
                 x = x + widthFactor;
                 b.draw(laserMulti, x, y, w, h);
             }else if(typeOfLaser.equals("sideL")){

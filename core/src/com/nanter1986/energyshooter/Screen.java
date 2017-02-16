@@ -57,9 +57,14 @@ public class Screen extends ScreenAdapter {
     ArrayList<LaserOfEnemy> laserOfEnemies;
     ArrayList<LaserOfPlayer> laserOfPlayer;
     ArrayList<BackGround> backPlanets;
+    ArrayList<InstructionDrawer> instructions;
 
 
     private boolean cooledDown;
+    private boolean nukedInformed;
+    private boolean touchedDown;
+
+
     private int stateOfGame = 1;
     private int howOftenSpawn;
     private int howOftenLaser;
@@ -70,7 +75,6 @@ public class Screen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.app.log("y", "" + spaceshipPlayer.spaceshipY);
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
             backgroundMusic.dispose();
             batch.dispose();
@@ -82,7 +86,7 @@ public class Screen extends ScreenAdapter {
             stateOfGame++;
             show();
         }
-        nukeField();
+        //nukeField();
         checkHealth();
         createEnemies();
         createBackgrounds();
@@ -109,13 +113,21 @@ public class Screen extends ScreenAdapter {
     }
 
     private void nukeField() {
+        if(spaceshipPlayer.spaceshipHealth>30){
+            if(nukedInformed==false){
+                instructions.add(new InstructionDrawer(0,100,"Touch screen to nuke the field",3.0f,"yellow"));
+            }
+            nukedInformed=true;
+        }
         if (spaceshipPlayer.spaceshipHealth > 30) {
             if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-                if (Gdx.input.isKeyPressed(Input.Keys.N)) {
+                if (Gdx.input.justTouched()) {
                     for (Enemy e : enemies) {
                         e.health = 0;
                     }
                     spaceshipPlayer.spaceshipHealth -= 20;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX,spaceshipPlayer.spaceshipY,"-20",1.0f,"red"));
+                    nukedInformed=false;
                 }
 
             } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
@@ -124,6 +136,8 @@ public class Screen extends ScreenAdapter {
                         e.health = 0;
                     }
                     spaceshipPlayer.spaceshipHealth -= 20;
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX,spaceshipPlayer.spaceshipY,"-20",1.0f,"red"));
+                    nukedInformed=false;
 
                 }
             }
@@ -156,6 +170,11 @@ public class Screen extends ScreenAdapter {
     }
 
     private void drawLaser(float d,ArrayList<Enemy>enemies) {
+        if (Gdx.input.isTouched() && spaceshipPlayer.spaceshipHealth>10){
+            touchedDown=true;
+        }else{
+            touchedDown=false;
+        }
         if (cooledDown == false) {
             timeLeftToReload -= d;
             if (timeLeftToReload < 0.01f && spaceshipPlayer.spaceshipHealth>0) {
@@ -179,7 +198,13 @@ public class Screen extends ScreenAdapter {
                 f.playSound();
                 e.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.1f;
+                if(touchedDown==false){
+                    timeLeftToReload = 0.1f;
+                }else{
+                    timeLeftToReload = 0.02f;
+                    spaceshipPlayer.spaceshipHealth--;
+                }
+
 
             } else if (spaceshipPlayer.spaceshipHealth > 99) {
 
@@ -199,7 +224,12 @@ public class Screen extends ScreenAdapter {
                 f.playSound();
                 e.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.3f;
+                if(touchedDown==false){
+                    timeLeftToReload = 0.3f;
+                }else{
+                    timeLeftToReload = 0.1f;
+                    spaceshipPlayer.spaceshipHealth--;
+                }
 
 
             } else if (spaceshipPlayer.spaceshipHealth > 49) {
@@ -220,7 +250,12 @@ public class Screen extends ScreenAdapter {
                 f.playSound();
                 e.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.5f;
+                if(touchedDown==false){
+                    timeLeftToReload = 0.5f;
+                }else{
+                    timeLeftToReload = 0.12f;
+                    spaceshipPlayer.spaceshipHealth--;
+                }
 
 
             } else if (spaceshipPlayer.spaceshipHealth > 29) {
@@ -241,7 +276,12 @@ public class Screen extends ScreenAdapter {
                 f.playSound();
                 e.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.5f;
+                if(touchedDown==false){
+                    timeLeftToReload = 0.5f;
+                }else{
+                    timeLeftToReload = 0.12f;
+                    spaceshipPlayer.spaceshipHealth--;
+                }
 
 
             } else if (spaceshipPlayer.spaceshipHealth > 19) {
@@ -253,7 +293,12 @@ public class Screen extends ScreenAdapter {
                 a.playSound();
                 b.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.5f;
+                if(touchedDown==false){
+                    timeLeftToReload = 0.5f;
+                }else{
+                    timeLeftToReload = 0.12f;
+                    spaceshipPlayer.spaceshipHealth--;
+                }
 
 
             } else {
@@ -262,7 +307,12 @@ public class Screen extends ScreenAdapter {
                 laserOfPlayer.add(a);
                 a.playSound();
                 cooledDown = false;
-                timeLeftToReload = 0.5f;
+                if(touchedDown==false){
+                    timeLeftToReload = 0.5f;
+                }else{
+                    timeLeftToReload = 0.12f;
+                    spaceshipPlayer.spaceshipHealth--;
+                }
 
 
             }
@@ -304,21 +354,47 @@ public class Screen extends ScreenAdapter {
         }
     }
 
+    private void drawInstructions(float delta,String message,int x,int y){
+        int fpscounter=0;
+        if (fpsHelper < 200) {
+            font.draw(batch, message, x, y);
+            fpscounter++;
+        }
+    }
+
     private void drawFonts(float delta) {
         fpsHelper++;
         if (fpsHelper == 200) {
-            fps = (int) ((Integer) 1 / delta);
+            fps = (int) ( 1 / delta);
             fpsHelper = 0;
         }
 
+        font.setColor(Color.WHITE);
         font.draw(batch, "FPS:" + fps, 0, spaceshipPlayer.spaceshipY + 75);
         if (spaceshipPlayer.spaceshipHealth < 1) {
+            font.setColor(Color.WHITE);
             font.draw(batch, "Game Over", 200, spaceshipPlayer.spaceshipY + 200);
-            font.draw(batch, "Health:0", 0, spaceshipPlayer.spaceshipY + 50);
+            font.draw(batch, "Energy:0", 0, spaceshipPlayer.spaceshipY + 50);
         } else {
-            font.draw(batch, "Health:" + spaceshipPlayer.spaceshipHealth, 0, spaceshipPlayer.spaceshipY + 50);
-            font.draw(batch, "Kills:" + killsTotal, 0, spaceshipPlayer.spaceshipY + 25);
+            font.setColor(Color.WHITE);
+            font.draw(batch, "Energy:" + spaceshipPlayer.spaceshipHealth, 0, spaceshipPlayer.spaceshipY + 50);
+            font.draw(batch, "Kills:" + killsTotal+"/"+killsRequired, 0, spaceshipPlayer.spaceshipY + 25);
         }
+
+        for(InstructionDrawer i:instructions){
+            if(i.finished==false){
+                i.drawSelf(delta,font,batch);
+            }
+        }
+        ArrayList<InstructionDrawer> toRemove = new ArrayList<InstructionDrawer>();
+        for (InstructionDrawer i:instructions) {
+            if (i.finished == true ) {
+
+                toRemove.add(i);
+
+            }
+        }
+        instructions.removeAll(toRemove);
     }
 
     private void drawEnemies() {
@@ -336,6 +412,10 @@ public class Screen extends ScreenAdapter {
                 e.updatePosition(batch,spaceshipPlayer);
                 int damage = e.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
+                if(damage>0){
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-"+damage,1.0f,"red"));
+
+                }
                 createEnemyLasers(e);
             } else if (e.health <= 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
                 if (e.explodedSound == false) {
@@ -343,6 +423,7 @@ public class Screen extends ScreenAdapter {
                     e.explodedSound = true;
                     spaceshipPlayer.spaceshipHealth+=e.energyBonus;
                     killsTotal+=e.energyBonus;
+                    instructions.add(new InstructionDrawer(e.x,e.y,"+"+e.energyBonus,1.0f,"green"));
                 }
                 e.updatePosition(batch,spaceshipPlayer);
                 e.checkCollisionWithPlayer(spaceshipPlayer);
@@ -379,10 +460,10 @@ public class Screen extends ScreenAdapter {
         for (LaserOfEnemy l : laserOfEnemies) {
             if (l.y > spaceshipPlayer.spaceshipY && l.x > 0 && l.x < screenWidth && l.used == false) {
                 l.updatePosition(batch);
-                Gdx.app.log("lasers",l.getClass().toString());
                 int damage = l.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
+                    instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX+spaceshipPlayer.spaceshipW,spaceshipPlayer.spaceshipY+spaceshipPlayer.spaceshipH,"-"+damage,1.0f,"red"));
                     touchedEnemyLaser.play();
                 }
             }
@@ -407,12 +488,6 @@ public class Screen extends ScreenAdapter {
 
 
     private void updateCamera() {
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && camera.position.y < 7700) {
-            camera.translate(0, 5, 0);
-            spaceshipPlayer.spaceshipY += 5;
-        }
-
         camera.update();
     }
 
@@ -488,6 +563,8 @@ public class Screen extends ScreenAdapter {
             screenWidth = Gdx.graphics.getWidth();
         }
 
+        touchedDown=false;
+        nukedInformed=false;
         spaceshipPlayer = new PlayerShip(screenWidth);
         killsRequired=pl.goal;
         killsTotal = 0;
@@ -499,6 +576,7 @@ public class Screen extends ScreenAdapter {
         laserOfEnemies = new ArrayList<LaserOfEnemy>();
         laserOfPlayer = new ArrayList<LaserOfPlayer>();
         backPlanets = new ArrayList<BackGround>();
+        instructions=new ArrayList<InstructionDrawer>();
         cooledDown = true;
         batch = new SpriteBatch();
         camera = new OrthographicCamera(screenWidth, screenHeight);

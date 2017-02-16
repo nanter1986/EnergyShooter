@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class EnemySmallBlue extends Enemy {
     public EnemySmallBlue(int x, int spaceshipY,int screenW,int screenH) {
-        energyBonus=5;
+        energyBonus=2;
         this.widthFactor=screenW/30;
         this.heightFactor=screenH/5;
         this.x = x;

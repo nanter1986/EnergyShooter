@@ -44,10 +44,11 @@ public class BackGround {
         x = randomX.nextInt(screeW);
         y =ship.spaceshipY+screenH;
         yRelativeToShip = y-ship.spaceshipY;
-        w = (randomW.nextInt(screeW/5))+1;
+        w = screeW/((randomW.nextInt(10))+1);
         h = w;
 
         this.speed = w/100;
+        Gdx.app.log("speed",""+speed+" "+w+" ");
 
     }
 

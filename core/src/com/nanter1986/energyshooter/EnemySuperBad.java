@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class EnemySuperBad extends Enemy {
     String xDirection;
     public EnemySuperBad(int x, int spaceshipY,int screenW,int screenH) {
-        energyBonus=5;
+        energyBonus=10;
         this.widthFactor=screenW/5;
         this.heightFactor=screenH/5;
         this.x = x;
