@@ -10,10 +10,11 @@ import java.util.Random;
  * Created by user on 12/2/2017.
  */
 
-public class BackGround {
+public abstract class BackGround {
     public static final Texture texture1=new Texture(Gdx.files.internal("m1.png"));
     public static final Texture texture2=new Texture(Gdx.files.internal("m2.png"));
     public static final Texture texture3=new Texture(Gdx.files.internal("m3.png"));
+    public static final Texture cloud=new Texture(Gdx.files.internal("cloud.png"));
 
     int x;
     int y;
@@ -27,15 +28,7 @@ public class BackGround {
 
     public BackGround(PlayerShip ship,int screeW,int screenH) {
         this.passedShip=false;
-        Random r = new Random();
-        int which = r.nextInt(3);
-        if (which == 0) {
-            whichTexture = 1;
-        } else if (which == 1) {
-            whichTexture = 2;
-        } else if (which == 2) {
-            whichTexture = 3;
-        }
+
 
         Random randomX = new Random();
         Random randomY = new Random();
@@ -48,29 +41,10 @@ public class BackGround {
         h = w;
 
         this.speed = w/100;
-        Gdx.app.log("speed",""+speed+" "+w+" ");
+        //Gdx.app.log("speed",""+speed+" "+w+" ");
 
     }
 
-    public void updatePosition(SpriteBatch b,int spY){
-            y=y-speed;
-         int tempY= y+spY;
-        if(y+h<0){
-            passedShip=true;
-        }
+    public abstract void updatePosition(SpriteBatch b,int spY);
 
-        if(passedShip==false) {
-            if(whichTexture==1){
-
-                b.draw(texture1, x, tempY, w, h);
-            }else if(whichTexture==2){
-
-                b.draw(texture2, x, tempY, w, h);
-            }else if(whichTexture==3){
-
-                b.draw(texture3, x, tempY, w, h);
-            }
-
-        }
-    }
 }

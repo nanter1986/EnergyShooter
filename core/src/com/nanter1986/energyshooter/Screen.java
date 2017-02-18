@@ -49,8 +49,6 @@ public class Screen extends ScreenAdapter {
     PlayerShip spaceshipPlayer;
 
     private Texture level;
-    private Texture laser;
-    private Texture explosion;
 
 
     ArrayList<Enemy> enemies;
@@ -65,13 +63,12 @@ public class Screen extends ScreenAdapter {
     private boolean touchedDown;
 
 
-    private int stateOfGame = 1;
-    private int howOftenSpawn;
+    private int stateOfGame = 7;
     private int howOftenLaser;
-    private int enemyHealth;
     private float timeLeftToReload;
     private int killsTotal;
     private int killsRequired;
+    private String movingBackImage;
 
     @Override
     public void render(float delta) {
@@ -147,9 +144,16 @@ public class Screen extends ScreenAdapter {
     private void createBackgrounds() {
         Random randomSpawn = new Random();
         int create = randomSpawn.nextInt(70);
+
         if (create == 1) {
-            backPlanets.add(new BackGround(spaceshipPlayer, screenWidth, screenHeight));
+            if(movingBackImage.equals("meteor")){
+                backPlanets.add(new BackgroundComet(spaceshipPlayer, screenWidth, screenHeight));
+            }else if(movingBackImage.equals("cloud")){
+                backPlanets.add(new BackgroundCloud(spaceshipPlayer, screenWidth, screenHeight));
+
+            }
         }
+
     }
 
     private void drawLevelBackground() {
@@ -485,7 +489,7 @@ public class Screen extends ScreenAdapter {
     private void createEnemies() {
         Random randomSpawn = new Random();
         Random whereToRandomlySpawnX = new Random();
-        int spawn = randomSpawn.nextInt(howOftenSpawn);
+        int spawn = randomSpawn.nextInt(3000);
         int xRandom = whereToRandomlySpawnX.nextInt(screenWidth - screenWidth / 10);
         if (spawn<30) {
             enemies.add(new EnemySmallBlue(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
@@ -575,7 +579,7 @@ public class Screen extends ScreenAdapter {
         killsRequired=pl.goal;
         killsTotal = 0;
         timeLeftToReload = 0;
-        howOftenSpawn = pl.spawnFrequency;
+        movingBackImage=pl.movingBack;
         howOftenLaser = pl.laserFrequency;
         font = new BitmapFont();
         enemies = new ArrayList<Enemy>();
@@ -598,12 +602,9 @@ public class Screen extends ScreenAdapter {
         font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
 
         level = new Texture(Gdx.files.internal(pl.backImage));
-        laser = new Texture(Gdx.files.internal("laserRed.png"));
 
-
-        explosion = new Texture(Gdx.files.internal("explosion.png"));
         level.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        enemyHealth = pl.enemyHealth;
+
     }
 
     @Override
