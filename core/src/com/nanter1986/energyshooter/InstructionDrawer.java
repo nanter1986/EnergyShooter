@@ -13,7 +13,7 @@ public class InstructionDrawer {
     int y;
     String message;
     float counter;
-    boolean finished;
+    public boolean finished;
     String type;
 
     public InstructionDrawer(int x, int y, String message, float counter,String type) {

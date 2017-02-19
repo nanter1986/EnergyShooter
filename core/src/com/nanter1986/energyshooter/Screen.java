@@ -72,7 +72,7 @@ public class Screen extends ScreenAdapter {
     private boolean touchedDown;
 
 
-    private int stateOfGame = 7;
+    private int stateOfGame = 1;
     private int howOftenLaser;
     private float timeLeftToReload;
     private int killsTotal;
@@ -306,6 +306,7 @@ public class Screen extends ScreenAdapter {
                 int damage = l.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
+                    l.used=true;
                     instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX + spaceshipPlayer.spaceshipW, spaceshipPlayer.spaceshipY + spaceshipPlayer.spaceshipH, "-" + damage, 1.0f, "red"));
                     touchedEnemyLaser.play();
                 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Collidable;
 import com.nanter1986.energyshooter.Enemies.Enemy;
+import com.nanter1986.energyshooter.InstructionDrawer;
 
 import java.util.ArrayList;
 
@@ -31,9 +32,28 @@ public abstract class PlayerShip implements Collidable {
     public float timeLeftToReload;
     public float timeLeftToReloadMax;
     public ArrayList<LaserOfPlayer> laserOfPlayer;
+    ArrayList<InstructionDrawer> instructions;
+
     public int screenW;
     public int screenH;
     public int shield;
+
+    public void drawInfo(float delta,BitmapFont font,SpriteBatch batch){
+        for (InstructionDrawer i : instructions) {
+            if (i.finished == false) {
+                i.drawSelf(delta, font, batch);
+            }
+        }
+        ArrayList<InstructionDrawer> toRemove = new ArrayList<InstructionDrawer>();
+        for (InstructionDrawer i : instructions) {
+            if (i.finished == true) {
+
+                toRemove.add(i);
+
+            }
+        }
+        instructions.removeAll(toRemove);
+    }
 
 
     public abstract void updatePosition(SpriteBatch b);

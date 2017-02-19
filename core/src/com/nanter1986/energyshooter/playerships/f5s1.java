@@ -24,6 +24,7 @@ public class f5s1 extends PlayerShip {
         this.widthFactor=screenW/10;
         this.died = false;
         this.laserOfPlayer=new ArrayList<LaserOfPlayer>();
+        this.instructions=new ArrayList<InstructionDrawer>();
         this.screenW=screenW;
         this.screenH=screenH;
         this.shield=1;
@@ -91,10 +92,11 @@ public class f5s1 extends PlayerShip {
 
             }else{
                 spaceshipHealth--;
-                new InstructionDrawer(this.spaceshipX+this.spaceshipW,this.spaceshipY+this.spaceshipH,"-1",1.0f,"red").drawSelf(d,font,b);
+                instructions.add(new InstructionDrawer(this.spaceshipX+this.spaceshipW,this.spaceshipY+this.spaceshipH,"-1",1.0f,"red"));
 
             }
         }
+        drawInfo(d,font,b);
 
 
         ArrayList<LaserOfPlayer> toRemove = new ArrayList<LaserOfPlayer>();
