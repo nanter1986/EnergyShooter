@@ -1,4 +1,4 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Backs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class BackgroundCloud extends BackGround {
-    public BackgroundCloud(PlayerShip ship, int screeW, int screenH) {
+    public BackgroundCloud(com.nanter1986.energyshooter.playerships.PlayerShip ship, int screeW, int screenH) {
         super(ship, screeW, screenH);
         Gdx.app.log("created",""+speed+" "+w+" ");
     }

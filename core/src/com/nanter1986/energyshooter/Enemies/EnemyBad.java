@@ -1,22 +1,22 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.ArrayList;
+import com.nanter1986.energyshooter.CollisionChecker;
 
 /**
  * Created by user on 15/2/2017.
  */
 
-public class EnemySuperBad extends Enemy {
+public class EnemyBad extends Enemy {
+
     String xDirection;
-    public EnemySuperBad(int x, int spaceshipY,int screenW,int screenH) {
-        energyBonus=10;
-        this.widthFactor=screenW/5;
+    public EnemyBad(int x, int spaceshipY,int screenW,int screenH) {
+        energyBonus=5;
+        this.widthFactor=screenW/10;
         this.heightFactor=screenH/5;
         this.x = x;
         this.y = spaceshipY+screenH+heightFactor;
-        this.health=100;
+        this.health=50;
         this.currentTexture=badass;
         this.screenWidth=screenW;
         this.screenHeight=screenH;
@@ -24,7 +24,7 @@ public class EnemySuperBad extends Enemy {
     }
 
     @Override
-    public void updatePosition(SpriteBatch b,PlayerShip ship) {
+    public void updatePosition(SpriteBatch b, com.nanter1986.energyshooter.playerships.PlayerShip ship) {
         int badCenter=x+width()/2;
         int goodCenter=ship.positionX()+ship.spaceshipW/2;
         if(health>0) {
@@ -58,15 +58,7 @@ public class EnemySuperBad extends Enemy {
         return new LaserEnemyGreen(x + 20, y, spX, screenWidth, screenHeight);
     }
 
-    @Override
-    public int checkCollisionWithPlayer(PlayerShip ship) {
-        int damage=0;
-        if(CollisionChecker.checkCollision(this,ship)){
-            health-=5;
-            damage=5;
-        }
-        return damage;
-    }
+
 
 
 }

@@ -1,14 +1,17 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.playerships;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.Collidable;
+import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.Enemies.Enemy;
 
 /**
  * Created by user on 13/2/2017.
  */
-public class LaserOfPlayer implements Collidable{
+public class LaserOfPlayer implements Collidable {
     static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
     static final Texture laser=new Texture(Gdx.files.internal("laserRed.png"));
     static final Texture laserMulti=new Texture(Gdx.files.internal("laserRedMulti.png"));
@@ -29,10 +32,10 @@ public class LaserOfPlayer implements Collidable{
     private boolean dealt;
 
 
-    public LaserOfPlayer(int spaceshipX, int spaceshipY,int spaceshipW,int spaceshipH,String type,int screenW,int screenH) {
+    public LaserOfPlayer(int spaceshipX, int spaceshipY,int spaceshipW,int spaceshipH,String type,int screenW) {
 
         this.widthFactor=screenW/20;
-        this.heightFactor=screenH/20;
+        this.heightFactor=screenW/10;
         this.typeOfLaser=type;
         this.used = false;
         if(typeOfLaser.equals("straightS")) {

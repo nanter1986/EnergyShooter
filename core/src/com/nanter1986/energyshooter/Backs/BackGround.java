@@ -1,4 +1,4 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Backs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,10 +23,10 @@ public abstract class BackGround {
     int h;
     int speed;
     int whichTexture;
-    boolean passedShip;
+    public boolean passedShip;
 
 
-    public BackGround(PlayerShip ship,int screeW,int screenH) {
+    public BackGround(com.nanter1986.energyshooter.playerships.PlayerShip ship, int screeW, int screenH) {
         this.passedShip=false;
 
 

@@ -1,24 +1,24 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Enemies;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.ArrayList;
+import com.nanter1986.energyshooter.Collidable;
+import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.playerships.PlayerShip;
 
 /**
  * Created by user on 12/2/2017.
  */
 
-public abstract class Enemy implements Collidable{
-    int energyBonus;
+public abstract class Enemy implements Collidable {
+    public int energyBonus;
     int widthFactor;
     int heightFactor;
-    int x;
-    int y;
-    boolean exploded=false;
-    boolean explodedSound=false;
+    public int x;
+    public int y;
+    public boolean exploded=false;
+    public boolean explodedSound=false;
     int screenWidth;
     int screenHeight;
     int explosionAnimationX;
@@ -29,20 +29,28 @@ public abstract class Enemy implements Collidable{
     static final Texture badass=new Texture(Gdx.files.internal("badassenemy.png"));
     static final Texture red=new Texture(Gdx.files.internal("enemyRed1.png"));
     static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
-    int health;
+    public int health;
+    public int touchDamageGiven;
+    public int touchDamageTaken;
 
 
 
-    public abstract void updatePosition(SpriteBatch b,PlayerShip ship);
+
+    public abstract void updatePosition(SpriteBatch b, PlayerShip ship);
 
     public abstract LaserOfEnemy laserMaker(int spX);
 
-    public abstract int checkCollisionWithPlayer(PlayerShip ship);
-
-
-
-
-
+    public int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship) {
+        int damage=0;
+        if(CollisionChecker.checkCollision(this,ship)){
+            health-=touchDamageTaken;
+            damage=touchDamageGiven;
+        }
+        if(damage<=ship.shield){
+            damage=1;
+        }
+        return damage;
+    }
 
 
 

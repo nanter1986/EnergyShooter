@@ -1,6 +1,7 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.CollisionChecker;
 
 /**
  * Created by user on 15/2/2017.
@@ -23,7 +24,7 @@ public class EnemyUFO extends Enemy {
     }
 
     @Override
-    public void updatePosition(SpriteBatch b,PlayerShip ship) {
+    public void updatePosition(SpriteBatch b, com.nanter1986.energyshooter.playerships.PlayerShip ship) {
         if(health>0) {
                 y-=widthFactor/10;
             b.draw(currentTexture, x, y, widthFactor*2,widthFactor*2);
@@ -38,13 +39,5 @@ public class EnemyUFO extends Enemy {
         return null;
     }
 
-    @Override
-    public int checkCollisionWithPlayer(PlayerShip ship) {
-        int damage=0;
-        if(CollisionChecker.checkCollision(this,ship)){
-            health-=5;
-            damage=10;
-        }
-        return damage;
-    }
+
 }

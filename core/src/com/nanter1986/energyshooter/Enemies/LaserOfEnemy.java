@@ -1,21 +1,22 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.Collidable;
 
 /**
  * Created by user on 12/2/2017.
  */
-public abstract class LaserOfEnemy implements Collidable{
+public abstract class LaserOfEnemy implements Collidable {
     int widthFactor;
     int heightFactor;
-    int x;
-    int y;
+    public int x;
+    public int y;
     String direction;
     static final Texture star=new Texture(Gdx.files.internal("laserEnemy.png"));
     static final Texture green=new Texture(Gdx.files.internal("laserenemygreen.png"));
-    boolean used;
+    public boolean used;
 
     public LaserOfEnemy(int x, int y,int spaceshipX,int screenW,int screenH) {
         this.widthFactor=screenW/20;
@@ -32,7 +33,7 @@ public abstract class LaserOfEnemy implements Collidable{
 
     public abstract void updatePosition(SpriteBatch b);
 
-    public abstract int checkCollisionWithPlayer(PlayerShip ship);
+    public abstract int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship);
 
     @Override
     public int positionX() {

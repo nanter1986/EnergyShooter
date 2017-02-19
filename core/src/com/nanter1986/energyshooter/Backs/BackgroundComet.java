@@ -1,4 +1,4 @@
-package com.nanter1986.energyshooter;
+package com.nanter1986.energyshooter.Backs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -9,7 +9,7 @@ import java.util.Random;
  */
 
 public class BackgroundComet extends BackGround {
-    public BackgroundComet(PlayerShip ship, int screeW, int screenH) {
+    public BackgroundComet(com.nanter1986.energyshooter.playerships.PlayerShip ship, int screeW, int screenH) {
         super(ship, screeW, screenH);
         Random r = new Random();
         int which = r.nextInt(3);
