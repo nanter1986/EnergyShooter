@@ -19,6 +19,8 @@ public class EnemySmallBlue extends Enemy {
         this.currentTexture=blue;
         this.screenWidth=screenW;
         this.screenHeight=screenH;
+        this.touchDamageGiven=2;
+        this.touchDamageTaken=10;
 
     }
 

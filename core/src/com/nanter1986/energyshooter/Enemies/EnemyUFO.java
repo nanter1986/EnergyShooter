@@ -21,6 +21,8 @@ public class EnemyUFO extends Enemy {
         this.screenWidth=screenW;
         this.screenHeight=screenH;
         this.xDirection="left";
+        this.touchDamageGiven=20;
+        this.touchDamageTaken=20;
     }
 
     @Override

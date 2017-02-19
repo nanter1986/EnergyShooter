@@ -21,6 +21,8 @@ public class EnemyBad extends Enemy {
         this.screenWidth=screenW;
         this.screenHeight=screenH;
         this.xDirection="left";
+        this.touchDamageGiven=5;
+        this.touchDamageTaken=5;
     }
 
     @Override

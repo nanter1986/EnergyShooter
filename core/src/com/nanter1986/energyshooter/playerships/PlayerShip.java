@@ -29,6 +29,7 @@ public abstract class PlayerShip implements Collidable {
     public boolean touchedDown=false;
     public boolean cooledDown=false;
     public float timeLeftToReload;
+    public float timeLeftToReloadMax;
     public ArrayList<LaserOfPlayer> laserOfPlayer;
     public int screenW;
     public int screenH;

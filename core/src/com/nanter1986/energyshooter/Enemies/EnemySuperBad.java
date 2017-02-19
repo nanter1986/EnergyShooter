@@ -20,6 +20,8 @@ public class EnemySuperBad extends Enemy {
         this.screenWidth=screenW;
         this.screenHeight=screenH;
         this.xDirection="left";
+        this.touchDamageGiven=10;
+        this.touchDamageTaken=5;
     }
 
     @Override

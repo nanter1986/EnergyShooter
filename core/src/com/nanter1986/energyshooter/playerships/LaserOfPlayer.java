@@ -13,7 +13,7 @@ import com.nanter1986.energyshooter.Enemies.Enemy;
  */
 public class LaserOfPlayer implements Collidable {
     static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
-    static final Texture laser=new Texture(Gdx.files.internal("laserRed.png"));
+    public static final Texture laser=new Texture(Gdx.files.internal("laserRed.png"));
     static final Texture laserMulti=new Texture(Gdx.files.internal("laserRedMulti.png"));
     static final Sound laserSound=Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
 

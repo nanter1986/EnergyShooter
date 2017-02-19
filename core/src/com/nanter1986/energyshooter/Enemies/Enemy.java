@@ -46,7 +46,7 @@ public abstract class Enemy implements Collidable {
             health-=touchDamageTaken;
             damage=touchDamageGiven;
         }
-        if(damage<=ship.shield){
+        if(damage<=ship.shield && damage>0){
             damage=1;
         }
         return damage;

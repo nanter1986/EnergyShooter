@@ -54,16 +54,22 @@ public class f5s1 extends PlayerShip {
 
     @Override
     public void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
-        if(this.spaceshipHealth>49){
-            timeLeftToReload = 0.10f;
-        }else if(this.spaceshipHealth>39){
-            timeLeftToReload = 0.20f;
-        }else if(this.spaceshipHealth>29){
-            timeLeftToReload = 0.30f;
-        }else if(this.spaceshipHealth>19){
-            timeLeftToReload = 0.40f;
+        int speedModifier;
+        if(touchedDown==true){
+            speedModifier=2;
         }else{
-            timeLeftToReload = 0.50f;
+            speedModifier=1;
+        }
+        if(this.spaceshipHealth>49){
+            timeLeftToReloadMax = 0.10f;
+        }else if(this.spaceshipHealth>39){
+            timeLeftToReloadMax = 0.20f;
+        }else if(this.spaceshipHealth>29){
+            timeLeftToReloadMax = 0.30f;
+        }else if(this.spaceshipHealth>19){
+            timeLeftToReloadMax = 0.40f;
+        }else{
+            timeLeftToReloadMax = 0.50f;
         }
         if (Gdx.input.isTouched() && spaceshipHealth>10){
             touchedDown=true;
@@ -80,19 +86,20 @@ public class f5s1 extends PlayerShip {
             laserOfPlayer.add(la);
             la.playSound();
             cooledDown = false;
+            timeLeftToReload=timeLeftToReloadMax/speedModifier;
             if(touchedDown==false){
 
             }else{
-                timeLeftToReload = timeLeftToReload/2;
                 spaceshipHealth--;
                 new InstructionDrawer(this.spaceshipX+this.spaceshipW,this.spaceshipY+this.spaceshipH,"-1",1.0f,"red").drawSelf(d,font,b);
 
             }
         }
 
+
         ArrayList<LaserOfPlayer> toRemove = new ArrayList<LaserOfPlayer>();
         for (LaserOfPlayer l : laserOfPlayer) {
-            if (l.y > this.spaceshipY + this.screenH || l.x < 0 || l.x > this.screenH || l.exploded == true) {
+            if (l.y > this.spaceshipY + this.screenH || l.x < 0 || l.x > this.screenW || l.exploded == true) {
                 toRemove.add(l);
             }
         }

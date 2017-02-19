@@ -11,6 +11,7 @@ import com.nanter1986.energyshooter.Enemies.LaserOfEnemy;
 public class LaserEnemyGreen extends LaserOfEnemy {
     public LaserEnemyGreen(int x, int y, int spaceshipX, int screenW, int screenH) {
         super(x, y, spaceshipX, screenW, screenH);
+        this.touchDamageGiven=5;
     }
 
     @Override
@@ -20,16 +21,5 @@ public class LaserEnemyGreen extends LaserOfEnemy {
         b.draw(green, x, y, widthFactor, heightFactor);
     }
 
-    @Override
-    public int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship) {
-        int damage=0;
-        if(CollisionChecker.checkCollision(this,ship)){
-            damage=6;
-            used=true;
-        }
-        if(damage<=ship.shield){
-            damage=1;
-        }
-        return damage;
-    }
+
 }

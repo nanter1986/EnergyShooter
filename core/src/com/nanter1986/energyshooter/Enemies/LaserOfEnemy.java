@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Collidable;
+import com.nanter1986.energyshooter.CollisionChecker;
 
 /**
  * Created by user on 12/2/2017.
@@ -17,6 +18,7 @@ public abstract class LaserOfEnemy implements Collidable {
     static final Texture star=new Texture(Gdx.files.internal("laserEnemy.png"));
     static final Texture green=new Texture(Gdx.files.internal("laserenemygreen.png"));
     public boolean used;
+    public int touchDamageGiven;
 
     public LaserOfEnemy(int x, int y,int spaceshipX,int screenW,int screenH) {
         this.widthFactor=screenW/20;
@@ -33,8 +35,16 @@ public abstract class LaserOfEnemy implements Collidable {
 
     public abstract void updatePosition(SpriteBatch b);
 
-    public abstract int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship);
-
+    public int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship) {
+        int damage=0;
+        if(CollisionChecker.checkCollision(this,ship)){
+            damage=touchDamageGiven;
+        }
+        if(damage<=ship.shield && damage>0){
+            damage=1;
+        }
+        return damage;
+    }
     @Override
     public int positionX() {
         return x;

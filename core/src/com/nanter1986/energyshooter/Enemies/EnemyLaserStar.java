@@ -10,6 +10,7 @@ import com.nanter1986.energyshooter.CollisionChecker;
 public class EnemyLaserStar extends LaserOfEnemy {
     public EnemyLaserStar(int x, int y, int spaceshipX, int screenW, int screenH) {
         super(x, y, spaceshipX, screenW, screenH);
+        this.touchDamageGiven=1;
     }
 
     @Override
@@ -27,16 +28,4 @@ public class EnemyLaserStar extends LaserOfEnemy {
         }
     }
 
-    @Override
-    public int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship) {
-        int damage=0;
-        if(CollisionChecker.checkCollision(this,ship)){
-            damage=3;
-            used=true;
-        }
-        if(damage<=ship.shield){
-            damage=1;
-        }
-        return damage;
-    }
 }
