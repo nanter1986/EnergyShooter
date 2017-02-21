@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.Artifacts.Artifact;
 import com.nanter1986.energyshooter.Collidable;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.InstructionDrawer;
@@ -18,7 +19,10 @@ import java.util.ArrayList;
 public abstract class PlayerShip implements Collidable {
     public static final Texture explosion= new Texture(Gdx.files.internal("explosion.png"));
     public static final Sound explosionBig=Gdx.audio.newSound(Gdx.files.internal("explosionBig.wav"));
-    public int spaceshipHealth;
+    public float spaceshipHealth;
+    public float spaceshipSpeed;
+    public float shield;
+    public float energyDrawn;
     public int spaceshipX;
     public int spaceshipY;
     public int spaceshipW;
@@ -34,9 +38,12 @@ public abstract class PlayerShip implements Collidable {
     public ArrayList<LaserOfPlayer> laserOfPlayer;
     ArrayList<InstructionDrawer> instructions;
 
+
     public int screenW;
     public int screenH;
-    public int shield;
+
+    public int numOfSlots;
+    public float damageFactor;
 
     public void drawInfo(float delta,BitmapFont font,SpriteBatch batch){
         for (InstructionDrawer i : instructions) {
@@ -79,4 +86,6 @@ public abstract class PlayerShip implements Collidable {
     public int height() {
         return spaceshipH;
     }
+
+
 }

@@ -40,15 +40,13 @@ public abstract class Enemy implements Collidable {
 
     public abstract LaserOfEnemy laserMaker(int spX);
 
-    public int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship) {
-        int damage=0;
+    public float checkCollisionWithPlayer(PlayerShip ship) {
+        float damage=0;
         if(CollisionChecker.checkCollision(this,ship)){
             health-=touchDamageTaken;
-            damage=touchDamageGiven;
+            damage=touchDamageGiven/ship.shield;
         }
-        if(damage<=ship.shield && damage>0){
-            damage=1;
-        }
+
         return damage;
     }
 

@@ -12,6 +12,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.Artifacts.Artifact;
+import com.nanter1986.energyshooter.Artifacts.BasicShield;
+import com.nanter1986.energyshooter.Artifacts.Damager;
+import com.nanter1986.energyshooter.Artifacts.EnergyBoosterOne;
+import com.nanter1986.energyshooter.Artifacts.Speeder;
 import com.nanter1986.energyshooter.Backs.BackGround;
 import com.nanter1986.energyshooter.Backs.BackgroundCloud;
 import com.nanter1986.energyshooter.Backs.BackgroundComet;
@@ -65,6 +70,7 @@ public class Screen extends ScreenAdapter {
     ArrayList<LaserOfPlayer> laserOfPlayer;
     ArrayList<BackGround> backPlanets;
     ArrayList<InstructionDrawer> instructions;
+    ArrayList<Artifact>slots;
 
 
     private boolean cooledDown;
@@ -78,9 +84,71 @@ public class Screen extends ScreenAdapter {
     private int killsTotal;
     private int killsRequired;
     private String movingBackImage;
+    private String whichScreen="equip";
+    private ArrayList<Artifact> artFinalList;
+    private boolean effectsDone=false;
+
 
     @Override
     public void render(float delta) {
+        if(whichScreen.equals("game")){
+            if(effectsDone==true){
+                artifactsTakeEffect(artFinalList);
+                effectsDone=true;
+            }
+            renderGame(delta);
+        }else if(whichScreen.equals("equip")){
+            equipScreen(delta);
+        }
+    }
+
+    private void artifactsTakeEffect(ArrayList<Artifact>aList) {
+        for(Artifact a:aList){
+            a.work(spaceshipPlayer);
+        }
+
+    }
+
+    public void equipScreen(float delta){
+
+
+        ArrayList<Artifact>temp=EquipManager.manageEquipment(makeArtifactList(),2);
+
+        if (Gdx.input.justTouched()) {
+            artFinalList=temp;
+            whichScreen="game";
+        }
+
+
+        Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
+                BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+
+
+        for(int i=0;i<temp.size();i++){
+            if(temp.get(i)!=null){
+                font.draw(batch,"Slot "+(i+1)+":"+temp.get(i).name,200,100*(i+1));
+            }else{
+                font.draw(batch,"Slot "+(i+1)+":",200,100*(i+1));
+            }
+        }
+
+        batch.end();
+    }
+
+    private ArrayList<Artifact> makeArtifactList() {
+        ArrayList<Artifact>artifacts=new ArrayList<Artifact>();
+        artifacts.add(new BasicShield());
+        artifacts.add(new EnergyBoosterOne());
+        artifacts.add(new Speeder());
+        artifacts.add(new Damager());
+
+        return artifacts;
+    }
+
+    public void renderGame(float delta){
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
             backgroundMusic.dispose();
             batch.dispose();
@@ -94,6 +162,7 @@ public class Screen extends ScreenAdapter {
         }
         //nukeField();
         checkHealth();
+        artifactsWork();
         createEnemies();
         createBackgrounds();
         updatePosition();
@@ -116,6 +185,10 @@ public class Screen extends ScreenAdapter {
         drawEnemyLasers();
         drawFonts(delta);
         batch.end();
+    }
+
+    private void artifactsWork() {
+
     }
 
     private void nukeField() {
@@ -220,6 +293,8 @@ public class Screen extends ScreenAdapter {
             font.draw(batch, "Energy:0", 0, spaceshipPlayer.spaceshipY + 50);
         } else {
             font.setColor(Color.WHITE);
+            font.draw(batch, "Slot 2:" + artFinalList.get(1).name, 0, spaceshipPlayer.spaceshipY + 125);
+            font.draw(batch, "Slot 1:" + artFinalList.get(0).name, 0, spaceshipPlayer.spaceshipY + 100);
             font.draw(batch, "Energy:" + spaceshipPlayer.spaceshipHealth, 0, spaceshipPlayer.spaceshipY + 50);
             font.draw(batch, "Kills:" + killsTotal + "/" + killsRequired, 0, spaceshipPlayer.spaceshipY + 25);
         }
@@ -253,7 +328,7 @@ public class Screen extends ScreenAdapter {
         for (Enemy e : enemies) {
             if (e.health > 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
                 e.updatePosition(batch, spaceshipPlayer);
-                int damage = e.checkCollisionWithPlayer(spaceshipPlayer);
+                float damage = e.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
                     instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX + spaceshipPlayer.spaceshipW, spaceshipPlayer.spaceshipY + spaceshipPlayer.spaceshipH, "-" + damage, 1.0f, "red"));
@@ -264,7 +339,7 @@ public class Screen extends ScreenAdapter {
                 if (e.explodedSound == false) {
                     explosionSmall.play();
                     e.explodedSound = true;
-                    spaceshipPlayer.spaceshipHealth += e.energyBonus;
+                    spaceshipPlayer.spaceshipHealth += e.energyBonus*spaceshipPlayer.energyDrawn;
                     killsTotal += e.energyBonus;
                     instructions.add(new InstructionDrawer(e.x, e.y, "+" + e.energyBonus, 1.0f, "green"));
                 }
@@ -303,7 +378,7 @@ public class Screen extends ScreenAdapter {
         for (LaserOfEnemy l : laserOfEnemies) {
             if (l.y > spaceshipPlayer.spaceshipY && l.x > 0 && l.x < screenWidth && l.used == false) {
                 l.updatePosition(batch);
-                int damage = l.checkCollisionWithPlayer(spaceshipPlayer);
+                float damage = l.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
                     l.used=true;
@@ -400,6 +475,7 @@ public class Screen extends ScreenAdapter {
             screenHeight = Gdx.graphics.getHeight();
             screenWidth = Gdx.graphics.getWidth();
         }
+        makeArtifactList();
 
         touchedDown = false;
         nukedInformed = false;
@@ -415,6 +491,7 @@ public class Screen extends ScreenAdapter {
         laserOfPlayer = new ArrayList<LaserOfPlayer>();
         backPlanets = new ArrayList<BackGround>();
         instructions = new ArrayList<InstructionDrawer>();
+        slots=new ArrayList<Artifact>();
         cooledDown = true;
         batch = new SpriteBatch();
         camera = new OrthographicCamera(screenWidth, screenHeight);

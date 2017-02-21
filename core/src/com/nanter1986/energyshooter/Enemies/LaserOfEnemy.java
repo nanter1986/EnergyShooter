@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Collidable;
 import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.playerships.PlayerShip;
 
 /**
  * Created by user on 12/2/2017.
@@ -35,14 +36,12 @@ public abstract class LaserOfEnemy implements Collidable {
 
     public abstract void updatePosition(SpriteBatch b);
 
-    public int checkCollisionWithPlayer(com.nanter1986.energyshooter.playerships.PlayerShip ship) {
-        int damage=0;
+    public float checkCollisionWithPlayer(PlayerShip ship) {
+        float damage=0;
         if(CollisionChecker.checkCollision(this,ship)){
-            damage=touchDamageGiven;
+            damage=touchDamageGiven/ship.shield;
         }
-        if(damage<=ship.shield && damage>0){
-            damage=1;
-        }
+
         return damage;
     }
     @Override

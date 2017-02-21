@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.Artifacts.Artifact;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.InstructionDrawer;
 
@@ -17,7 +18,7 @@ public class f5s1 extends PlayerShip {
 
     private static final Texture spaceship = new Texture(Gdx.files.internal("F5S1.png"));
 
-    public f5s1(int screenW,int screenH) {
+    public f5s1(int screenW, int screenH) {
         this.spaceshipHealth = 10;
         this.spaceshipX = screenW/2;
         this.spaceshipY = 0;
@@ -28,6 +29,9 @@ public class f5s1 extends PlayerShip {
         this.screenW=screenW;
         this.screenH=screenH;
         this.shield=1;
+        this.numOfSlots=1;
+        this.spaceshipSpeed=1;
+        this.energyDrawn=1;
     }
 
     public void updatePosition(SpriteBatch b) {
@@ -55,11 +59,11 @@ public class f5s1 extends PlayerShip {
 
     @Override
     public void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
-        int speedModifier;
+        float speedModifier;
         if(touchedDown==true){
-            speedModifier=2;
+            speedModifier=2*spaceshipSpeed;
         }else{
-            speedModifier=1;
+            speedModifier=1*spaceshipSpeed;
         }
         if(this.spaceshipHealth>49){
             timeLeftToReloadMax = 0.10f;
