@@ -15,7 +15,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Artifacts.Artifact;
 import com.nanter1986.energyshooter.Artifacts.BasicShield;
 import com.nanter1986.energyshooter.Artifacts.Damager;
+import com.nanter1986.energyshooter.Artifacts.DarknessKiller;
 import com.nanter1986.energyshooter.Artifacts.EnergyBoosterOne;
+import com.nanter1986.energyshooter.Artifacts.FireKiller;
+import com.nanter1986.energyshooter.Artifacts.IceKiller;
+import com.nanter1986.energyshooter.Artifacts.LightsDown;
 import com.nanter1986.energyshooter.Artifacts.Speeder;
 import com.nanter1986.energyshooter.Backs.BackGround;
 import com.nanter1986.energyshooter.Backs.BackgroundCloud;
@@ -29,6 +33,7 @@ import com.nanter1986.energyshooter.Enemies.LaserOfEnemy;
 import com.nanter1986.energyshooter.playerships.LaserOfPlayer;
 import com.nanter1986.energyshooter.playerships.f5s1;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -145,6 +150,10 @@ public class Screen extends ScreenAdapter {
         artifacts.add(new EnergyBoosterOne());
         artifacts.add(new Speeder());
         artifacts.add(new Damager());
+        artifacts.add(new FireKiller());
+        artifacts.add(new IceKiller());
+        artifacts.add(new DarknessKiller());
+        artifacts.add(new LightsDown());
 
         return artifacts;
     }
@@ -296,7 +305,9 @@ public class Screen extends ScreenAdapter {
             font.setColor(Color.WHITE);
             font.draw(batch, "Slot 2:" + artFinalList.get(1).name, 0, spaceshipPlayer.spaceshipY + 125);
             font.draw(batch, "Slot 1:" + artFinalList.get(0).name, 0, spaceshipPlayer.spaceshipY + 100);
-            font.draw(batch, "Energy:" + spaceshipPlayer.spaceshipHealth, 0, spaceshipPlayer.spaceshipY + 50);
+            DecimalFormat df=new DecimalFormat("0.00");
+            String formatted=df.format(spaceshipPlayer.spaceshipHealth);
+            font.draw(batch, "Energy:" + formatted, 0, spaceshipPlayer.spaceshipY + 50);
             font.draw(batch, "Kills:" + killsTotal + "/" + killsRequired, 0, spaceshipPlayer.spaceshipY + 25);
         }
 

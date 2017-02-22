@@ -2,6 +2,7 @@ package com.nanter1986.energyshooter.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.Elementaltypes;
 import com.nanter1986.energyshooter.playerships.PlayerShip;
 
 /**
@@ -33,6 +34,11 @@ public class EnemySmallBlue extends Enemy {
         }else if(exploded==false){
             explode(b);
         }
+    }
+
+    @Override
+    public Elementaltypes whatType() {
+        return Elementaltypes.ICE;
     }
 
     @Override

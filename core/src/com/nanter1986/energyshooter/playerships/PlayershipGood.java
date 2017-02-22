@@ -90,7 +90,7 @@ public class PlayershipGood extends PlayerShip {
         for (LaserOfPlayer l : laserOfPlayer) {
             l.updatePosition(b);
             for (Enemy e : enemies) {
-                int damage = l.dealDamage(e);
+                float damage = l.dealDamage(e,this);
                 e.health -= damage;
             }
         }

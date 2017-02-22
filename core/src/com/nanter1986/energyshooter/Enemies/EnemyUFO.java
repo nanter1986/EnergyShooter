@@ -2,6 +2,7 @@ package com.nanter1986.energyshooter.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.Elementaltypes;
 
 /**
  * Created by user on 15/2/2017.
@@ -34,6 +35,11 @@ public class EnemyUFO extends Enemy {
         else if(exploded==false){
             explode(b);
         }
+    }
+
+    @Override
+    public Elementaltypes whatType() {
+        return Elementaltypes.ICE;
     }
 
     @Override

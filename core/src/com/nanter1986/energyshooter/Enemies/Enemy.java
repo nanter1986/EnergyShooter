@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Collidable;
 import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.Elementaltypes;
 import com.nanter1986.energyshooter.playerships.PlayerShip;
 
 /**
@@ -37,6 +38,8 @@ public abstract class Enemy implements Collidable {
 
 
     public abstract void updatePosition(SpriteBatch b, PlayerShip ship);
+
+    public abstract Elementaltypes whatType();
 
     public abstract LaserOfEnemy laserMaker(int spX);
 

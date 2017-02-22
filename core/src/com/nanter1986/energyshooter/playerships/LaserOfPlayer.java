@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Collidable;
 import com.nanter1986.energyshooter.CollisionChecker;
+import com.nanter1986.energyshooter.Elementaltypes;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 
 /**
@@ -122,10 +123,18 @@ public class LaserOfPlayer implements Collidable {
 
     }
 
-    public int dealDamage(Enemy e){
-        int damage=0;
+    public float dealDamage(Enemy e,PlayerShip ship){
+        float damage=0;
         if(CollisionChecker.checkCollision(this,e) && dealt==false){
-            damage=5;
+            if(e.whatType()== Elementaltypes.ICE){
+                damage=5*ship.damageFactorIce;
+            }else if(e.whatType()== Elementaltypes.FIRE){
+                damage=5*ship.damageFactorFire;
+            }else if(e.whatType()== Elementaltypes.DARKNESS){
+                damage=5*ship.damageFactorDark;
+            }else if(e.whatType()== Elementaltypes.LIGHT){
+                damage=5*ship.damageFactorLight;
+            }
             dealt=true;
         }
         return damage;
