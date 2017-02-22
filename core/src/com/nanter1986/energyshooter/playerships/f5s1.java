@@ -32,6 +32,10 @@ public class f5s1 extends PlayerShip {
         this.numOfSlots=1;
         this.spaceshipSpeed=1;
         this.energyDrawn=1;
+        this.damageFactorDark=1;
+        this.damageFactorFire=1;
+        this.damageFactorIce=1;
+        this.damageFactorLight=1;
     }
 
     public void updatePosition(SpriteBatch b) {

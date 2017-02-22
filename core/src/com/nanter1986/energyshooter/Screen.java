@@ -92,7 +92,7 @@ public class Screen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if(whichScreen.equals("game")){
-            if(effectsDone==true){
+            if(effectsDone==false){
                 artifactsTakeEffect(artFinalList);
                 effectsDone=true;
             }
@@ -104,6 +104,7 @@ public class Screen extends ScreenAdapter {
 
     private void artifactsTakeEffect(ArrayList<Artifact>aList) {
         for(Artifact a:aList){
+            Gdx.app.log("arts",""+a.name+" "+spaceshipPlayer.energyDrawn);
             a.work(spaceshipPlayer);
         }
 
@@ -339,7 +340,8 @@ public class Screen extends ScreenAdapter {
                 if (e.explodedSound == false) {
                     explosionSmall.play();
                     e.explodedSound = true;
-                    spaceshipPlayer.spaceshipHealth += e.energyBonus*spaceshipPlayer.energyDrawn;
+                    spaceshipPlayer.spaceshipHealth += (e.energyBonus*spaceshipPlayer.energyDrawn);
+                    Gdx.app.log("drawn",""+e.energyBonus*spaceshipPlayer.energyDrawn);
                     killsTotal += e.energyBonus;
                     instructions.add(new InstructionDrawer(e.x, e.y, "+" + e.energyBonus, 1.0f, "green"));
                 }

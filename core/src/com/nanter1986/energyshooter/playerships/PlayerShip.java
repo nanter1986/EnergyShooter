@@ -23,6 +23,11 @@ public abstract class PlayerShip implements Collidable {
     public float spaceshipSpeed;
     public float shield;
     public float energyDrawn;
+    public float damageFactor;
+    public float damageFactorFire;
+    public float damageFactorIce;
+    public float damageFactorDark;
+    public float damageFactorLight;
     public int spaceshipX;
     public int spaceshipY;
     public int spaceshipW;
@@ -43,7 +48,7 @@ public abstract class PlayerShip implements Collidable {
     public int screenH;
 
     public int numOfSlots;
-    public float damageFactor;
+
 
     public void drawInfo(float delta,BitmapFont font,SpriteBatch batch){
         for (InstructionDrawer i : instructions) {
