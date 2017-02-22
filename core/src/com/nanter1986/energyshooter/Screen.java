@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.nanter1986.energyshooter.Artifacts.Artifact;
 import com.nanter1986.energyshooter.Artifacts.BasicShield;
 import com.nanter1986.energyshooter.Artifacts.Damager;
@@ -33,6 +34,7 @@ import com.nanter1986.energyshooter.Enemies.EnemyUFO;
 import com.nanter1986.energyshooter.Enemies.LaserOfEnemy;
 import com.nanter1986.energyshooter.playerships.LaserOfPlayer;
 import com.nanter1986.energyshooter.playerships.f5s1;
+import com.nanter1986.energyshooter.shop.ShopItem;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class Screen extends ScreenAdapter {
     private int money=0;
     private int shipIndex=0;
     private String movingBackImage;
-    private SetOfScreens whichScreen=SetOfScreens.EQUIP;
+    private SetOfScreens whichScreen=SetOfScreens.SHOP;
     private ArrayList<Artifact> artFinalList;
     private boolean effectsDone=false;
 
@@ -109,7 +111,29 @@ public class Screen extends ScreenAdapter {
             renderGame(delta);
         }else if(whichScreen==SetOfScreens.EQUIP){
             equipScreen(delta);
+        }else if(whichScreen==SetOfScreens.SHOP){
+            theShop(delta);
         }
+    }
+
+    private void theShop(float delta) {
+        if (Gdx.input.justTouched()) {
+            whichScreen=SetOfScreens.EQUIP;
+        }
+
+
+        ShopItem item=ShopManager.shopManage();
+        int angle=ShopManager.itemRotator;
+        TextureRegion tr=new TextureRegion(item.texture);
+        Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
+                BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(tr,screenWidth/2-50,screenHeight/2-50,50,50,
+                100,100,1,01,angle);
+        font.draw(batch, item.name, screenWidth/2, screenHeight/2);
+        batch.end();
     }
 
     private void artifactsTakeEffect(ArrayList<Artifact>aList) {

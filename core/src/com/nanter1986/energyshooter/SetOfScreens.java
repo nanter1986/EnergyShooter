@@ -5,6 +5,7 @@ package com.nanter1986.energyshooter;
  */
 
 public enum SetOfScreens {
+    SHOP,
     EQUIP,
     GAME
 }
