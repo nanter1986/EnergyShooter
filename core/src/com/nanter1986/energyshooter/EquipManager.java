@@ -19,8 +19,7 @@ public class EquipManager {
     private static int it2=1;
 
     public static ArrayList<Artifact> manageEquipment(ArrayList<Artifact> artifacts,int numOfslots) {
-        artifacts.remove(first);
-        artifacts.remove(second);
+
         Gdx.app.log("size",""+artifacts.size());
         ArrayList<Artifact>readyArt=new ArrayList<Artifact>();
         if(artifacts.size()==0){

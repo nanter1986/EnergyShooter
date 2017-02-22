@@ -160,22 +160,22 @@ public class LaserOfPlayer implements Collidable {
 
 
     @Override
-    public int positionX() {
+    public float positionX() {
         return x;
     }
 
     @Override
-    public int positionY() {
+    public float positionY() {
         return y;
     }
 
     @Override
-    public int width() {
+    public float width() {
         return w;
     }
 
     @Override
-    public int height() {
+    public float height() {
         return h;
     }
 }

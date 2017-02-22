@@ -1,5 +1,6 @@
 package com.nanter1986.energyshooter.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.CollisionChecker;
 import com.nanter1986.energyshooter.Elementaltypes;
@@ -13,7 +14,7 @@ public class EnemySmallBlue extends Enemy {
     public EnemySmallBlue(int x, int spaceshipY,int screenW,int screenH) {
         energyBonus=2;
         this.widthFactor=screenW/30;
-        this.heightFactor=screenH/5;
+        this.heightFactor=screenH/30;
         this.x = x;
         this.y = spaceshipY+screenH+heightFactor;
         this.health=5;
@@ -29,6 +30,7 @@ public class EnemySmallBlue extends Enemy {
     public void updatePosition(SpriteBatch b, com.nanter1986.energyshooter.playerships.PlayerShip ship) {
         if(health>0) {
             y = y - widthFactor/20;
+            Gdx.app.log("EnemyPos",""+y+" "+widthFactor+" "+widthFactor/20);
             b.draw(currentTexture, x, y, widthFactor, widthFactor*2);
 
         }else if(exploded==false){
@@ -42,9 +44,8 @@ public class EnemySmallBlue extends Enemy {
     }
 
     @Override
-    public LaserOfEnemy laserMaker(int spX) {
-
-            return new EnemyLaserStar(x + 20, y, spX, screenWidth, screenHeight);
+    public LaserOfEnemy laserMaker(float spX) {
+        return new EnemyLaserStar(x + 20, y, spX, screenWidth, screenHeight);
 
     }
 

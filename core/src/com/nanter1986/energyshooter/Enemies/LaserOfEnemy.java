@@ -11,17 +11,17 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
  * Created by user on 12/2/2017.
  */
 public abstract class LaserOfEnemy implements Collidable {
-    int widthFactor;
-    int heightFactor;
-    public int x;
-    public int y;
+    float widthFactor;
+    float heightFactor;
+    public float x;
+    public float y;
     String direction;
     static final Texture star=new Texture(Gdx.files.internal("laserEnemy.png"));
     static final Texture green=new Texture(Gdx.files.internal("laserenemygreen.png"));
     public boolean used;
     public int touchDamageGiven;
 
-    public LaserOfEnemy(int x, int y,int spaceshipX,int screenW,int screenH) {
+    public LaserOfEnemy(float x, float y,float spaceshipX,int screenW,int screenH) {
         this.widthFactor=screenW/20;
         this.heightFactor=screenH/20;
         used=false;
@@ -45,22 +45,22 @@ public abstract class LaserOfEnemy implements Collidable {
         return damage;
     }
     @Override
-    public int positionX() {
+    public float positionX() {
         return x;
     }
 
     @Override
-    public int positionY() {
+    public float positionY() {
         return y;
     }
 
     @Override
-    public int width() {
+    public float width() {
         return widthFactor;
     }
 
     @Override
-    public int height() {
+    public float height() {
         return heightFactor;
     }
 }

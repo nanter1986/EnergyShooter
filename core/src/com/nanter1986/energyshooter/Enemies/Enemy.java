@@ -14,10 +14,10 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
 
 public abstract class Enemy implements Collidable {
     public int energyBonus;
-    int widthFactor;
-    int heightFactor;
-    public int x;
-    public int y;
+    float widthFactor;
+    float heightFactor;
+    public float x;
+    public float y;
     public boolean exploded=false;
     public boolean explodedSound=false;
     int screenWidth;
@@ -41,7 +41,7 @@ public abstract class Enemy implements Collidable {
 
     public abstract Elementaltypes whatType();
 
-    public abstract LaserOfEnemy laserMaker(int spX);
+    public abstract LaserOfEnemy laserMaker(float spX);
 
     public float checkCollisionWithPlayer(PlayerShip ship) {
         float damage=0;
@@ -70,22 +70,22 @@ public abstract class Enemy implements Collidable {
 
 
     @Override
-    public int positionX() {
+    public float positionX() {
         return x;
     }
 
     @Override
-    public int positionY() {
+    public float positionY() {
         return y;
     }
 
     @Override
-    public int width() {
+    public float width() {
         return widthFactor;
     }
 
     @Override
-    public int height() {
+    public float height() {
         return widthFactor*2;
     }
 }

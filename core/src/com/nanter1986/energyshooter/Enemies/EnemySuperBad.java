@@ -10,7 +10,7 @@ import com.nanter1986.energyshooter.Elementaltypes;
 
 public class EnemySuperBad extends Enemy {
     String xDirection;
-    public EnemySuperBad(int x, int spaceshipY,int screenW,int screenH) {
+    public EnemySuperBad(int x, float spaceshipY,int screenW,int screenH) {
         energyBonus=10;
         this.widthFactor=screenW/5;
         this.heightFactor=screenH/5;
@@ -27,8 +27,8 @@ public class EnemySuperBad extends Enemy {
 
     @Override
     public void updatePosition(SpriteBatch b, com.nanter1986.energyshooter.playerships.PlayerShip ship) {
-        int badCenter=x+width()/2;
-        int goodCenter=ship.positionX()+ship.spaceshipW/2;
+        float badCenter=x+width()/2;
+        float goodCenter=ship.positionX()+ship.spaceshipW/2;
         if(health>0) {
             if(y>screenHeight-widthFactor*2){
                 y = y - widthFactor/50;
@@ -61,7 +61,7 @@ public class EnemySuperBad extends Enemy {
     }
 
     @Override
-    public LaserOfEnemy laserMaker(int spX) {
+    public LaserOfEnemy laserMaker(float spX) {
         return new LaserEnemyGreen(x + 20, y, spX, screenWidth, screenHeight);
     }
 

@@ -12,7 +12,7 @@ public class EnemyUFO extends Enemy {
 
     String xDirection;
     public EnemyUFO(int x, int spaceshipY,int screenW,int screenH) {
-        energyBonus=5;
+        energyBonus=25;
         this.widthFactor=screenW/20;
         this.heightFactor=screenH/20;
         this.x = x;
@@ -43,7 +43,7 @@ public class EnemyUFO extends Enemy {
     }
 
     @Override
-    public LaserOfEnemy laserMaker(int spX) {
+    public LaserOfEnemy laserMaker(float spX) {
         return null;
     }
 

@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 
 public class InstructionDrawer {
-    int x;
-    int y;
+    float x;
+    float y;
     String message;
     float counter;
     public boolean finished;
     String type;
 
-    public InstructionDrawer(int x, int y, String message, float counter,String type) {
+    public InstructionDrawer(float x, float y, String message, float counter,String type) {
         this.x = x;
         this.y = y;
         this.message = message;

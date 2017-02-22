@@ -5,6 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Artifacts.Artifact;
+import com.nanter1986.energyshooter.Artifacts.BasicShield;
+import com.nanter1986.energyshooter.Artifacts.Damager;
+import com.nanter1986.energyshooter.Artifacts.DarknessKiller;
+import com.nanter1986.energyshooter.Artifacts.EnergyBoosterOne;
+import com.nanter1986.energyshooter.Artifacts.FireKiller;
+import com.nanter1986.energyshooter.Artifacts.IceKiller;
+import com.nanter1986.energyshooter.Artifacts.LightsDown;
+import com.nanter1986.energyshooter.Artifacts.Speeder;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.InstructionDrawer;
 
@@ -36,6 +44,18 @@ public class f5s1 extends PlayerShip {
         this.damageFactorFire=1;
         this.damageFactorIce=1;
         this.damageFactorLight=1;
+
+
+        this.listOfArtifacts=new ArrayList<Artifact>();
+        listOfArtifacts.add(new BasicShield());
+        listOfArtifacts.add(new EnergyBoosterOne());
+        listOfArtifacts.add(new Speeder());
+        listOfArtifacts.add(new Damager());
+        listOfArtifacts.add(new FireKiller());
+        listOfArtifacts.add(new IceKiller());
+        listOfArtifacts.add(new DarknessKiller());
+        listOfArtifacts.add(new LightsDown());
+
     }
 
     public void updatePosition(SpriteBatch b) {

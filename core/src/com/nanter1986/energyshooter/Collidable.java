@@ -5,8 +5,8 @@ package com.nanter1986.energyshooter;
  */
 
 public interface Collidable {
-    int positionX();
-    int positionY();
-    int width();
-    int height();
+    float positionX();
+    float positionY();
+    float width();
+    float height();
 }

@@ -42,6 +42,7 @@ public abstract class PlayerShip implements Collidable {
     public float timeLeftToReloadMax;
     public ArrayList<LaserOfPlayer> laserOfPlayer;
     ArrayList<InstructionDrawer> instructions;
+    public ArrayList<Artifact>listOfArtifacts;
 
 
     public int screenW;
@@ -73,22 +74,22 @@ public abstract class PlayerShip implements Collidable {
     public abstract void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font);
 
     @Override
-    public int positionX() {
+    public float positionX() {
         return spaceshipX;
     }
 
     @Override
-    public int positionY() {
+    public float positionY() {
         return spaceshipY;
     }
 
     @Override
-    public int width() {
+    public float width() {
         return spaceshipW;
     }
 
     @Override
-    public int height() {
+    public float height() {
         return spaceshipH;
     }
 
