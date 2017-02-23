@@ -12,11 +12,13 @@ public class ShopItem {
     public float price;
     public Texture texture;
     public boolean haveIt;
+    public boolean hide;
 
     public ShopItem(String name, float price, Texture texture, Preferences prefs) {
         this.name = name;
         this.price = price;
         this.texture = texture;
         this.haveIt = prefs.getBoolean(this.name,false);
+        this.hide=false;
     }
 }

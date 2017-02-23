@@ -26,6 +26,11 @@ import com.nanter1986.energyshooter.Artifacts.Speeder;
 import com.nanter1986.energyshooter.Backs.BackGround;
 import com.nanter1986.energyshooter.Backs.BackgroundCloud;
 import com.nanter1986.energyshooter.Backs.BackgroundComet;
+import com.nanter1986.energyshooter.Buttons.ShopBuy;
+import com.nanter1986.energyshooter.Buttons.ShopExit;
+import com.nanter1986.energyshooter.Buttons.ShopLeft;
+import com.nanter1986.energyshooter.Buttons.ShopRight;
+import com.nanter1986.energyshooter.Buttons.TouchableButtons;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.Enemies.EnemyBad;
 import com.nanter1986.energyshooter.Enemies.EnemySmallBlue;
@@ -74,6 +79,11 @@ public class Screen extends ScreenAdapter {
 
     private Texture level;
 
+    public TouchableButtons shopLeft;
+    public TouchableButtons shopRight;
+    public TouchableButtons shopBuy;
+    public TouchableButtons shopExit;
+
 
     ArrayList<Enemy> enemies;
     ArrayList<LaserOfEnemy> laserOfEnemies;
@@ -113,16 +123,29 @@ public class Screen extends ScreenAdapter {
             equipScreen(delta);
         }else if(whichScreen==SetOfScreens.SHOP){
             theShop(delta);
+        }else if(whichScreen==SetOfScreens.SELECT){
+            selectPlane(delta);
         }
     }
 
+    private void selectPlane(float delta) {
+
+    }
+
     private void theShop(float delta) {
-        if (Gdx.input.justTouched()) {
-            whichScreen=SetOfScreens.EQUIP;
+        if(ShopManager.exitShop()){
+            whichScreen=SetOfScreens.SELECT;
         }
 
 
-        ShopItem item=ShopManager.shopManage();
+        ShopItem item=ShopManager.shopManage(shopRight,shopLeft,shopBuy,shopExit,money);
+
+
+        money=money-ShopManager.boughtSomething();
+        prefs.putInteger("money",money);
+        prefs.flush();
+        Gdx.app.log("mon",""+money);
+
         int angle=ShopManager.itemRotator;
         TextureRegion tr=new TextureRegion(item.texture);
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
@@ -130,9 +153,18 @@ public class Screen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(tr,screenWidth/2-50,screenHeight/2-50,50,50,
-                100,100,1,01,angle);
-        font.draw(batch, item.name, screenWidth/2, screenHeight/2);
+        batch.draw(tr,screenWidth/2-100,screenHeight/2-100,100,100,
+                200,200,1,01,angle);
+        font.draw(batch,"Money:"+ money, 0, screenHeight*3/8);
+        font.draw(batch,"Name:"+ item.name, 0, screenHeight*2/8);
+        font.draw(batch,"Price:"+ item.price, 0, screenHeight*1/8);
+        batch.draw(shopRight.texture,shopRight.buttonX,shopRight.buttonY,shopRight.buttonW,shopRight.buttonH);
+        batch.draw(shopLeft.texture,shopLeft.buttonX,shopLeft.buttonY,shopLeft.buttonW,shopLeft.buttonH);
+        batch.draw(shopExit.texture,shopExit.buttonX,shopExit.buttonY,shopExit.buttonW,shopExit.buttonH);
+        if(item.price<=money){
+            batch.draw(shopBuy.texture,shopBuy.buttonX,shopBuy.buttonY,shopBuy.buttonW,shopBuy.buttonH);
+        }
+
         batch.end();
     }
 
@@ -188,9 +220,9 @@ public class Screen extends ScreenAdapter {
 
             prefs.putInteger("shipindex",shipIndex);
             prefs.putInteger("gamestate",stateOfGame);
-            prefs.putInteger("money",(int)spaceshipPlayer.spaceshipHealth);
+            prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
             prefs.flush();
-            whichScreen=SetOfScreens.EQUIP;
+            whichScreen=SetOfScreens.SHOP;
             show();
         }
         //nukeField();
@@ -511,6 +543,11 @@ public class Screen extends ScreenAdapter {
             screenHeight = Gdx.graphics.getHeight();
             screenWidth = Gdx.graphics.getWidth();
         }
+
+        shopLeft=new ShopLeft(screenWidth,screenHeight);
+        shopRight=new ShopRight(screenWidth,screenHeight);
+        shopBuy=new ShopBuy(screenWidth,screenHeight);
+        shopExit=new ShopExit(screenWidth,screenHeight);
 
 
         touchedDown = false;
