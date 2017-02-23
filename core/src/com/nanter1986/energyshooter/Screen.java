@@ -129,7 +129,8 @@ public class Screen extends ScreenAdapter {
     }
 
     private void selectPlane(float delta) {
-
+        whichScreen=GarageManager.goToGame();
+        GarageManager.manageGarage(prefs,batch,font,screenWidth,screenHeight,shopRight,shopLeft,shopExit);
     }
 
     private void theShop(float delta) {

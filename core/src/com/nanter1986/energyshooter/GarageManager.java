@@ -46,6 +46,7 @@ public class GarageManager {
         }else if (c.isButtonTouched()) {
             prefs.putString("choosenPlane",owned.get(iterator).name);
             prefs.flush();
+            decisionMade=true;
         }
 
         TextureRegion tr=new TextureRegion(owned.get(iterator).texture);
@@ -61,6 +62,14 @@ public class GarageManager {
         b.end();
 
 
+    }
+
+    public static SetOfScreens goToGame(){
+        SetOfScreens s=SetOfScreens.SELECT;
+        if(decisionMade){
+            s=SetOfScreens.EQUIP;
+        }
+        return s;
     }
 
     public static void makeList(Preferences prefs){
