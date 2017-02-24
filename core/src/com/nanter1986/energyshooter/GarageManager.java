@@ -86,6 +86,9 @@ public class GarageManager {
         if(prefs.getBoolean("Bat")){
             owned.add(new ShopItem("Bat",2000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
         }
+
+        owned.add(new ShopItem("f5s1",0,new Texture(Gdx.files.internal("F5S1.png")),prefs));
+
         listMade=true;
     }
 }

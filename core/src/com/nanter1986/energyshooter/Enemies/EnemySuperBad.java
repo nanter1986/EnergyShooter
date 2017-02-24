@@ -14,7 +14,7 @@ public class EnemySuperBad extends Enemy {
         energyBonus=10;
         this.widthFactor=screenW/5;
         this.heightFactor=screenH/5;
-        this.x = x;
+        this.x = x-widthFactor;
         this.y = spaceshipY+screenH+heightFactor;
         this.health=100;
         this.currentTexture=badass;

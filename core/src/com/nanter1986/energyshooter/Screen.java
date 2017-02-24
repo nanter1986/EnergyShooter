@@ -51,7 +51,7 @@ import java.util.Random;
 
 public class Screen extends ScreenAdapter {
 
-    Preferences prefs = Gdx.app.getPreferences("Shooter");
+    DisplayToolkit tool;
 
     private static final Color BACKGROUND_COLOR = new Color(0f, 0f, 0f, 1.0f);
 
@@ -59,9 +59,7 @@ public class Screen extends ScreenAdapter {
 
 
     Playlevel l;
-    SpriteBatch batch;
-    private OrthographicCamera camera;
-    BitmapFont font;
+
 
     int fps;
     int fpsHelper;
@@ -106,7 +104,7 @@ public class Screen extends ScreenAdapter {
     private int money=0;
     private int shipIndex=0;
     private String movingBackImage;
-    private SetOfScreens whichScreen=SetOfScreens.SHOP;
+    private SetOfScreens whichScreen=SetOfScreens.MENU;
     private ArrayList<Artifact> artFinalList;
     private boolean effectsDone=false;
 
@@ -125,12 +123,18 @@ public class Screen extends ScreenAdapter {
             theShop(delta);
         }else if(whichScreen==SetOfScreens.SELECT){
             selectPlane(delta);
+        }else if(whichScreen==SetOfScreens.MENU){
+            menuScreen(delta);
         }
+    }
+
+    private void menuScreen(float delta) {
+
     }
 
     private void selectPlane(float delta) {
         whichScreen=GarageManager.goToGame();
-        GarageManager.manageGarage(prefs,batch,font,screenWidth,screenHeight,shopRight,shopLeft,shopExit);
+        GarageManager.manageGarage(tool.prefs,tool.batch,tool.font,screenWidth,screenHeight,shopRight,shopLeft,shopExit);
     }
 
     private void theShop(float delta) {
@@ -143,8 +147,8 @@ public class Screen extends ScreenAdapter {
 
 
         money=money-ShopManager.boughtSomething();
-        prefs.putInteger("money",money);
-        prefs.flush();
+        tool.prefs.putInteger("money",money);
+        tool.prefs.flush();
         Gdx.app.log("mon",""+money);
 
         int angle=ShopManager.itemRotator;
@@ -152,21 +156,21 @@ public class Screen extends ScreenAdapter {
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
                 BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(tr,screenWidth/2-100,screenHeight/2-100,100,100,
+        tool.batch.setProjectionMatrix(tool.camera.combined);
+        tool.batch.begin();
+        tool.batch.draw(tr,screenWidth/2-100,screenHeight/2-100,100,100,
                 200,200,1,01,angle);
-        font.draw(batch,"Money:"+ money, 0, screenHeight*3/8);
-        font.draw(batch,"Name:"+ item.name, 0, screenHeight*2/8);
-        font.draw(batch,"Price:"+ item.price, 0, screenHeight*1/8);
-        batch.draw(shopRight.texture,shopRight.buttonX,shopRight.buttonY,shopRight.buttonW,shopRight.buttonH);
-        batch.draw(shopLeft.texture,shopLeft.buttonX,shopLeft.buttonY,shopLeft.buttonW,shopLeft.buttonH);
-        batch.draw(shopExit.texture,shopExit.buttonX,shopExit.buttonY,shopExit.buttonW,shopExit.buttonH);
+        tool.font.draw(tool.batch,"Money:"+ money, 0, screenHeight*3/8);
+        tool.font.draw(tool.batch,"Name:"+ item.name, 0, screenHeight*2/8);
+        tool.font.draw(tool.batch,"Price:"+ item.price, 0, screenHeight*1/8);
+        tool.batch.draw(shopRight.texture,shopRight.buttonX,shopRight.buttonY,shopRight.buttonW,shopRight.buttonH);
+        tool.batch.draw(shopLeft.texture,shopLeft.buttonX,shopLeft.buttonY,shopLeft.buttonW,shopLeft.buttonH);
+        tool.batch.draw(shopExit.texture,shopExit.buttonX,shopExit.buttonY,shopExit.buttonW,shopExit.buttonH);
         if(item.price<=money){
-            batch.draw(shopBuy.texture,shopBuy.buttonX,shopBuy.buttonY,shopBuy.buttonW,shopBuy.buttonH);
+            tool.batch.draw(shopBuy.texture,shopBuy.buttonX,shopBuy.buttonY,shopBuy.buttonW,shopBuy.buttonH);
         }
 
-        batch.end();
+        tool.batch.end();
     }
 
     private void artifactsTakeEffect(ArrayList<Artifact>aList) {
@@ -191,19 +195,19 @@ public class Screen extends ScreenAdapter {
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
                 BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
+        tool.batch.setProjectionMatrix(tool.camera.combined);
+        tool.batch.begin();
 
 
         for(int i=0;i<temp.size();i++){
             if(temp.get(i)!=null){
-                font.draw(batch,"Slot "+(i+1)+":"+temp.get(i).name,200,100*(i+1));
+                tool.font.draw(tool.batch,"Slot "+(i+1)+":"+temp.get(i).name,200,100*(i+1));
             }else{
-                font.draw(batch,"Slot "+(i+1)+":",200,100*(i+1));
+                tool.font.draw(tool.batch,"Slot "+(i+1)+":",200,100*(i+1));
             }
         }
 
-        batch.end();
+        tool.batch.end();
     }
 
 
@@ -211,18 +215,18 @@ public class Screen extends ScreenAdapter {
     public void renderGame(float delta){
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
             backgroundMusic.dispose();
-            batch.dispose();
+            tool.batch.dispose();
             show();
         }
         if (killsTotal > killsRequired - 1) {
             backgroundMusic.dispose();
-            batch.dispose();
+            tool.batch.dispose();
             stateOfGame++;
 
-            prefs.putInteger("shipindex",shipIndex);
-            prefs.putInteger("gamestate",stateOfGame);
-            prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
-            prefs.flush();
+            tool.prefs.putInteger("shipindex",shipIndex);
+            tool.prefs.putInteger("gamestate",stateOfGame);
+            tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
+            tool.prefs.flush();
             whichScreen=SetOfScreens.SHOP;
             show();
         }
@@ -232,13 +236,13 @@ public class Screen extends ScreenAdapter {
         createBackgrounds();
         updatePosition();
         updateCamera();
-        camera.update();
+        tool.camera.update();
 
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
                 BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
+        tool.batch.setProjectionMatrix(tool.camera.combined);
+        tool.batch.begin();
         drawLevelBackground();
 
         drawSpaceship();
@@ -249,7 +253,7 @@ public class Screen extends ScreenAdapter {
 
         drawEnemyLasers();
         drawFonts(delta);
-        batch.end();
+        tool.batch.end();
     }
 
 
@@ -301,7 +305,7 @@ public class Screen extends ScreenAdapter {
     }
 
     private void drawLevelBackground() {
-        batch.draw(level, 0, spaceshipPlayer.spaceshipY, screenWidth, screenHeight);
+        tool.batch.draw(level, 0, spaceshipPlayer.spaceshipY, screenWidth, screenHeight);
         ArrayList<BackGround> toRemove = new ArrayList<BackGround>();
         for (BackGround b : backPlanets) {
             if (b.passedShip == true) {
@@ -310,7 +314,7 @@ public class Screen extends ScreenAdapter {
         }
         for (BackGround b : backPlanets) {
 
-            b.updatePosition(batch, spaceshipPlayer.spaceshipY);
+            b.updatePosition(tool.batch, spaceshipPlayer.spaceshipY);
 
 
         }
@@ -318,11 +322,11 @@ public class Screen extends ScreenAdapter {
     }
 
     private void drawLaser(float d, ArrayList<Enemy> enemies) {
-        spaceshipPlayer.drawLaser(d,enemies,batch,font);
+        spaceshipPlayer.drawLaser(d,enemies,tool.batch,tool.font);
     }
 
     private void drawSpaceship() {
-        spaceshipPlayer.updatePosition(batch);
+        spaceshipPlayer.updatePosition(tool.batch);
 
     }
 
@@ -335,7 +339,7 @@ public class Screen extends ScreenAdapter {
     private void drawInstructions(float delta, String message, int x, int y) {
         int fpscounter = 0;
         if (fpsHelper < 200) {
-            font.draw(batch, message, x, y);
+            tool.font.draw(tool.batch, message, x, y);
             fpscounter++;
         }
     }
@@ -347,26 +351,26 @@ public class Screen extends ScreenAdapter {
             fpsHelper = 0;
         }
 
-        font.setColor(Color.WHITE);
-        font.draw(batch, "FPS:" + fps, 0, spaceshipPlayer.spaceshipY + 75);
+        tool.font.setColor(Color.WHITE);
+        tool.font.draw(tool.batch, "FPS:" + fps, 0, spaceshipPlayer.spaceshipY + 75);
         if (spaceshipPlayer.spaceshipHealth < 1) {
-            font.setColor(Color.WHITE);
-            font.draw(batch, "Game Over", 200, spaceshipPlayer.spaceshipY + 200);
-            font.draw(batch, "Energy:0", 0, spaceshipPlayer.spaceshipY + 50);
+            tool.font.setColor(Color.WHITE);
+            tool.font.draw(tool.batch, "Game Over", 200, spaceshipPlayer.spaceshipY + 200);
+            tool.font.draw(tool.batch, "Energy:0", 0, spaceshipPlayer.spaceshipY + 50);
         } else {
-            font.setColor(Color.WHITE);
-            font.draw(batch, "Money:" + money, 0, spaceshipPlayer.spaceshipY + 150);
-            font.draw(batch, "Slot 2:" + artFinalList.get(1).name, 0, spaceshipPlayer.spaceshipY + 125);
-            font.draw(batch, "Slot 1:" + artFinalList.get(0).name, 0, spaceshipPlayer.spaceshipY + 100);
+            tool.font.setColor(Color.WHITE);
+            tool.font.draw(tool.batch, "Money:" + money, 0, spaceshipPlayer.spaceshipY + 150);
+            tool.font.draw(tool.batch, "Slot 2:" + artFinalList.get(1).name, 0, spaceshipPlayer.spaceshipY + 125);
+            tool.font.draw(tool.batch, "Slot 1:" + artFinalList.get(0).name, 0, spaceshipPlayer.spaceshipY + 100);
             DecimalFormat df=new DecimalFormat("0.00");
             String formatted=df.format(spaceshipPlayer.spaceshipHealth);
-            font.draw(batch, "Energy:" + formatted, 0, spaceshipPlayer.spaceshipY + 50);
-            font.draw(batch, "Kills:" + killsTotal + "/" + killsRequired, 0, spaceshipPlayer.spaceshipY + 25);
+            tool.font.draw(tool.batch, "Energy:" + formatted, 0, spaceshipPlayer.spaceshipY + 50);
+            tool.font.draw(tool.batch, "Kills:" + killsTotal + "/" + killsRequired, 0, spaceshipPlayer.spaceshipY + 25);
         }
 
         for (InstructionDrawer i : instructions) {
             if (i.finished == false) {
-                i.drawSelf(delta, font, batch);
+                i.drawSelf(delta, tool.font, tool.batch);
             }
         }
         ArrayList<InstructionDrawer> toRemove = new ArrayList<InstructionDrawer>();
@@ -393,7 +397,7 @@ public class Screen extends ScreenAdapter {
         for (Enemy e : enemies) {
             if (e.health > 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
 
-                e.updatePosition(batch, spaceshipPlayer);
+                e.updatePosition(tool.batch, spaceshipPlayer);
                 float damage = e.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
@@ -409,7 +413,7 @@ public class Screen extends ScreenAdapter {
                     killsTotal += e.energyBonus;
                     instructions.add(new InstructionDrawer(e.x, e.y, "+" + e.energyBonus, 1.0f, "green"));
                 }
-                e.updatePosition(batch, spaceshipPlayer);
+                e.updatePosition(tool.batch, spaceshipPlayer);
                 e.checkCollisionWithPlayer(spaceshipPlayer);
             }
         }
@@ -443,7 +447,7 @@ public class Screen extends ScreenAdapter {
         laserOfEnemies.removeAll(toRemove);
         for (LaserOfEnemy l : laserOfEnemies) {
             if (l.y > spaceshipPlayer.spaceshipY && l.x > 0 && l.x < screenWidth && l.used == false) {
-                l.updatePosition(batch);
+                l.updatePosition(tool.batch);
                 float damage = l.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
@@ -459,21 +463,21 @@ public class Screen extends ScreenAdapter {
         Random randomSpawn = new Random();
         Random whereToRandomlySpawnX = new Random();
         int spawn = randomSpawn.nextInt(3000);
-        int xRandom = whereToRandomlySpawnX.nextInt(screenWidth - screenWidth / 10);
+        int xRandom = whereToRandomlySpawnX.nextInt(screenWidth);
         if (spawn < 30) {
-            enemies.add(new EnemySmallBlue(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+            enemies.add(new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
         } else if (spawn == 101) {
-            enemies.add(new EnemyBad(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+            enemies.add(new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
         } else if (spawn == 102) {
-            enemies.add(new EnemySuperBad(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+            enemies.add(new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
         } else if (spawn == 103) {
-            enemies.add(new EnemyUFO(xRandom + 40, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+            enemies.add(new EnemyUFO(xRandom , spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
         }
     }
 
 
     private void updateCamera() {
-        camera.update();
+        tool.camera.update();
     }
 
     private void updatePosition() {
@@ -514,14 +518,23 @@ public class Screen extends ScreenAdapter {
 
     @Override
     public void show() {
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            screenHeight = 600;
+            screenWidth = 400;
+        } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            screenHeight = Gdx.graphics.getHeight();
+            screenWidth = Gdx.graphics.getWidth();
+        }
+        tool=new DisplayToolkit(screenWidth,screenHeight);
         changeGameState();
     }
 
     private void changeGameState() {
 
-        stateOfGame=prefs.getInteger("gamestate",1);
-        money=prefs.getInteger("money",0);
-        shipIndex=prefs.getInteger("shipindex",0);
+        Gdx.app.log("null?",""+tool.prefs.getInteger("gamestate",1));
+        stateOfGame=tool.prefs.getInteger("gamestate",1);
+        money=tool.prefs.getInteger("money",0);
+        shipIndex=tool.prefs.getInteger("shipindex",0);
 
         l = Levels.levelReturner(stateOfGame);
 
@@ -537,13 +550,8 @@ public class Screen extends ScreenAdapter {
     }
 
     private void makePlayLevel(Playlevel pl) {
-        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-            screenHeight = 600;
-            screenWidth = 400;
-        } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            screenHeight = Gdx.graphics.getHeight();
-            screenWidth = Gdx.graphics.getWidth();
-        }
+
+
 
         shopLeft=new ShopLeft(screenWidth,screenHeight);
         shopRight=new ShopRight(screenWidth,screenHeight);
@@ -553,13 +561,12 @@ public class Screen extends ScreenAdapter {
 
         touchedDown = false;
         nukedInformed = false;
-        spaceshipPlayer = new f5s1(screenWidth,screenHeight);
+        spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
         killsRequired = pl.goal;
         killsTotal = 0;
         timeLeftToReload = 0;
         movingBackImage = pl.movingBack;
         howOftenLaser = pl.laserFrequency;
-        font = new BitmapFont();
         enemies = new ArrayList<Enemy>();
         laserOfEnemies = new ArrayList<LaserOfEnemy>();
         laserOfPlayer = new ArrayList<LaserOfPlayer>();
@@ -567,10 +574,10 @@ public class Screen extends ScreenAdapter {
         instructions = new ArrayList<InstructionDrawer>();
         slots=new ArrayList<Artifact>();
         cooledDown = true;
-        batch = new SpriteBatch();
+        /*batch = new SpriteBatch();
         camera = new OrthographicCamera(screenWidth, screenHeight);
-        camera.position.set(screenWidth / 2, screenHeight / 2, 0);
-        camera.update();
+        camera.position.set(screenWidth / 2, screenHeight / 2, 0);*/
+        tool.camera.update();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(pl.music));
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
@@ -578,7 +585,7 @@ public class Screen extends ScreenAdapter {
         explosionSmall = Gdx.audio.newSound(Gdx.files.internal("explosionSmall.wav"));
         laserSound = Gdx.audio.newSound(Gdx.files.internal("laser.wav"));
         touchedEnemyLaser = Gdx.audio.newSound(Gdx.files.internal("touchedEnemyLaser.wav"));
-        font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
+
 
         level = new Texture(Gdx.files.internal(pl.backImage));
 
@@ -603,6 +610,6 @@ public class Screen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        batch.dispose();
+        tool.batch.dispose();
     }
 }

@@ -15,7 +15,7 @@ public class EnemySmallBlue extends Enemy {
         energyBonus=2;
         this.widthFactor=screenW/30;
         this.heightFactor=screenH/30;
-        this.x = x;
+        this.x = x-widthFactor;
         this.y = spaceshipY+screenH+heightFactor;
         this.health=5;
         this.currentTexture=blue;

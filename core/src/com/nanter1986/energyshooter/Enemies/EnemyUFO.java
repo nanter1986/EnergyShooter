@@ -15,7 +15,7 @@ public class EnemyUFO extends Enemy {
         energyBonus=25;
         this.widthFactor=screenW/20;
         this.heightFactor=screenH/20;
-        this.x = x;
+        this.x = x-widthFactor;
         this.y = spaceshipY+screenH+heightFactor;
         this.health=100;
         this.currentTexture=ufo;
