@@ -48,12 +48,14 @@ public class LaserOfPlayer implements Collidable {
             this.w = widthFactor;
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
-            this.x = spaceshipX+spaceshipW/2-w/2+20;
+            this.x = spaceshipX;
+            Gdx.app.log("sp",x+" "+w);
         }else if(typeOfLaser.equals("straightR")){
             this.w = widthFactor;
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
-            this.x = spaceshipX+spaceshipW/2-w/2+20;
+            this.x = spaceshipX+spaceshipW-w;
+            Gdx.app.log("sp",x+" "+y);
         }else if(typeOfLaser.equals("midL")){
             this.w=widthFactor;
             this.h=widthFactor;
@@ -75,8 +77,7 @@ public class LaserOfPlayer implements Collidable {
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }
-        this.y = spaceshipY+spaceshipH;
-        this.x = spaceshipX+spaceshipW/2-w/2;
+
 
         //Gdx.app.log("lasers",""+x+" "+y+" "+w+" "+h);
     }
@@ -96,9 +97,11 @@ public class LaserOfPlayer implements Collidable {
             }else if(typeOfLaser.equals("straightL")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
+                Gdx.app.log("left",x+" ");
             }else if(typeOfLaser.equals("straightR")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
+                Gdx.app.log("right",x+" ");
             }else if(typeOfLaser.equals("midL")){
                 y = y +2* widthFactor;
                 x = x - widthFactor;

@@ -19,7 +19,7 @@ public class SpaceshipChooseHelper {
         if(choosen.equals("f5s1")){
             ship=new f5s1(tool.scW,tool.scH);
         }else if(choosen.equals("Bullet")){
-            ship=new PlayershipGood(tool.scW,tool.scH);
+            ship=new PlayershipGood(tool);
         }else if(choosen.equals("Sinister")){
             ship=new PlayershipSinister(tool.scW);
         }else if(choosen.equals("Bat")){

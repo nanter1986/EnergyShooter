@@ -13,6 +13,7 @@ import com.nanter1986.energyshooter.Artifacts.FireKiller;
 import com.nanter1986.energyshooter.Artifacts.IceKiller;
 import com.nanter1986.energyshooter.Artifacts.LightsDown;
 import com.nanter1986.energyshooter.Artifacts.Speeder;
+import com.nanter1986.energyshooter.DisplayToolkit;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.InstructionDrawer;
 
@@ -26,16 +27,16 @@ public class PlayershipGood extends PlayerShip {
 
     private static final Texture spaceshipGood=new Texture(Gdx.files.internal("F5S4.png"));
 
-    public PlayershipGood(int screenW,int screenH) {
+    public PlayershipGood(DisplayToolkit tool) {
         this.spaceshipHealth = 20;
-        this.spaceshipX = screenW / 2;
+        this.spaceshipX = tool.scW / 2;
         this.spaceshipY = 0;
-        this.widthFactor = screenW / 10;
+        this.widthFactor = tool.scH / 10;
         this.died = false;
         this.laserOfPlayer=new ArrayList<LaserOfPlayer>();
         this.instructions=new ArrayList<InstructionDrawer>();
-        this.screenW=screenW;
-        this.screenH=screenH;
+        this.screenW=tool.scW;
+        this.screenH=tool.scH;
         this.shield=1;
         this.numOfSlots=1;
         this.spaceshipSpeed=1;
@@ -108,8 +109,8 @@ public class PlayershipGood extends PlayerShip {
                 cooledDown = true;
             }
         }else{
-            LaserOfPlayer la = new LaserOfPlayer(spaceshipX + spaceshipW *1/ 5, spaceshipY, spaceshipW, spaceshipH, "straightS",this.screenW);
-            LaserOfPlayer lb = new LaserOfPlayer(spaceshipX + spaceshipW *4/ 5, spaceshipY, spaceshipW, spaceshipH, "straightS",this.screenW);
+            LaserOfPlayer la = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightL",this.screenW);
+            LaserOfPlayer lb = new LaserOfPlayer(spaceshipX , spaceshipY, spaceshipW, spaceshipH, "straightR",this.screenW);
             laserOfPlayer.add(la);
             laserOfPlayer.add(lb);
             la.playSound();

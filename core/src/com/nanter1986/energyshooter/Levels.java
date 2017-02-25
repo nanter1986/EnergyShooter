@@ -9,8 +9,10 @@ import java.util.logging.Level;
 public class Levels {
     public static Playlevel levelReturner(int gamestate){
         Playlevel l=null;
-        if(gamestate==1){
-            l=new Playlevel("summer.mp3","blue","neptune.jpg","meteor",100,1,100);
+        if(gamestate==1) {
+            l = new Playlevel("summer.mp3", "blue", "neptune.jpg", "meteor", 100, 1, 100);
+        }else if(gamestate==2){
+            l = new Playlevel("summer.mp3", "blue", "neptune.jpg", "meteor", 100, 2, 100);
         }else if(gamestate==2){
             l=new Playlevel("darkfuture.mp3","blue","uranus.jpg","meteor",110,2,120);
         }else if(gamestate==3){

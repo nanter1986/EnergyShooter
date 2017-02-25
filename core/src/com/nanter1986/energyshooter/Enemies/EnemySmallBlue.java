@@ -30,7 +30,6 @@ public class EnemySmallBlue extends Enemy {
     public void updatePosition(SpriteBatch b, com.nanter1986.energyshooter.playerships.PlayerShip ship) {
         if(health>0) {
             y = y - widthFactor/20;
-            Gdx.app.log("EnemyPos",""+y+" "+widthFactor+" "+widthFactor/20);
             b.draw(currentTexture, x, y, widthFactor, widthFactor*2);
 
         }else if(exploded==false){

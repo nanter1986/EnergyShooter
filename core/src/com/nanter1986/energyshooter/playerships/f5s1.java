@@ -111,7 +111,7 @@ public class f5s1 extends PlayerShip {
                 cooledDown = true;
             }
         }else{
-            LaserOfPlayer la = new LaserOfPlayer(spaceshipX + spaceshipW / 2, spaceshipY, spaceshipW, spaceshipH, "straightS",this.screenW);
+            LaserOfPlayer la = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightS",this.screenW);
             laserOfPlayer.add(la);
             la.playSound();
             cooledDown = false;

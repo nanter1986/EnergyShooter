@@ -2,6 +2,7 @@ package com.nanter1986.energyshooter.Buttons;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.nanter1986.energyshooter.DisplayToolkit;
 
 /**
  * Created by user on 23/2/2017.
@@ -17,9 +18,11 @@ public abstract class TouchableButtons {
     public float screenW;
     public float screenH;
 
-    public TouchableButtons(float screenW,float ScreenH) {
-        this.screenH=ScreenH;
-        this.screenW=screenW;
+
+    public TouchableButtons(DisplayToolkit tool) {
+        this.screenH=tool.scH;
+        this.screenW=tool.scW;
+
     }
 
 
@@ -34,4 +37,6 @@ public abstract class TouchableButtons {
         return t;
 
     }
+
+
 }

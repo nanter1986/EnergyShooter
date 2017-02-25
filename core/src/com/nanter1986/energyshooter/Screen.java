@@ -129,7 +129,7 @@ public class Screen extends ScreenAdapter {
     }
 
     private void menuScreen(float delta) {
-
+        whichScreen=MenuMaker.makeMenu(tool);
     }
 
     private void selectPlane(float delta) {
@@ -138,7 +138,10 @@ public class Screen extends ScreenAdapter {
     }
 
     private void theShop(float delta) {
+        money=tool.prefs.getInteger("money",0);
+        Gdx.app.log("mon",""+money);
         if(ShopManager.exitShop()){
+            spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
             whichScreen=SetOfScreens.SELECT;
         }
 
@@ -149,7 +152,7 @@ public class Screen extends ScreenAdapter {
         money=money-ShopManager.boughtSomething();
         tool.prefs.putInteger("money",money);
         tool.prefs.flush();
-        Gdx.app.log("mon",""+money);
+
 
         int angle=ShopManager.itemRotator;
         TextureRegion tr=new TextureRegion(item.texture);
@@ -187,6 +190,7 @@ public class Screen extends ScreenAdapter {
         ArrayList<Artifact>temp=EquipManager.manageEquipment(spaceshipPlayer.listOfArtifacts,2);
 
         if (Gdx.input.justTouched()) {
+            changeGameState();
             artFinalList=temp;
             whichScreen=SetOfScreens.GAME;
         }
@@ -208,6 +212,7 @@ public class Screen extends ScreenAdapter {
         }
 
         tool.batch.end();
+
     }
 
 
@@ -526,14 +531,15 @@ public class Screen extends ScreenAdapter {
             screenWidth = Gdx.graphics.getWidth();
         }
         tool=new DisplayToolkit(screenWidth,screenHeight);
-        changeGameState();
+        shopButtons();
+
     }
 
     private void changeGameState() {
 
-        Gdx.app.log("null?",""+tool.prefs.getInteger("gamestate",1));
         stateOfGame=tool.prefs.getInteger("gamestate",1);
-        money=tool.prefs.getInteger("money",0);
+        //stateOfGame=1;
+
         shipIndex=tool.prefs.getInteger("shipindex",0);
 
         l = Levels.levelReturner(stateOfGame);
@@ -541,27 +547,22 @@ public class Screen extends ScreenAdapter {
         makePlayLevel(l);
     }
 
-    private void makeWorldMap() {
+    private void shopButtons(){
+        shopLeft=new ShopLeft(tool);
+        shopRight=new ShopRight(tool);
+        shopBuy=new ShopBuy(tool);
+        shopExit=new ShopExit(tool);
+        tool.camera.update();
 
     }
 
-    private void makeMenu() {
 
-    }
 
     private void makePlayLevel(Playlevel pl) {
 
-
-
-        shopLeft=new ShopLeft(screenWidth,screenHeight);
-        shopRight=new ShopRight(screenWidth,screenHeight);
-        shopBuy=new ShopBuy(screenWidth,screenHeight);
-        shopExit=new ShopExit(screenWidth,screenHeight);
-
-
         touchedDown = false;
         nukedInformed = false;
-        spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
+
         killsRequired = pl.goal;
         killsTotal = 0;
         timeLeftToReload = 0;
@@ -574,9 +575,7 @@ public class Screen extends ScreenAdapter {
         instructions = new ArrayList<InstructionDrawer>();
         slots=new ArrayList<Artifact>();
         cooledDown = true;
-        /*batch = new SpriteBatch();
-        camera = new OrthographicCamera(screenWidth, screenHeight);
-        camera.position.set(screenWidth / 2, screenHeight / 2, 0);*/
+
         tool.camera.update();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(pl.music));
         backgroundMusic.setLooping(true);

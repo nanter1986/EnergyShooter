@@ -52,7 +52,7 @@ public class EquipManager {
                         if (it1 >= artifacts.size()) {
                             it1 = 0;
                         }
-                        first=artifacts.get(it1);
+
                     }
 
 
@@ -69,7 +69,7 @@ public class EquipManager {
                         if (it2 >= artifacts.size()) {
                             it2 = 0;
                         }
-                        second=artifacts.get(it2);
+
                     }
 
 
@@ -77,6 +77,8 @@ public class EquipManager {
 
                 }
             }
+            first=artifacts.get(it1);
+            second=artifacts.get(it2);
 
             readyArt.add(first);
             readyArt.add(second);

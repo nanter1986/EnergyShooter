@@ -9,5 +9,7 @@ public enum SetOfScreens {
     SELECT,
     SHOP,
     EQUIP,
+    SETTINGS,
+    SAVEMANAGER,
     GAME
 }
