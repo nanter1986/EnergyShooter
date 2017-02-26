@@ -11,14 +11,17 @@ public class Playlevel {
     int laserFrequency;
     int gameStageID;
     int goal;
+    int sff;
+    int dif;
 
-    public Playlevel(String music, String enemyType, String backImage, String movingBack,int laserFrequency,int id,int goal) {
+    public Playlevel(String music, String backImage, String movingBack,int laserFrequency,int spawmFreq,int id,int goal,int difficulty) {
         this.music = music;
-        this.enemy = enemyType;
         this.backImage = backImage;
         this.movingBack=movingBack;
         this.laserFrequency=laserFrequency;
         this.gameStageID=id;
         this.goal=goal;
+        this.sff=spawmFreq;
+        this.dif=difficulty;
     }
 }

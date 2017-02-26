@@ -24,6 +24,7 @@ public class EnemyBad extends Enemy {
         this.xDirection="left";
         this.touchDamageGiven=5;
         this.touchDamageTaken=5;
+        this.laserFrequency=200;
     }
 
     @Override

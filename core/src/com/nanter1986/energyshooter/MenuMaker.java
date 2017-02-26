@@ -22,6 +22,11 @@ public class MenuMaker {
     public static TouchableButtons saveNo;
     public static boolean made=false;
     public static boolean saveManage=false;
+    public static Texture textureYes=new Texture(Gdx.files.internal("menuyesbutton.png"));
+    public static Texture texture=new Texture(Gdx.files.internal("menubutton.png"));
+    public static Texture textureNo=new Texture(Gdx.files.internal("menunobutton.png"));
+
+
 
     public static SetOfScreens makeMenu(DisplayToolkit tool){
         SetOfScreens screen=SetOfScreens.MENU;
@@ -53,8 +58,16 @@ public class MenuMaker {
         tool.batch.draw(playB.texture,playB.buttonX,playB.buttonY,playB.buttonW,playB.buttonH);
         tool.batch.draw(settingsB.texture,settingsB.buttonX,settingsB.buttonY,settingsB.buttonW,settingsB.buttonH);
         tool.batch.draw(saveB.texture,saveB.buttonX,saveB.buttonY,saveB.buttonW,saveB.buttonH);
+        if(saveManage==true){
+            saveNo.texture=textureNo;
+            saveYes.texture=textureYes;
+        }else{
+            saveNo.texture=texture;
+            saveYes.texture=texture;
+        }
         tool.batch.draw(saveYes.texture,saveYes.buttonX,saveYes.buttonY,saveYes.buttonW,saveYes.buttonH);
         tool.batch.draw(saveNo.texture,saveNo.buttonX,saveNo.buttonY,saveNo.buttonW,saveNo.buttonH);
+
         tool.batch.end();
 
         return screen;

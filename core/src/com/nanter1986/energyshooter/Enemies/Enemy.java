@@ -26,6 +26,7 @@ public abstract class Enemy implements Collidable {
     int explosionAnimationY;
     Texture currentTexture;
     static final Texture blue=new Texture(Gdx.files.internal("enemyBlue1.png"));
+    static final Texture green=new Texture(Gdx.files.internal("greenfast.png"));
     static final Texture ufo=new Texture(Gdx.files.internal("ufoBlue.png"));
     static final Texture badass=new Texture(Gdx.files.internal("badassenemy.png"));
     static final Texture red=new Texture(Gdx.files.internal("enemyRed1.png"));
@@ -33,8 +34,7 @@ public abstract class Enemy implements Collidable {
     public int health;
     public int touchDamageGiven;
     public int touchDamageTaken;
-
-
+    public int laserFrequency;
 
 
     public abstract void updatePosition(SpriteBatch b, PlayerShip ship);

@@ -18,7 +18,7 @@ public class MenuPlay extends TouchableButtons {
         this.buttonX=0;
         this.buttonH=(int)screenH/10;
         this.buttonY=(int)screenH*5/10;
-        texture= new Texture(Gdx.files.internal("menubutton.png"));
+        texture= new Texture(Gdx.files.internal("menuplaybutton.png"));
         Gdx.app.log("buttons",buttonX+" "+buttonY+" "+buttonW+" "+buttonH);
     }
 

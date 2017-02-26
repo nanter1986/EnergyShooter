@@ -23,6 +23,8 @@ public class EnemySuperBad extends Enemy {
         this.xDirection="left";
         this.touchDamageGiven=10;
         this.touchDamageTaken=5;
+        this.laserFrequency=100;
+
     }
 
     @Override

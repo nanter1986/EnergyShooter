@@ -9,6 +9,7 @@ import com.nanter1986.energyshooter.DisplayToolkit;
  */
 
 public class SaveNo extends TouchableButtons {
+    public Texture textureOn;
     public SaveNo(DisplayToolkit tool) {
         super(tool);
 
@@ -17,6 +18,7 @@ public class SaveNo extends TouchableButtons {
         this.buttonH=(int)screenH/10;
         this.buttonY=(int)screenH*2/10;
         texture= new Texture(Gdx.files.internal("menubutton.png"));
+        textureOn=new Texture(Gdx.files.internal("menunobutton.png"));
         Gdx.app.log("buttons",buttonX+" "+buttonY+" "+buttonW+" "+buttonH);
     }
 }

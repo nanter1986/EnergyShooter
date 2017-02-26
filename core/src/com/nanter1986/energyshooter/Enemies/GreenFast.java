@@ -1,37 +1,35 @@
 package com.nanter1986.energyshooter.Enemies;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.nanter1986.energyshooter.CollisionChecker;
 import com.nanter1986.energyshooter.Elementaltypes;
 import com.nanter1986.energyshooter.playerships.PlayerShip;
 
 /**
- * Created by user on 15/2/2017.
+ * Created by user on 26/2/2017.
  */
 
-public class EnemySmallBlue extends Enemy {
-    public EnemySmallBlue(int x, int spaceshipY,int screenW,int screenH) {
-        energyBonus=2;
-        this.widthFactor=screenW/30;
+public class GreenFast extends Enemy {
+
+    public GreenFast(int x, int spaceshipY,int screenW,int screenH) {
+        energyBonus=5;
+        this.widthFactor=screenW/10;
         this.heightFactor=screenH/30;
         this.x = x-widthFactor;
         this.y = spaceshipY+screenH+heightFactor;
-        this.health=5;
-        this.currentTexture=blue;
+        this.health=10;
+        this.currentTexture=green;
         this.screenWidth=screenW;
         this.screenHeight=screenH;
         this.touchDamageGiven=2;
         this.touchDamageTaken=10;
-        this.laserFrequency=150;
-
+        this.laserFrequency=50;
     }
 
     @Override
-    public void updatePosition(SpriteBatch b, com.nanter1986.energyshooter.playerships.PlayerShip ship) {
+    public void updatePosition(SpriteBatch b, PlayerShip ship) {
         if(health>0) {
-            y = y - widthFactor/20;
-            b.draw(currentTexture, x, y, widthFactor, widthFactor*2);
+            y = y - widthFactor/40;
+            b.draw(currentTexture, x, y, widthFactor, widthFactor);
 
         }else if(exploded==false){
             explode(b);
@@ -40,16 +38,11 @@ public class EnemySmallBlue extends Enemy {
 
     @Override
     public Elementaltypes whatType() {
-        return Elementaltypes.ICE;
+        return Elementaltypes.FIRE;
     }
 
     @Override
     public LaserOfEnemy laserMaker(float spX) {
-        return new EnemyLaserStar(x + 20, y, spX, screenWidth, screenHeight);
-
+        return new LaserEnemyGreen(x + widthFactor/2, y, spX, screenWidth, screenHeight);
     }
-
-
-
-
 }

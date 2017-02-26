@@ -107,12 +107,15 @@ public class Screen extends ScreenAdapter {
     private SetOfScreens whichScreen=SetOfScreens.MENU;
     private ArrayList<Artifact> artFinalList;
     private boolean effectsDone=false;
+    private int spawnFrequencyFactor;
 
 
     @Override
     public void render(float delta) {
         if(whichScreen==SetOfScreens.GAME){
+
             if(effectsDone==false){
+                spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
                 artifactsTakeEffect(artFinalList);
                 effectsDone=true;
             }
@@ -233,7 +236,7 @@ public class Screen extends ScreenAdapter {
             tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
             tool.prefs.flush();
             whichScreen=SetOfScreens.SHOP;
-            show();
+
         }
         //nukeField();
         checkHealth();
@@ -428,7 +431,7 @@ public class Screen extends ScreenAdapter {
 
     private void createEnemyLasers(Enemy e) {
         Random randomSpawn = new Random();
-        int spawn = randomSpawn.nextInt(150);
+        int spawn = randomSpawn.nextInt(e.laserFrequency);
         if (spawn == 1) {
             if (e.laserMaker(spaceshipPlayer.positionX()) == null) {
 
@@ -465,19 +468,11 @@ public class Screen extends ScreenAdapter {
     }
 
     private void createEnemies() {
-        Random randomSpawn = new Random();
-        Random whereToRandomlySpawnX = new Random();
-        int spawn = randomSpawn.nextInt(3000);
-        int xRandom = whereToRandomlySpawnX.nextInt(screenWidth);
-        if (spawn < 30) {
-            enemies.add(new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
-        } else if (spawn == 101) {
-            enemies.add(new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
-        } else if (spawn == 102) {
-            enemies.add(new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
-        } else if (spawn == 103) {
-            enemies.add(new EnemyUFO(xRandom , spaceshipPlayer.spaceshipY, screenWidth, screenHeight));
+        Enemy en=EnemyCreator.createEnemies(spawnFrequencyFactor,screenWidth,screenHeight,spaceshipPlayer,0);
+        if(en!=null) {
+            enemies.add(en);
         }
+
     }
 
 
@@ -564,6 +559,7 @@ public class Screen extends ScreenAdapter {
         nukedInformed = false;
 
         killsRequired = pl.goal;
+        spawnFrequencyFactor=pl.sff;
         killsTotal = 0;
         timeLeftToReload = 0;
         movingBackImage = pl.movingBack;
