@@ -25,6 +25,7 @@ public class MenuMaker {
     public static Texture textureYes=new Texture(Gdx.files.internal("menuyesbutton.png"));
     public static Texture texture=new Texture(Gdx.files.internal("menubutton.png"));
     public static Texture textureNo=new Texture(Gdx.files.internal("menunobutton.png"));
+    public static Texture logo=new Texture(Gdx.files.internal("logo.png"));
 
 
 
@@ -58,6 +59,7 @@ public class MenuMaker {
         tool.batch.draw(playB.texture,playB.buttonX,playB.buttonY,playB.buttonW,playB.buttonH);
         tool.batch.draw(settingsB.texture,settingsB.buttonX,settingsB.buttonY,settingsB.buttonW,settingsB.buttonH);
         tool.batch.draw(saveB.texture,saveB.buttonX,saveB.buttonY,saveB.buttonW,saveB.buttonH);
+        tool.batch.draw(logo,0,tool.scH*7/10,tool.scW,tool.scH*3/10);
         if(saveManage==true){
             saveNo.texture=textureNo;
             saveYes.texture=textureYes;

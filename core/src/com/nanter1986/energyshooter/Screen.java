@@ -138,13 +138,15 @@ public class Screen extends ScreenAdapter {
 
     private void selectPlane(float delta) {
         whichScreen=GarageManager.goToGame();
-        GarageManager.manageGarage(tool.prefs,tool.batch,tool.font,screenWidth,screenHeight,shopRight,shopLeft,shopExit);
+        GarageManager.manageGarage(tool.prefs,tool.batch,tool.font,screenWidth,screenHeight,shopRight,shopLeft,shopExit,tool);
     }
 
     private void theShop(float delta) {
         money=tool.prefs.getInteger("money",0);
         Gdx.app.log("mon",""+money);
         if(ShopManager.exitShop()){
+            GarageManager.decisionMade=false;
+            GarageManager.listMade=false;
             spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
             whichScreen=SetOfScreens.SELECT;
             ShopManager.doneWithShop=false;
@@ -174,6 +176,7 @@ public class Screen extends ScreenAdapter {
         tool.batch.draw(shopRight.texture,shopRight.buttonX,shopRight.buttonY,shopRight.buttonW,shopRight.buttonH);
         tool.batch.draw(shopLeft.texture,shopLeft.buttonX,shopLeft.buttonY,shopLeft.buttonW,shopLeft.buttonH);
         tool.batch.draw(shopExit.texture,shopExit.buttonX,shopExit.buttonY,shopExit.buttonW,shopExit.buttonH);
+        tool.font.draw(tool.batch,"SHOP", tool.scW*3/10,tool.scH*9/10);
         if(item.price<=money){
             tool.batch.draw(shopBuy.texture,shopBuy.buttonX,shopBuy.buttonY,shopBuy.buttonW,shopBuy.buttonH);
         }
@@ -192,31 +195,15 @@ public class Screen extends ScreenAdapter {
     public void equipScreen(float delta){
 
 
-        ArrayList<Artifact>temp=EquipManager.manageEquipment(spaceshipPlayer.listOfArtifacts,2);
+        ArrayList<Artifact>temp=EquipManager.manageEquipment(spaceshipPlayer.listOfArtifacts,2,tool);
 
-        if (Gdx.input.justTouched()) {
+        if (EquipManager.proceed.isButtonTouched()) {
             changeGameState();
             artFinalList=temp;
             whichScreen=SetOfScreens.GAME;
         }
 
 
-        Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
-                BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        tool.batch.setProjectionMatrix(tool.camera.combined);
-        tool.batch.begin();
-
-
-        for(int i=0;i<temp.size();i++){
-            if(temp.get(i)!=null){
-                tool.font.draw(tool.batch,"Slot "+(i+1)+":"+temp.get(i).name,200,100*(i+1));
-            }else{
-                tool.font.draw(tool.batch,"Slot "+(i+1)+":",200,100*(i+1));
-            }
-        }
-
-        tool.batch.end();
 
     }
 
@@ -227,6 +214,8 @@ public class Screen extends ScreenAdapter {
             backgroundMusic.dispose();
             tool.batch.dispose();
             whichScreen=SetOfScreens.SHOP;
+            show();
+            changeGameState();
         }
         if (killsTotal > killsRequired - 1) {
             backgroundMusic.dispose();
@@ -417,7 +406,10 @@ public class Screen extends ScreenAdapter {
                     instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX + spaceshipPlayer.spaceshipW, spaceshipPlayer.spaceshipY + spaceshipPlayer.spaceshipH, "-" + damage, 1.0f, "red"));
 
                 }
-                createEnemyLasers(e);
+                if(e!=null){
+                    createEnemyLasers(e);
+                }
+
             } else if (e.health <= 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < screenWidth) {
                 if (e.explodedSound == false) {
                     explosionSmall.play();
@@ -435,16 +427,19 @@ public class Screen extends ScreenAdapter {
     }
 
     private void createEnemyLasers(Enemy e) {
-        Random randomSpawn = new Random();
-        int spawn = randomSpawn.nextInt(e.laserFrequency);
-        if (spawn == 1) {
-            if (e.laserMaker(spaceshipPlayer.positionX()) == null) {
+        if(e.laserFrequency>0){
+            Random randomSpawn = new Random();
+            int spawn = randomSpawn.nextInt(e.laserFrequency);
+            if (spawn == 1) {
+                if (e.laserMaker(spaceshipPlayer.positionX()) == null) {
 
-            } else {
-                laserOfEnemies.add(e.laserMaker(spaceshipPlayer.positionX()));
+                } else {
+                    laserOfEnemies.add(e.laserMaker(spaceshipPlayer.positionX()));
+                }
+
             }
-
         }
+
         //Gdx.app.log("laser"," "+e.getClass().toString());
 
     }
@@ -473,7 +468,7 @@ public class Screen extends ScreenAdapter {
     }
 
     private void createEnemies() {
-        Enemy en=EnemyCreator.createEnemies(spawnFrequencyFactor,screenWidth,screenHeight,spaceshipPlayer,0);
+        Enemy en=EnemyCreator.createEnemies(spawnFrequencyFactor,screenWidth,screenHeight,spaceshipPlayer,l.dif);
         if(en!=null) {
             enemies.add(en);
         }
@@ -497,9 +492,9 @@ public class Screen extends ScreenAdapter {
 
             } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
                 float accel = Gdx.input.getAccelerometerX();
-                if (accel > 1) {
+                if (accel > 0) {
                     spaceshipPlayer.spaceshipX -= screenWidth / 100;
-                } else if (accel < -1) {
+                } else if (accel < 0) {
                     spaceshipPlayer.spaceshipX += screenWidth / 100;
                 }
             }
@@ -543,7 +538,9 @@ public class Screen extends ScreenAdapter {
         shipIndex=tool.prefs.getInteger("shipindex",0);
 
         l = Levels.levelReturner(stateOfGame);
-
+        if(backgroundMusic!=null) {
+            backgroundMusic.dispose();
+        }
         makePlayLevel(l);
     }
 

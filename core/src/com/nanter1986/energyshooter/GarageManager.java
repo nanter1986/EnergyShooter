@@ -25,7 +25,7 @@ public class GarageManager {
     public static boolean decisionMade=false;
     public static ArrayList<ShopItem>owned=new ArrayList<ShopItem>();
     public static void manageGarage(Preferences prefs, SpriteBatch b, BitmapFont font, int scW, int scH,
-                                    TouchableButtons r, TouchableButtons l, TouchableButtons c){
+                                    TouchableButtons r, TouchableButtons l, TouchableButtons c,DisplayToolkit tool){
         if(listMade==false){
             makeList(prefs);
         }
@@ -58,6 +58,7 @@ public class GarageManager {
         b.draw(r.texture,r.buttonX,r.buttonY,r.buttonW,r.buttonH);
         b.draw(l.texture,l.buttonX,l.buttonY,l.buttonW,l.buttonH);
         b.draw(c.texture,c.buttonX,c.buttonY,c.buttonW,c.buttonH);
+        tool.font.draw(tool.batch,"CHOOSE SPACECRAFT", tool.scW*3/10,tool.scH*9/10);
 
         b.end();
 
@@ -67,13 +68,19 @@ public class GarageManager {
     public static SetOfScreens goToGame(){
         SetOfScreens s=SetOfScreens.SELECT;
         if(decisionMade){
-            s=SetOfScreens.EQUIP;
             decisionMade=false;
+            listMade=false;
+            s=SetOfScreens.EQUIP;
         }
         return s;
     }
 
     public static void makeList(Preferences prefs){
+        listMade=false;
+        iterator=0;
+        rotator=0;
+        decisionMade=false;
+        owned.clear();
         owned.add(new ShopItem("f5s1",0,new Texture(Gdx.files.internal("F5S1.png")),prefs));
         /*owned.add(new ShopItem("Bullet",500,new Texture(Gdx.files.internal("F5S4.png")),prefs));
         owned.add(new ShopItem("Bat",1000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
@@ -83,13 +90,12 @@ public class GarageManager {
             owned.add(new ShopItem("Bullet",500,new Texture(Gdx.files.internal("F5S4.png")),prefs));
         }
         if(prefs.getBoolean("Bat")){
-            owned.add(new ShopItem("Bat",1000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
+            owned.add(new ShopItem("Bat",2000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
         }
         if(prefs.getBoolean("Demon")){
-            owned.add(new ShopItem("Demon",2000,new Texture(Gdx.files.internal("wingship.png")),prefs));
+            owned.add(new ShopItem("Demon",1000,new Texture(Gdx.files.internal("wingship.png")),prefs));
 
         }
-
         if(prefs.getBoolean("Sinister")){
             owned.add(new ShopItem("Sinister",5000,new Texture(Gdx.files.internal("sinister.png")),prefs));
         }
