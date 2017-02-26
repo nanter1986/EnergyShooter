@@ -44,6 +44,7 @@ import com.nanter1986.energyshooter.shop.ShopItem;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by user on 11/2/2017.
@@ -181,7 +182,7 @@ public class Screen extends ScreenAdapter {
 
     private void artifactsTakeEffect(ArrayList<Artifact>aList) {
         for(Artifact a:aList){
-            Gdx.app.log("arts",""+a.name+" "+spaceshipPlayer.energyDrawn);
+
             a.work(spaceshipPlayer);
         }
 
@@ -224,7 +225,7 @@ public class Screen extends ScreenAdapter {
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
             backgroundMusic.dispose();
             tool.batch.dispose();
-            show();
+            whichScreen=SetOfScreens.SHOP;
         }
         if (killsTotal > killsRequired - 1) {
             backgroundMusic.dispose();
@@ -367,6 +368,7 @@ public class Screen extends ScreenAdapter {
             tool.font.draw(tool.batch, "Energy:0", 0, spaceshipPlayer.spaceshipY + 50);
         } else {
             tool.font.setColor(Color.WHITE);
+            tool.font.draw(tool.batch,l.title,0,screenHeight-25);
             tool.font.draw(tool.batch, "Money:" + money, 0, spaceshipPlayer.spaceshipY + 150);
             tool.font.draw(tool.batch, "Slot 2:" + artFinalList.get(1).name, 0, spaceshipPlayer.spaceshipY + 125);
             tool.font.draw(tool.batch, "Slot 1:" + artFinalList.get(0).name, 0, spaceshipPlayer.spaceshipY + 100);

@@ -74,7 +74,7 @@ public class ShopManager {
     public static void makeItemList(){
         ArrayList<ShopItem>temp=new ArrayList<ShopItem>();
         temp.add(new ShopItem("Bullet",50,new Texture(Gdx.files.internal("F5S4.png")),prefs));
-        temp.add(new ShopItem("Gold Saucer",1000,new Texture(Gdx.files.internal("spaceshipGood.png")),prefs));
+        temp.add(new ShopItem("Demon",1000,new Texture(Gdx.files.internal("wingship.png")),prefs));
         temp.add(new ShopItem("Bat",2000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
         temp.add(new ShopItem("Sinister",5000,new Texture(Gdx.files.internal("sinister.png")),prefs));
         itemList.clear();

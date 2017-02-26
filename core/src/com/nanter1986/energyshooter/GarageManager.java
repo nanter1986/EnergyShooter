@@ -74,19 +74,24 @@ public class GarageManager {
 
     public static void makeList(Preferences prefs){
         owned.add(new ShopItem("f5s1",0,new Texture(Gdx.files.internal("F5S1.png")),prefs));
-        if(prefs.getBoolean("Bullet")){
+        owned.add(new ShopItem("Bullet",500,new Texture(Gdx.files.internal("F5S4.png")),prefs));
+        owned.add(new ShopItem("Bat",1000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
+        owned.add(new ShopItem("Demon",2000,new Texture(Gdx.files.internal("wingship.png")),prefs));
+        owned.add(new ShopItem("Sinister",5000,new Texture(Gdx.files.internal("sinister.png")),prefs));
+        /*if(prefs.getBoolean("Bullet")){
             owned.add(new ShopItem("Bullet",500,new Texture(Gdx.files.internal("F5S4.png")),prefs));
         }
-        if(prefs.getBoolean("Gold Saucer")){
-            owned.add(new ShopItem("Gold Saucer",1000,new Texture(Gdx.files.internal("spaceshipGood.png")),prefs));
+        if(prefs.getBoolean("Bat")){
+            owned.add(new ShopItem("Bat",1000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
+        }
+        if(prefs.getBoolean("Demon")){
+            owned.add(new ShopItem("Demon",2000,new Texture(Gdx.files.internal("wingship.png")),prefs));
 
         }
-        if(prefs.getBoolean("Bat")){
-            owned.add(new ShopItem("Bat",2000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
-        }
+
         if(prefs.getBoolean("Sinister")){
             owned.add(new ShopItem("Sinister",5000,new Texture(Gdx.files.internal("sinister.png")),prefs));
-        }
+        }*/
 
 
 

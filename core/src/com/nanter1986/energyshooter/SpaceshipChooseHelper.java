@@ -21,11 +21,11 @@ public class SpaceshipChooseHelper {
         }else if(choosen.equals("Bullet")){
             ship=new PlayershipGood(tool);
         }else if(choosen.equals("Sinister")){
-            ship=new PlayershipSinister(tool.scW);
+            ship=new PlayershipSinister(tool.scW,tool.scH);
         }else if(choosen.equals("Bat")){
-            ship=new PlayershipBlue(tool.scW);
-        }else if(choosen.equals("Gold Saucer")){
-            ship=new PlayershipWingship(tool.scW);
+            ship=new PlayershipBlue(tool.scW,tool.scH);
+        }else if(choosen.equals("Demon")){
+            ship=new PlayershipWingship(tool.scW,tool.scH);
         }
 
         return ship;
