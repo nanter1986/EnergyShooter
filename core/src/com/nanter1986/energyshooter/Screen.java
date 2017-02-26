@@ -147,6 +147,7 @@ public class Screen extends ScreenAdapter {
         if(ShopManager.exitShop()){
             spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
             whichScreen=SetOfScreens.SELECT;
+            ShopManager.doneWithShop=false;
         }
 
 
@@ -237,6 +238,8 @@ public class Screen extends ScreenAdapter {
             tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
             tool.prefs.flush();
             whichScreen=SetOfScreens.SHOP;
+            show();
+            changeGameState();
 
         }
         //nukeField();
@@ -573,6 +576,7 @@ public class Screen extends ScreenAdapter {
         instructions = new ArrayList<InstructionDrawer>();
         slots=new ArrayList<Artifact>();
         cooledDown = true;
+        effectsDone=false;
 
         tool.camera.update();
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal(pl.music));
