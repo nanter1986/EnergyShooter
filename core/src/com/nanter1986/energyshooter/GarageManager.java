@@ -68,6 +68,7 @@ public class GarageManager {
         SetOfScreens s=SetOfScreens.SELECT;
         if(decisionMade){
             s=SetOfScreens.EQUIP;
+            decisionMade=false;
         }
         return s;
     }
