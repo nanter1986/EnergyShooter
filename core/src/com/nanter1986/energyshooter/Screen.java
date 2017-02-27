@@ -56,8 +56,6 @@ public class Screen extends ScreenAdapter {
 
     private static final Color BACKGROUND_COLOR = new Color(0f, 0f, 0f, 1.0f);
 
-    private static final Texture neptune = new Texture(Gdx.files.internal("neptune.jpg"));
-
 
     Playlevel l;
 
@@ -78,10 +76,7 @@ public class Screen extends ScreenAdapter {
 
     private Texture level;
 
-    public TouchableButtons shopLeft;
-    public TouchableButtons shopRight;
-    public TouchableButtons shopBuy;
-    public TouchableButtons shopExit;
+
 
 
     ArrayList<Enemy> enemies;
@@ -133,55 +128,15 @@ public class Screen extends ScreenAdapter {
     }
 
     private void menuScreen(float delta) {
-        whichScreen=MenuMaker.makeMenu(tool);
+
     }
 
     private void selectPlane(float delta) {
-        whichScreen=GarageManager.goToGame();
-        GarageManager.manageGarage(tool.prefs,tool.batch,tool.font,screenWidth,screenHeight,shopRight,shopLeft,shopExit,tool);
+
     }
 
     private void theShop(float delta) {
-        money=tool.prefs.getInteger("money",0);
-        Gdx.app.log("mon",""+money);
-        if(ShopManager.exitShop()){
-            GarageManager.decisionMade=false;
-            GarageManager.listMade=false;
-            spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
-            whichScreen=SetOfScreens.SELECT;
-            ShopManager.doneWithShop=false;
-        }
 
-
-        ShopItem item=ShopManager.shopManage(shopRight,shopLeft,shopBuy,shopExit,money);
-
-
-        money=money-ShopManager.boughtSomething();
-        tool.prefs.putInteger("money",money);
-        tool.prefs.flush();
-
-
-        int angle=ShopManager.itemRotator;
-        TextureRegion tr=new TextureRegion(item.texture);
-        Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g,
-                BACKGROUND_COLOR.b, BACKGROUND_COLOR.a);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        tool.batch.setProjectionMatrix(tool.camera.combined);
-        tool.batch.begin();
-        tool.batch.draw(tr,screenWidth/2-100,screenHeight/2-100,100,100,
-                200,200,1,01,angle);
-        tool.font.draw(tool.batch,"Money:"+ money, 0, screenHeight*3/8);
-        tool.font.draw(tool.batch,"Name:"+ item.name, 0, screenHeight*2/8);
-        tool.font.draw(tool.batch,"Price:"+ item.price, 0, screenHeight*1/8);
-        tool.batch.draw(shopRight.texture,shopRight.buttonX,shopRight.buttonY,shopRight.buttonW,shopRight.buttonH);
-        tool.batch.draw(shopLeft.texture,shopLeft.buttonX,shopLeft.buttonY,shopLeft.buttonW,shopLeft.buttonH);
-        tool.batch.draw(shopExit.texture,shopExit.buttonX,shopExit.buttonY,shopExit.buttonW,shopExit.buttonH);
-        tool.font.draw(tool.batch,"SHOP", tool.scW*3/10,tool.scH*9/10);
-        if(item.price<=money){
-            tool.batch.draw(shopBuy.texture,shopBuy.buttonX,shopBuy.buttonY,shopBuy.buttonW,shopBuy.buttonH);
-        }
-
-        tool.batch.end();
     }
 
     private void artifactsTakeEffect(ArrayList<Artifact>aList) {
@@ -526,7 +481,7 @@ public class Screen extends ScreenAdapter {
             screenWidth = Gdx.graphics.getWidth();
         }
         tool=new DisplayToolkit(screenWidth,screenHeight);
-        shopButtons();
+
 
     }
 
@@ -542,15 +497,6 @@ public class Screen extends ScreenAdapter {
             backgroundMusic.dispose();
         }
         makePlayLevel(l);
-    }
-
-    private void shopButtons(){
-        shopLeft=new ShopLeft(tool);
-        shopRight=new ShopRight(tool);
-        shopBuy=new ShopBuy(tool);
-        shopExit=new ShopExit(tool);
-        tool.camera.update();
-
     }
 
 

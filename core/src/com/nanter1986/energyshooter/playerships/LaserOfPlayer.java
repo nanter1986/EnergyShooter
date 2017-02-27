@@ -76,6 +76,11 @@ public class LaserOfPlayer implements Collidable {
             this.h=widthFactor;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
+        }else if(typeOfLaser.equals("wide")){
+            this.w=widthFactor*10;
+            this.h=widthFactor/2;
+            this.y = spaceshipY+spaceshipH;
+            this.x = spaceshipX+spaceshipW/2-w/2;
         }
 
 
@@ -116,6 +121,9 @@ public class LaserOfPlayer implements Collidable {
             }else if(typeOfLaser.equals("sideR")){
                 x = x + widthFactor;
                 b.draw(laserMulti, x, y, w, h);
+            }else if(typeOfLaser.equals("wide")){
+                x = x + widthFactor;
+                b.draw(laser, x, y, w, h);
             }
         }
 
