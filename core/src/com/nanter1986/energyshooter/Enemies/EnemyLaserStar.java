@@ -8,9 +8,12 @@ import com.nanter1986.energyshooter.CollisionChecker;
  */
 
 public class EnemyLaserStar extends LaserOfEnemy {
+
+
     public EnemyLaserStar(float x, float y, float spaceshipX, int screenW, int screenH) {
         super(x, y, spaceshipX, screenW, screenH);
         this.touchDamageGiven=1;
+        doneColliding=false;
     }
 
     @Override
@@ -28,4 +31,8 @@ public class EnemyLaserStar extends LaserOfEnemy {
         }
     }
 
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

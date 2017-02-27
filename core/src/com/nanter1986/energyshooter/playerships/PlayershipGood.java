@@ -25,9 +25,11 @@ import java.util.ArrayList;
 
 public class PlayershipGood extends PlayerShip {
 
+
     private static final Texture spaceshipGood=new Texture(Gdx.files.internal("F5S4.png"));
 
     public PlayershipGood(DisplayToolkit tool) {
+        doneColliding=false;
         this.spaceshipHealth = 20;
         this.spaceshipX = tool.scW / 2;
         this.spaceshipY = 0;
@@ -147,4 +149,8 @@ public class PlayershipGood extends PlayerShip {
         }
     }
 
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

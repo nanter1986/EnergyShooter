@@ -240,6 +240,7 @@ public class GameplayScreen implements Screen{
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
                     l.used=true;
+                    l.doneColliding=true;
                     instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX + spaceshipPlayer.spaceshipW, spaceshipPlayer.spaceshipY + spaceshipPlayer.spaceshipH, "-" + damage, 1.0f, "red"));
                     touchedEnemyLaser.play();
                 }
@@ -266,8 +267,8 @@ public class GameplayScreen implements Screen{
     private void drawEnemies() {
         ArrayList<Enemy> toRemove = new ArrayList<Enemy>();
         for (Enemy e : enemies) {
-            if (e.exploded == true || e.y < spaceshipPlayer.spaceshipY) {
-
+            if (e.exploded == true || e.y <=0) {
+                Gdx.app.log("remove",e.whatType().toString());
                 toRemove.add(e);
 
             }
@@ -289,6 +290,7 @@ public class GameplayScreen implements Screen{
 
             } else if (e.health <= 0 && e.y > spaceshipPlayer.spaceshipY && e.x > 0 && e.x < tool.scW) {
                 if (e.explodedSound == false) {
+                    e.doneColliding=true;
                     explosionSmall.play();
                     e.explodedSound = true;
                     spaceshipPlayer.spaceshipHealth += (e.energyBonus*spaceshipPlayer.energyDrawn);
@@ -296,7 +298,7 @@ public class GameplayScreen implements Screen{
                     instructions.add(new InstructionDrawer(e.x, e.y, "+" + e.energyBonus, 1.0f, "green"));
                 }
                 e.updatePosition(tool.batch, spaceshipPlayer);
-                e.checkCollisionWithPlayer(spaceshipPlayer);
+                //e.checkCollisionWithPlayer(spaceshipPlayer);
             }
         }
     }

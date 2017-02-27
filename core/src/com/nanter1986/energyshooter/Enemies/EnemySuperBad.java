@@ -9,6 +9,8 @@ import com.nanter1986.energyshooter.Elementaltypes;
  */
 
 public class EnemySuperBad extends Enemy {
+
+
     String xDirection;
     public EnemySuperBad(int x, float spaceshipY,int screenW,int screenH) {
         energyBonus=10;
@@ -24,6 +26,7 @@ public class EnemySuperBad extends Enemy {
         this.touchDamageGiven=10;
         this.touchDamageTaken=5;
         this.laserFrequency=100;
+        doneColliding=false;
 
     }
 
@@ -54,6 +57,7 @@ public class EnemySuperBad extends Enemy {
 
         }else if(exploded==false){
             explode(b);
+            doneColliding=true;
         }
     }
 
@@ -68,6 +72,8 @@ public class EnemySuperBad extends Enemy {
     }
 
 
-
-
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

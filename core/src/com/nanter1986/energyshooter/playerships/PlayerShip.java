@@ -43,6 +43,7 @@ public abstract class PlayerShip implements Collidable {
     public ArrayList<LaserOfPlayer> laserOfPlayer;
     ArrayList<InstructionDrawer> instructions;
     public ArrayList<Artifact>listOfArtifacts;
+    public boolean doneColliding;
 
 
     public int screenW;

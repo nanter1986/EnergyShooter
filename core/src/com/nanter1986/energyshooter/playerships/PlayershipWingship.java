@@ -27,6 +27,7 @@ public class PlayershipWingship extends PlayerShip {
     private static final Texture spaceshipWingShip = new Texture(Gdx.files.internal("wingship.png"));
 
     public PlayershipWingship(int screenW, int screenH) {
+        doneColliding=false;
         this.spaceshipHealth = 30;
         this.spaceshipX = screenW / 2;
         this.spaceshipY = 0;
@@ -148,10 +149,15 @@ public class PlayershipWingship extends PlayerShip {
         for (LaserOfPlayer l : laserOfPlayer) {
             l.updatePosition(b);
             for (Enemy e : enemies) {
-                float damage = l.dealDamage(e, this);
+                float damage = l.dealDamage(e,this);
                 e.health -= damage;
             }
         }
+    }
+
+    @Override
+    public boolean done() {
+        return doneColliding;
     }
 }
 

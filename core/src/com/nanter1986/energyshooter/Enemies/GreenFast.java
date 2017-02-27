@@ -1,5 +1,6 @@
 package com.nanter1986.energyshooter.Enemies;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nanter1986.energyshooter.Elementaltypes;
 import com.nanter1986.energyshooter.playerships.PlayerShip;
@@ -9,6 +10,8 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
  */
 
 public class GreenFast extends Enemy {
+
+
 
     public GreenFast(int x, int spaceshipY,int screenW,int screenH) {
         energyBonus=5;
@@ -23,6 +26,7 @@ public class GreenFast extends Enemy {
         this.touchDamageGiven=2;
         this.touchDamageTaken=10;
         this.laserFrequency=50;
+        doneColliding=false;
     }
 
     @Override
@@ -31,8 +35,11 @@ public class GreenFast extends Enemy {
             y = y - widthFactor/40;
             b.draw(currentTexture, x, y, widthFactor, widthFactor);
 
+
+
         }else if(exploded==false){
             explode(b);
+            doneColliding=true;
         }
     }
 
@@ -44,5 +51,10 @@ public class GreenFast extends Enemy {
     @Override
     public LaserOfEnemy laserMaker(float spX) {
         return new LaserEnemyGreen(x + widthFactor/2, y, spX, screenWidth, screenHeight);
+    }
+
+    @Override
+    public boolean done() {
+        return doneColliding;
     }
 }

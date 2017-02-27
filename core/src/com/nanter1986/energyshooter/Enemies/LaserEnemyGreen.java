@@ -9,9 +9,11 @@ import com.nanter1986.energyshooter.Enemies.LaserOfEnemy;
  */
 
 public class LaserEnemyGreen extends LaserOfEnemy {
+
     public LaserEnemyGreen(float x, float y, float spaceshipX, int screenW, int screenH) {
         super(x, y, spaceshipX, screenW, screenH);
         this.touchDamageGiven=5;
+        doneColliding=false;
     }
 
     @Override
@@ -22,4 +24,8 @@ public class LaserEnemyGreen extends LaserOfEnemy {
     }
 
 
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

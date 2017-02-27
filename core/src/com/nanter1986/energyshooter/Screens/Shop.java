@@ -98,7 +98,7 @@ public class Shop implements Screen {
            game.setScreen(new ChoosePlane(game));
         }
 
-        Gdx.app.log("mon",""+money);
+
 
         money=money-ShopManager.boughtSomething();
         tool.prefs.putInteger("money",money);
@@ -153,11 +153,14 @@ public class Shop implements Screen {
 
     public static void makeItemList(){
         ArrayList<ShopItem>temp=new ArrayList<ShopItem>();
-        temp.add(new ShopItem("Bullet",50,new Texture(Gdx.files.internal("F5S4.png")),prefs));
+        temp.add(new ShopItem("Bullet",500,new Texture(Gdx.files.internal("F5S4.png")),prefs));
         temp.add(new ShopItem("Demon",1000,new Texture(Gdx.files.internal("wingship.png")),prefs));
         temp.add(new ShopItem("Bat",2000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
-        temp.add(new ShopItem("Sinister",5000,new Texture(Gdx.files.internal("sinister.png")),prefs));
+        temp.add(new ShopItem("Sinister",3000,new Texture(Gdx.files.internal("sinister.png")),prefs));
+        temp.add(new ShopItem("Manta",5000,new Texture(Gdx.files.internal("manta.png")),prefs));
         itemList.clear();
+        itemIterator=0;
+        itemRotator=0;
 
         for (ShopItem s:temp){
             if(s.haveIt==false && prefs.getInteger(s.name)==0){

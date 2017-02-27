@@ -31,6 +31,7 @@ public class LaserOfPlayer implements Collidable {
     public boolean exploded;
     public boolean collided;
     private boolean dealt;
+    private boolean doneColliding=false;
 
 
     public LaserOfPlayer(int spaceshipX, int spaceshipY,int spaceshipW,int spaceshipH,String type,int screenW) {
@@ -77,7 +78,7 @@ public class LaserOfPlayer implements Collidable {
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
         }else if(typeOfLaser.equals("wide")){
-            this.w=widthFactor*10;
+            this.w=spaceshipW;
             this.h=widthFactor/2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW/2-w/2;
@@ -88,11 +89,11 @@ public class LaserOfPlayer implements Collidable {
     }
 
     public void updatePosition(SpriteBatch b){
-        
+
         if(exploded==true){
 
-        }else if(dealt==true){
-           
+        }else if(dealt==true && typeOfLaser!="wide"){
+
             explode(b);
 
         }else{
@@ -122,12 +123,12 @@ public class LaserOfPlayer implements Collidable {
                 x = x + widthFactor;
                 b.draw(laserMulti, x, y, w, h);
             }else if(typeOfLaser.equals("wide")){
-                x = x + widthFactor;
+                y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
             }
         }
 
-        
+
 
 
 
@@ -188,5 +189,10 @@ public class LaserOfPlayer implements Collidable {
     @Override
     public float height() {
         return h;
+    }
+
+    @Override
+    public boolean done() {
+        return doneColliding;
     }
 }

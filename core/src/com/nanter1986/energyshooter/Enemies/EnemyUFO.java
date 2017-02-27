@@ -24,6 +24,7 @@ public class EnemyUFO extends Enemy {
         this.xDirection="left";
         this.touchDamageGiven=20;
         this.touchDamageTaken=20;
+        doneColliding=false;
     }
 
     @Override
@@ -34,6 +35,7 @@ public class EnemyUFO extends Enemy {
             }
         else if(exploded==false){
             explode(b);
+            doneColliding=true;
         }
     }
 
@@ -48,4 +50,8 @@ public class EnemyUFO extends Enemy {
     }
 
 
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

@@ -13,6 +13,7 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
  */
 
 public abstract class Enemy implements Collidable {
+    public boolean doneColliding;
     public int energyBonus;
     float widthFactor;
     float heightFactor;
@@ -48,6 +49,9 @@ public abstract class Enemy implements Collidable {
         if(CollisionChecker.checkCollision(this,ship)){
             health-=touchDamageTaken;
             damage=touchDamageGiven/ship.shield;
+        }
+        if(health<=0){
+
         }
 
         return damage;

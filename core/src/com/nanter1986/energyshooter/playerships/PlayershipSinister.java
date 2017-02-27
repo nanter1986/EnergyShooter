@@ -28,6 +28,7 @@ public class PlayershipSinister extends PlayerShip {
 
 
     public PlayershipSinister(int screenW, int screenH) {
+        doneColliding=false;
         this.spaceshipHealth = 50;
         this.spaceshipX = screenW / 2;
         this.spaceshipY = 0;
@@ -154,9 +155,14 @@ public class PlayershipSinister extends PlayerShip {
         for (LaserOfPlayer l : laserOfPlayer) {
             l.updatePosition(b);
             for (Enemy e : enemies) {
-                float damage = l.dealDamage(e, this);
+                float damage = l.dealDamage(e,this);
                 e.health -= damage;
             }
         }
+    }
+
+    @Override
+    public boolean done() {
+        return doneColliding;
     }
 }

@@ -9,8 +9,9 @@ public class CollisionChecker {
         boolean collided=false;
         if(c1.positionX()+c1.width()>c2.positionX() &&
                 c1.positionX()<c2.positionX()+c2.width() &&
-                c1.positionY()+c1.width()>c2.positionY() &&
-                c1.positionY()<c2.positionY()+c2.width()){
+                c1.positionY()+c1.height()>c2.positionY() &&
+                c1.positionY()<c2.positionY()+c2.height() &&
+                c1.done()==false && c2.done()==false){
             collided=true;
         }
 

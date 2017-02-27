@@ -20,6 +20,7 @@ public abstract class LaserOfEnemy implements Collidable {
     static final Texture green=new Texture(Gdx.files.internal("laserenemygreen.png"));
     public boolean used;
     public int touchDamageGiven;
+    public boolean doneColliding;
 
     public LaserOfEnemy(float x, float y,float spaceshipX,int screenW,int screenH) {
         this.widthFactor=screenW/20;
@@ -40,6 +41,7 @@ public abstract class LaserOfEnemy implements Collidable {
         float damage=0;
         if(CollisionChecker.checkCollision(this,ship)){
             damage=touchDamageGiven/ship.shield;
+            used=true;
         }
 
         return damage;

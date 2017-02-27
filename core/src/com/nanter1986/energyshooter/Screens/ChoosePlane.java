@@ -140,6 +140,10 @@ public class ChoosePlane implements Screen{
             owned.add(new ShopItem("Sinister",5000,new Texture(Gdx.files.internal("sinister.png")),prefs));
         }
 
+        if(prefs.getBoolean("Manta")){
+            owned.add(new ShopItem("Manta",5000,new Texture(Gdx.files.internal("manta.png")),prefs));
+        }
+
 
 
 

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class PlayershipBlue extends PlayerShip {
 
+
     private static final Texture spaceshipCoolBlue=new Texture(Gdx.files.internal("coolBlue.png"));
 
     public PlayershipBlue(int screenW, int screenH) {
@@ -32,6 +33,7 @@ public class PlayershipBlue extends PlayerShip {
         this.spaceshipY = 0;
         this.widthFactor = screenW / 6;
         this.died = false;
+        doneColliding=false;
 
         this.laserOfPlayer = new ArrayList<LaserOfPlayer>();
         this.instructions = new ArrayList<InstructionDrawer>();
@@ -148,9 +150,14 @@ public class PlayershipBlue extends PlayerShip {
         for (LaserOfPlayer l : laserOfPlayer) {
             l.updatePosition(b);
             for (Enemy e : enemies) {
-                float damage = l.dealDamage(e, this);
+                float damage = l.dealDamage(e,this);
                 e.health -= damage;
             }
         }
+    }
+
+    @Override
+    public boolean done() {
+        return doneColliding;
     }
 }

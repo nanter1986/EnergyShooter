@@ -4,6 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.nanter1986.energyshooter.Artifacts.Artifact;
+import com.nanter1986.energyshooter.Artifacts.BasicShield;
+import com.nanter1986.energyshooter.Artifacts.Damager;
+import com.nanter1986.energyshooter.Artifacts.DarknessKiller;
+import com.nanter1986.energyshooter.Artifacts.EnergyBoosterOne;
+import com.nanter1986.energyshooter.Artifacts.FireKiller;
+import com.nanter1986.energyshooter.Artifacts.IceKiller;
+import com.nanter1986.energyshooter.Artifacts.LightsDown;
+import com.nanter1986.energyshooter.Artifacts.Speeder;
+import com.nanter1986.energyshooter.DisplayToolkit;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.InstructionDrawer;
 
@@ -14,11 +24,42 @@ import java.util.ArrayList;
  */
 
 public class PlayershipManta extends PlayerShip{
+    public PlayershipManta(DisplayToolkit tool) {
+        doneColliding=false;
+        this.spaceshipHealth = 20;
+        this.spaceshipX = tool.scW / 2;
+        this.spaceshipY = 0;
+        this.widthFactor = tool.scH / 10;
+        this.died = false;
+        this.laserOfPlayer=new ArrayList<LaserOfPlayer>();
+        this.instructions=new ArrayList<InstructionDrawer>();
+        this.screenW=tool.scW;
+        this.screenH=tool.scH;
+        this.shield=1;
+        this.numOfSlots=1;
+        this.spaceshipSpeed=1;
+        this.energyDrawn=1;
+        this.damageFactorDark=1;
+        this.damageFactorFire=1;
+        this.damageFactorIce=1;
+        this.damageFactorLight=1;
+
+        this.listOfArtifacts=new ArrayList<Artifact>();
+        listOfArtifacts.add(new BasicShield());
+        listOfArtifacts.add(new EnergyBoosterOne());
+        listOfArtifacts.add(new Speeder());
+        listOfArtifacts.add(new Damager());
+        listOfArtifacts.add(new FireKiller());
+        listOfArtifacts.add(new IceKiller());
+        listOfArtifacts.add(new DarknessKiller());
+        listOfArtifacts.add(new LightsDown());
+    }
+
     private static final Texture spaceshipmanta=new Texture(Gdx.files.internal("manta.png"));
     @Override
     public void updatePosition(SpriteBatch b) {
-        spaceshipW = widthFactor;
-        spaceshipH = 3*widthFactor;
+        spaceshipW = 3*widthFactor;
+        spaceshipH = widthFactor;
 
         if (spaceshipHealth > 0) {
 
@@ -67,12 +108,9 @@ public class PlayershipManta extends PlayerShip{
                 cooledDown = true;
             }
         }else{
-            LaserOfPlayer la = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightL",this.screenW);
-            LaserOfPlayer lb = new LaserOfPlayer(spaceshipX , spaceshipY, spaceshipW, spaceshipH, "straightR",this.screenW);
+            LaserOfPlayer la = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "wide",this.screenW);
             laserOfPlayer.add(la);
-            laserOfPlayer.add(lb);
             la.playSound();
-            lb.playSound();
             cooledDown = false;
             timeLeftToReload=timeLeftToReloadMax/speedModifier;
             if(touchedDown==false){
@@ -105,4 +143,8 @@ public class PlayershipManta extends PlayerShip{
         }
     }
 
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

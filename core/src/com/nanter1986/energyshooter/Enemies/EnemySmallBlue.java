@@ -11,6 +11,8 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
  */
 
 public class EnemySmallBlue extends Enemy {
+
+
     public EnemySmallBlue(int x, int spaceshipY,int screenW,int screenH) {
         energyBonus=2;
         this.widthFactor=screenW/30;
@@ -24,6 +26,7 @@ public class EnemySmallBlue extends Enemy {
         this.touchDamageGiven=2;
         this.touchDamageTaken=10;
         this.laserFrequency=150;
+        doneColliding=false;
 
     }
 
@@ -35,6 +38,7 @@ public class EnemySmallBlue extends Enemy {
 
         }else if(exploded==false){
             explode(b);
+            doneColliding=true;
         }
     }
 
@@ -50,6 +54,8 @@ public class EnemySmallBlue extends Enemy {
     }
 
 
-
-
+    @Override
+    public boolean done() {
+        return doneColliding;
+    }
 }

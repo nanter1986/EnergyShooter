@@ -9,4 +9,5 @@ public interface Collidable {
     float positionY();
     float width();
     float height();
+    boolean done();
 }
