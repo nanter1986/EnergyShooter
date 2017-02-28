@@ -52,35 +52,35 @@ public class Levels {
         }else if(gamestate==21){
             l=new Playlevel("Stage:Jupiter 3/6","graysky.mp3","jupiter.jpg","meteor",12,3000,15,330,7);
         }else if(gamestate==22){
-            l=new Playlevel("Stage:Jupiter 4/6","graysky.mp3","jupiter.jpg","meteor",12,3000,16,340,8);
+            l=new Playlevel("Stage:Jupiter 4/6","graysky.mp3","jupiter.jpg","meteor",12,3000,16,340,7);
         }else if(gamestate==23){
-            l=new Playlevel("Stage:Jupiter 5/6","graysky.mp3","jupiter.jpg","meteor",12,3000,17,350,8);
+            l=new Playlevel("Stage:Jupiter 5/6","graysky.mp3","jupiter.jpg","meteor",12,3000,17,350,7);
         }else if(gamestate==24){
-            l=new Playlevel("Stage:Jupiter 6/6","graysky.mp3","jupiter.jpg","meteor",12,3000,18,360,8);
+            l=new Playlevel("Stage:Jupiter 6/6","graysky.mp3","jupiter.jpg","meteor",12,3000,18,360,7);
         }else if(gamestate==25){
-            l=new Playlevel("Stage:Mars 1/6","graysky.mp3","mars.jpg","meteor",12,3000,13,370,9);
+            l=new Playlevel("Stage:Mars 1/6","graysky.mp3","mars.jpg","meteor",12,3000,13,370,8);
         }else if(gamestate==26){
-            l=new Playlevel("Stage:Mars 2/6","graysky.mp3","mars.jpg","meteor",12,3000,14,380,9);
+            l=new Playlevel("Stage:Mars 2/6","graysky.mp3","mars.jpg","meteor",12,3000,14,380,8);
         }else if(gamestate==27){
-            l=new Playlevel("Stage:Mars 3/6","graysky.mp3","mars.jpg","meteor",12,3000,15,390,9);
+            l=new Playlevel("Stage:Mars 3/6","graysky.mp3","mars.jpg","meteor",12,3000,15,390,8);
         }else if(gamestate==28){
-            l=new Playlevel("Stage:Mars 4/6","graysky.mp3","mars.jpg","meteor",12,3000,16,400,10);
+            l=new Playlevel("Stage:Mars 4/6","graysky.mp3","mars.jpg","meteor",12,3000,16,400,8);
         }else if(gamestate==29){
-            l=new Playlevel("Stage:Mars 5/6","graysky.mp3","mars.jpg","meteor",12,3000,17,410,10);
+            l=new Playlevel("Stage:Mars 5/6","graysky.mp3","mars.jpg","meteor",12,3000,17,410,8);
         }else if(gamestate==30){
-            l=new Playlevel("Stage:Mars 6/6","graysky.mp3","mars.jpg","meteor",12,3000,18,420,10);
+            l=new Playlevel("Stage:Mars 6/6","graysky.mp3","mars.jpg","meteor",12,3000,18,420,8);
         }else if(gamestate==31){
-            l=new Playlevel("Stage:Earth 1/6","graysky.mp3","earth.jpg","meteor",12,3000,13,430,11);
+            l=new Playlevel("Stage:Earth 1/6","graysky.mp3","earth.jpg","meteor",12,3000,13,430,9);
         }else if(gamestate==32){
-            l=new Playlevel("Stage:Earth 2/6","graysky.mp3","earth.jpg","meteor",12,3000,14,440,11);
+            l=new Playlevel("Stage:Earth 2/6","graysky.mp3","earth.jpg","meteor",12,3000,14,440,9);
         }else if(gamestate==33){
-            l=new Playlevel("Stage:Earth 3/6","graysky.mp3","earth.jpg","meteor",12,3000,15,450,11);
+            l=new Playlevel("Stage:Earth 3/6","graysky.mp3","earth.jpg","meteor",12,3000,15,450,9);
         }else if(gamestate==34){
-            l=new Playlevel("Stage:Earth 4/6","graysky.mp3","earth.jpg","meteor",12,3000,16,460,11);
+            l=new Playlevel("Stage:Earth 4/6","graysky.mp3","earth.jpg","meteor",12,3000,16,460,9);
         }else if(gamestate==35){
-            l=new Playlevel("Stage:Earth 5/6","graysky.mp3","earth.jpg","meteor",12,3000,17,470,11);
+            l=new Playlevel("Stage:Earth 5/6","graysky.mp3","earth.jpg","meteor",12,3000,17,470,9);
         }else if(gamestate==36){
-            l=new Playlevel("Stage:Earth 6/6","graysky.mp3","earth.jpg","meteor",12,3000,18,480,11);
+            l=new Playlevel("Stage:Earth 6/6","graysky.mp3","earth.jpg","meteor",12,3000,18,480,9);
         }
         return l;
     }
