@@ -108,9 +108,23 @@ public class PlayershipManta extends PlayerShip{
                 cooledDown = true;
             }
         }else{
-            LaserOfPlayer la = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "wide",this.screenW);
+            LaserOfPlayer la = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightL", this.screenW);
+            LaserOfPlayer lb = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightR", this.screenW);
+            LaserOfPlayer lc = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightS", this.screenW);
+            LaserOfPlayer ld = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightRR", this.screenW);
+            LaserOfPlayer le = new LaserOfPlayer(spaceshipX, spaceshipY, spaceshipW, spaceshipH, "straightLL", this.screenW);
+
             laserOfPlayer.add(la);
+            laserOfPlayer.add(lb);
+            laserOfPlayer.add(lc);
+            laserOfPlayer.add(ld);
+            laserOfPlayer.add(le);
+
             la.playSound();
+            lb.playSound();
+            lc.playSound();
+            ld.playSound();
+            le.playSound();
             cooledDown = false;
             timeLeftToReload=timeLeftToReloadMax/speedModifier;
             if(touchedDown==false){

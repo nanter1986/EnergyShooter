@@ -51,11 +51,23 @@ public class LaserOfPlayer implements Collidable {
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX;
             Gdx.app.log("sp",x+" "+w);
+        }else if(typeOfLaser.equals("straightLL")){
+            this.w = widthFactor;
+            this.h = widthFactor*2;
+            this.y = spaceshipY+spaceshipH;
+            this.x = spaceshipX+spaceshipW*1/4;
+            Gdx.app.log("sp",x+" "+w);
         }else if(typeOfLaser.equals("straightR")){
             this.w = widthFactor;
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW-w;
+            Gdx.app.log("sp",x+" "+y);
+        }else if(typeOfLaser.equals("straightRR")){
+            this.w = widthFactor;
+            this.h = widthFactor*2;
+            this.y = spaceshipY+spaceshipH;
+            this.x = spaceshipX+spaceshipW*3/4-w;
             Gdx.app.log("sp",x+" "+y);
         }else if(typeOfLaser.equals("midL")){
             this.w=widthFactor;
@@ -104,7 +116,15 @@ public class LaserOfPlayer implements Collidable {
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
                 Gdx.app.log("left",x+" ");
+            }else if(typeOfLaser.equals("straightLL")){
+                y = y + widthFactor;
+                b.draw(laser, x, y, w, h);
+                Gdx.app.log("left",x+" ");
             }else if(typeOfLaser.equals("straightR")){
+                y = y + widthFactor;
+                b.draw(laser, x, y, w, h);
+                Gdx.app.log("right",x+" ");
+            }else if(typeOfLaser.equals("straightRR")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
                 Gdx.app.log("right",x+" ");
@@ -167,7 +187,8 @@ public class LaserOfPlayer implements Collidable {
 
 
     public void playSound(){
-        laserSound.play();
+        laserSound.play(0.3f);
+        Gdx.app.log("lasersound",this.typeOfLaser);
     }
 
 
