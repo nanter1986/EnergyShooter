@@ -180,6 +180,16 @@ public class EnemyCreator {
             }else if (spawn < 90) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
+        }else if(difficulty==14){
+            if (spawn < 10) {
+                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 40) {
+                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 70 ) {
+                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 100) {
+                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }
         }else if(difficulty==20){
             if (spawn < 50) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
