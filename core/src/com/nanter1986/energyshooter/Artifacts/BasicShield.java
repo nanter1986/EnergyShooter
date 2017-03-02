@@ -10,6 +10,7 @@ public class BasicShield extends Artifact {
 
     public BasicShield() {
         this.name="Basic Shield";
+        this.description="Boosts defence by 10%";
     }
 
     @Override

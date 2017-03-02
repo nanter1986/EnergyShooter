@@ -10,6 +10,7 @@ public class Speeder extends Artifact {
 
     public Speeder() {
         this.name="Speeder";
+        this.description="Shoot 10% faster";
     }
 
     @Override

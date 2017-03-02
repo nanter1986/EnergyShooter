@@ -10,6 +10,7 @@ public class FireKiller extends Artifact {
 
     public FireKiller() {
         this.name="Fire Killer";
+        this.description="Boosts attack vs only fire enemies by 50%";
     }
 
     @Override

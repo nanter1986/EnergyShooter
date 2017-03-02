@@ -10,6 +10,7 @@ public class DarknessKiller extends Artifact {
 
     public DarknessKiller() {
         this.name="Darkness Killer";
+        this.description="Boosts attack vs only dark enemies by 50%";
     }
 
     @Override

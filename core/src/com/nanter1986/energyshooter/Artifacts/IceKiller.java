@@ -10,6 +10,7 @@ public class IceKiller extends Artifact {
 
     public IceKiller() {
         this.name="Ice Killer";
+        this.description="Boosts attack vs only ice enemies by 50%";
     }
 
     @Override

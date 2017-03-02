@@ -10,6 +10,7 @@ public class Damager extends Artifact {
 
     public Damager() {
         this.name="Damager";
+        this.description="Boosts attack by 10%";
     }
 
     @Override

@@ -7,5 +7,6 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
  */
 public abstract class Artifact {
     public String name;
+    public String description;
     public abstract void work(PlayerShip ship);
 }

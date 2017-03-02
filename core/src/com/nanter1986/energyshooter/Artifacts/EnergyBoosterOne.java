@@ -9,7 +9,8 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
 public class EnergyBoosterOne extends Artifact {
 
     public EnergyBoosterOne() {
-        this.name="Energy Booster 1";
+        this.name="Energy Booster";
+        this.description="Gain energy 10% faster";
 
     }
 

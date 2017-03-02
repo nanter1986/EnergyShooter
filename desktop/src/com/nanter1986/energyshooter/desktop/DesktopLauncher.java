@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.resizable=false;
 		config.height=600;
 		config.width=400;
+		config.title="Energy Shooter";
 		new LwjglApplication(new EnergyShooter(), config);
 	}
 }
