@@ -106,6 +106,7 @@ public class EquipScreen implements Screen{
             }else if (proceed.isButtonTouched()) {
                 prefs.putBoolean(artifacts.get(it1).name,true);
                 prefs.putBoolean(artifacts.get(it2).name,true);
+                prefs.flush();
                 game.setScreen(new GameplayScreen(game));
 
             }
