@@ -130,7 +130,9 @@ public class EquipScreen implements Screen{
         tool.batch.draw(proceed.texture,proceed.buttonX,proceed.buttonY,proceed.buttonW,proceed.buttonH);
         tool.font.draw(tool.batch,first.name,left1.buttonX+left1.buttonW*2,left1.buttonY+left1.buttonH/2);
         tool.font.draw(tool.batch,second.name,left2.buttonX+left2.buttonW*2,left2.buttonY+left2.buttonH/2);
-        tool.font.draw(tool.batch,"CHOOSE EQUIPMENT", tool.scW*3/10,tool.scH*9/10);
+        tool.font.draw(tool.batch,"CHOOSE EQUIPMENT", tool.scW*3/10,tool.scH*19/20);
+        tool.font.draw(tool.batch,first.description, left1.buttonX+left1.buttonW,left1.buttonY-left1.buttonH);
+        tool.font.draw(tool.batch,second.description, left2.buttonX+left2.buttonW,left2.buttonY-left2.buttonH);
         tool.batch.end();
     }
 

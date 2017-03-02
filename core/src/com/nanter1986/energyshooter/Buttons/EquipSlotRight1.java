@@ -15,7 +15,7 @@ public class EquipSlotRight1 extends TouchableButtons {
         this.buttonW=(int)screenW/10;
         this.buttonX=(int)screenW-this.buttonW;
         this.buttonH=(int)screenH/10;
-        this.buttonY=(int)screenH*5/10;
+        this.buttonY=(int)screenH*9/10-buttonH;
 
         texture= new Texture(Gdx.files.internal("rightshop.png"));
     }
