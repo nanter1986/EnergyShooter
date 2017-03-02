@@ -344,7 +344,7 @@ public class Screen extends ScreenAdapter {
     private void drawEnemies() {
         ArrayList<Enemy> toRemove = new ArrayList<Enemy>();
         for (Enemy e : enemies) {
-            if (e.exploded == true || e.y < spaceshipPlayer.spaceshipY) {
+            if (e.exploded == true || e.y < spaceshipPlayer.spaceshipY || e.x<0 || e.x > screenWidth) {
 
                 toRemove.add(e);
 

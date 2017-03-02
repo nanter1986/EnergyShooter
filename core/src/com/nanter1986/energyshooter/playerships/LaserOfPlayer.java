@@ -9,6 +9,8 @@ import com.nanter1986.energyshooter.CollisionChecker;
 import com.nanter1986.energyshooter.Elementaltypes;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 
+import java.util.ArrayList;
+
 /**
  * Created by user on 13/2/2017.
  */
@@ -50,25 +52,21 @@ public class LaserOfPlayer implements Collidable {
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX;
-            Gdx.app.log("sp",x+" "+w);
         }else if(typeOfLaser.equals("straightLL")){
             this.w = widthFactor;
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW*1/4;
-            Gdx.app.log("sp",x+" "+w);
         }else if(typeOfLaser.equals("straightR")){
             this.w = widthFactor;
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW-w;
-            Gdx.app.log("sp",x+" "+y);
         }else if(typeOfLaser.equals("straightRR")){
             this.w = widthFactor;
             this.h = widthFactor*2;
             this.y = spaceshipY+spaceshipH;
             this.x = spaceshipX+spaceshipW*3/4-w;
-            Gdx.app.log("sp",x+" "+y);
         }else if(typeOfLaser.equals("midL")){
             this.w=widthFactor;
             this.h=widthFactor;
@@ -115,19 +113,15 @@ public class LaserOfPlayer implements Collidable {
             }else if(typeOfLaser.equals("straightL")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
-                Gdx.app.log("left",x+" ");
             }else if(typeOfLaser.equals("straightLL")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
-                Gdx.app.log("left",x+" ");
             }else if(typeOfLaser.equals("straightR")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
-                Gdx.app.log("right",x+" ");
             }else if(typeOfLaser.equals("straightRR")){
                 y = y + widthFactor;
                 b.draw(laser, x, y, w, h);
-                Gdx.app.log("right",x+" ");
             }else if(typeOfLaser.equals("midL")){
                 y = y +2* widthFactor;
                 x = x - widthFactor;
@@ -148,11 +142,19 @@ public class LaserOfPlayer implements Collidable {
             }
         }
 
+    }
 
-
-
-
-
+    public void updatePosition(SpriteBatch b, ArrayList<Enemy>enemies){
+        if(enemies.size()>0){
+            Gdx.app.log("outEnemy",enemies.get(0).positionX()+" "+enemies.get(0).positionY()+" "+ enemies.get(0).whatType());
+            if(positionX()<enemies.get(0).positionX()){
+                x=x+widthFactor;
+            }else if(positionX()>enemies.get(0).positionX()){
+                x=x-widthFactor;
+            }
+        }
+        y=y+widthFactor;
+        b.draw(laserMulti, x, y, w, h);
     }
 
     public float dealDamage(Enemy e,PlayerShip ship){

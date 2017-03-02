@@ -269,8 +269,8 @@ public class GameplayScreen implements Screen{
     private void drawEnemies() {
         ArrayList<Enemy> toRemove = new ArrayList<Enemy>();
         for (Enemy e : enemies) {
-            if (e.exploded == true || e.y <=0) {
-                Gdx.app.log("remove",e.whatType().toString());
+            if (e.exploded == true || e.y <=0 || e.positionX()<0 || e.positionX()> tool.scW|| (e.y>tool.scH && e.health<0)) {
+                Gdx.app.log("remove",e.whatType().toString()+" "+tool.scW+" "+tool.scH);
                 toRemove.add(e);
 
             }
