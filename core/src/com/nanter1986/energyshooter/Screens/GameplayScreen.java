@@ -84,6 +84,7 @@ public class GameplayScreen implements Screen{
     private boolean touchedDown;
 
 
+
     private int stateOfGame = 1;
     private int howOftenLaser;
     private float timeLeftToReload;
@@ -96,6 +97,7 @@ public class GameplayScreen implements Screen{
     private ArrayList<Artifact> artFinalList=new ArrayList<Artifact>();
     private boolean effectsDone=false;
     private int spawnFrequencyFactor;
+    private int hitCounter=0;
 
     public GameplayScreen(EnergyShooter game) {
         this.game = game;
@@ -192,7 +194,6 @@ public class GameplayScreen implements Screen{
                     spaceshipPlayer.spaceshipX -= tool.scW / 100;
                 } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                     spaceshipPlayer.spaceshipX += tool.scW / 100;
-
                 }
 
             } else if (Gdx.app.getType() == Application.ApplicationType.Android) {
@@ -241,6 +242,7 @@ public class GameplayScreen implements Screen{
                 if (damage > 0) {
                     l.used=true;
                     l.doneColliding=true;
+                    hitCounter=-4;
                     instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX + spaceshipPlayer.spaceshipW, spaceshipPlayer.spaceshipY + spaceshipPlayer.spaceshipH, "-" + damage, 1.0f, "red"));
                     touchedEnemyLaser.play();
                 }
@@ -281,6 +283,7 @@ public class GameplayScreen implements Screen{
                 float damage = e.checkCollisionWithPlayer(spaceshipPlayer);
                 spaceshipPlayer.spaceshipHealth -= damage;
                 if (damage > 0) {
+                    hitCounter=-4;
                     instructions.add(new InstructionDrawer(spaceshipPlayer.spaceshipX + spaceshipPlayer.spaceshipW, spaceshipPlayer.spaceshipY + spaceshipPlayer.spaceshipH, "-" + damage, 1.0f, "red"));
 
                 }
@@ -349,7 +352,17 @@ public class GameplayScreen implements Screen{
     }
 
     private void drawSpaceship() {
-        spaceshipPlayer.updatePosition(tool.batch);
+        if(hitCounter<0){
+            tool.batch.setColor(Color.RED);
+            spaceshipPlayer.updatePosition(tool.batch);
+            tool.batch.setColor(Color.WHITE);
+            hitCounter++;
+        }else{
+            spaceshipPlayer.updatePosition(tool.batch);
+        }
+
+
+
 
     }
 
