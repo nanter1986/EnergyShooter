@@ -400,14 +400,15 @@ public class GameplayScreen implements Screen{
 
     public void renderGame(float delta){
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
-            backgroundMusic.dispose();
-            tool.batch.dispose();
+            //backgroundMusic.dispose();
+           // tool.batch.dispose();
             game.setScreen(new Shop(game));
+            dispose();
 
         }
-        if (killsTotal > killsRequired - 1) {
-            backgroundMusic.dispose();
-            tool.batch.dispose();
+        if (killsTotal > killsRequired - 1 && spaceshipPlayer.died==false) {
+            //backgroundMusic.dispose();
+            //tool.batch.dispose();
             stateOfGame++;
 
             tool.prefs.putInteger("shipindex",shipIndex);
@@ -415,6 +416,7 @@ public class GameplayScreen implements Screen{
             tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
             tool.prefs.flush();
             game.setScreen(new Shop(game));
+            dispose();
 
         }
         //nukeField();

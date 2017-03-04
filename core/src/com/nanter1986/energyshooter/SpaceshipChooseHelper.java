@@ -5,6 +5,7 @@ import com.nanter1986.energyshooter.playerships.PlayerShip;
 import com.nanter1986.energyshooter.playerships.PlayershipBlue;
 import com.nanter1986.energyshooter.playerships.PlayershipGood;
 import com.nanter1986.energyshooter.playerships.PlayershipManta;
+import com.nanter1986.energyshooter.playerships.PlayershipPathFinder;
 import com.nanter1986.energyshooter.playerships.PlayershipSinister;
 import com.nanter1986.energyshooter.playerships.PlayershipWingship;
 import com.nanter1986.energyshooter.playerships.f5s1;
@@ -29,6 +30,8 @@ public class SpaceshipChooseHelper {
             ship=new PlayershipWingship(tool.scW,tool.scH);
         }else if(choosen.equals("Manta")){
             ship=new PlayershipManta(tool);
+        }else if(choosen.equals("PathFinder")){
+            ship=new PlayershipPathFinder(tool.scW,tool.scH);
         }
 
         return ship;

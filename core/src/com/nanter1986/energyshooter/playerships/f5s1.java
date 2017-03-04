@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class f5s1 extends PlayerShip {
 
-    private static final Texture spaceship = new Texture(Gdx.files.internal("F5S1.png"));
+    public Texture spaceship = new Texture(Gdx.files.internal("F5S1.png"));
 
     public f5s1(int screenW, int screenH) {
         doneColliding=false;
