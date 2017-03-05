@@ -49,7 +49,7 @@ public class EnemySmallBlue extends Enemy {
 
     @Override
     public LaserOfEnemy laserMaker(float spX) {
-        return new EnemyLaserStar(x + 20, y, spX, screenWidth, screenHeight);
+        return new EnemyLaserStar(this, spX, screenWidth, screenHeight);
 
     }
 

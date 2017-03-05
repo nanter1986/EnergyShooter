@@ -50,7 +50,7 @@ public class GreenFast extends Enemy {
 
     @Override
     public LaserOfEnemy laserMaker(float spX) {
-        return new LaserEnemyGreen(x + widthFactor/2, y, spX, screenWidth, screenHeight);
+        return new LaserEnemyGreen(this, spX, screenWidth, screenHeight);
     }
 
     @Override

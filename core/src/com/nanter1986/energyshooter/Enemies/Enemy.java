@@ -30,6 +30,7 @@ public abstract class Enemy implements Collidable {
     static final Texture green=new Texture(Gdx.files.internal("greenfast.png"));
     static final Texture ufo=new Texture(Gdx.files.internal("ufoBlue.png"));
     static final Texture badass=new Texture(Gdx.files.internal("badassenemy.png"));
+    static final Texture boss=new Texture(Gdx.files.internal("finalboss.png"));
     static final Texture red=new Texture(Gdx.files.internal("enemyRed1.png"));
     static final Texture explosion=new Texture(Gdx.files.internal("explosion.png"));
     public int health;

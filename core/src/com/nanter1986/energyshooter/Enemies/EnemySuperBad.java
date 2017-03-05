@@ -68,7 +68,7 @@ public class EnemySuperBad extends Enemy {
 
     @Override
     public LaserOfEnemy laserMaker(float spX) {
-        return new LaserEnemyGreen(x + 20, y, spX, screenWidth, screenHeight);
+        return new LaserEnemyGreen(this, spX, screenWidth, screenHeight);
     }
 
 

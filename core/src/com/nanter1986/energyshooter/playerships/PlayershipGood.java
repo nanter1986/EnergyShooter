@@ -30,7 +30,7 @@ public class PlayershipGood extends PlayerShip {
 
     public PlayershipGood(DisplayToolkit tool) {
         doneColliding=false;
-        this.spaceshipHealth = 20;
+        this.spaceshipHealth = 10;
         this.spaceshipX = tool.scW / 2;
         this.spaceshipY = 0;
         this.widthFactor = tool.scH / 10;

@@ -103,7 +103,7 @@ public class GameplayScreen implements Screen{
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         stateOfGame=tool.prefs.getInteger("gamestate",1);
-        //stateOfGame=1;
+        stateOfGame=75;
 
         shipIndex=tool.prefs.getInteger("shipindex",0);
         money=prefs.getInteger("money");
@@ -118,6 +118,9 @@ public class GameplayScreen implements Screen{
     @Override
     public void show() {
         spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
+        if(stateOfGame==75){
+            spaceshipPlayer.spaceshipHealth=100;
+        }
         artifactsTakeEffect();
     }
 
@@ -296,8 +299,11 @@ public class GameplayScreen implements Screen{
                     e.doneColliding=true;
                     explosionSmall.play();
                     e.explodedSound = true;
-                    spaceshipPlayer.spaceshipHealth += (e.energyBonus*spaceshipPlayer.energyDrawn);
-                    killsTotal += e.energyBonus;
+                    if(spaceshipPlayer.spaceshipHealth>0){
+                        spaceshipPlayer.spaceshipHealth += (e.energyBonus*spaceshipPlayer.energyDrawn);
+                        killsTotal += e.energyBonus;
+                    }
+
                     instructions.add(new InstructionDrawer(e.x, e.y, "+" + e.energyBonus, 1.0f, "green"));
                 }
                 e.updatePosition(tool.batch, spaceshipPlayer);
@@ -400,15 +406,16 @@ public class GameplayScreen implements Screen{
 
     public void renderGame(float delta){
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
-            //backgroundMusic.dispose();
-           // tool.batch.dispose();
+
+            EnemyCreator.resetBossFight();
             game.setScreen(new Shop(game));
-            dispose();
+            backgroundMusic.dispose();
+            //tool.batch.dispose();
+            //dispose();
 
         }
         if (killsTotal > killsRequired - 1 && spaceshipPlayer.died==false) {
-            //backgroundMusic.dispose();
-            //tool.batch.dispose();
+
             stateOfGame++;
 
             tool.prefs.putInteger("shipindex",shipIndex);
@@ -416,7 +423,9 @@ public class GameplayScreen implements Screen{
             tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
             tool.prefs.flush();
             game.setScreen(new Shop(game));
-            dispose();
+            backgroundMusic.dispose();
+           // tool.batch.dispose();
+            //dispose();
 
         }
         //nukeField();

@@ -22,12 +22,12 @@ public abstract class LaserOfEnemy implements Collidable {
     public int touchDamageGiven;
     public boolean doneColliding;
 
-    public LaserOfEnemy(float x, float y,float spaceshipX,int screenW,int screenH) {
+    public LaserOfEnemy(Enemy enemy,float spaceshipX,int screenW,int screenH) {
         this.widthFactor=screenW/20;
         this.heightFactor=screenH/20;
         used=false;
-        this.x = x;
-        this.y = y;
+        this.x = enemy.positionX()+enemy.width()/2-this.widthFactor/2;
+        this.y = enemy.positionY();
         if(x>spaceshipX){
             direction="left";
         }else{

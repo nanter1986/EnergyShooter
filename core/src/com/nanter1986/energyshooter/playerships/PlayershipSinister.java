@@ -29,7 +29,7 @@ public class PlayershipSinister extends PlayerShip {
 
     public PlayershipSinister(int screenW, int screenH) {
         doneColliding=false;
-        this.spaceshipHealth = 50;
+        this.spaceshipHealth = 10;
         this.spaceshipX = screenW / 2;
         this.spaceshipY = 0;
         this.widthFactor = screenW / 7;

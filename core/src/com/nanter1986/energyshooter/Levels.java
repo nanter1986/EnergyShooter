@@ -154,9 +154,11 @@ public class Levels {
         }else if(gamestate==72){
             l=new Playlevel("Stage:S.America 6/6","graysky.mp3","southamerica.png","cloud",12,3000,42,790,15);
         }else if(gamestate==73){
-            l=new Playlevel("Stage:Antarctica 1/2","graysky.mp3","antarctica.png","cloud",12,3000,42,1000,20);
+            l=new Playlevel("Stage:Antarctica 1/3","graysky.mp3","antarctica.png","cloud",12,3000,42,1000,20);
         }else if(gamestate==74){
-            l=new Playlevel("Stage:Antarctica 2/2","graysky.mp3","antarctica.png","cloud",12,3000,42,1000,21);
+            l=new Playlevel("Stage:Antarctica 2/3","graysky.mp3","antarctica.png","cloud",12,3000,42,1000,21);
+        }else if(gamestate==75){
+            l=new Playlevel("Stage:Antarctica 3/3","graysky.mp3","antarctica.png","cloud",12,3000,42,1,22);
         }
         return l;
     }

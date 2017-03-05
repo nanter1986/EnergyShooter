@@ -10,8 +10,8 @@ import com.nanter1986.energyshooter.CollisionChecker;
 public class EnemyLaserStar extends LaserOfEnemy {
 
 
-    public EnemyLaserStar(float x, float y, float spaceshipX, int screenW, int screenH) {
-        super(x, y, spaceshipX, screenW, screenH);
+    public EnemyLaserStar(Enemy enemy, float spaceshipX, int screenW, int screenH) {
+        super(enemy, spaceshipX, screenW, screenH);
         this.touchDamageGiven=1;
         doneColliding=false;
     }

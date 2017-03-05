@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class PlayershipManta extends PlayerShip{
     public PlayershipManta(DisplayToolkit tool) {
         doneColliding=false;
-        this.spaceshipHealth = 20;
+        this.spaceshipHealth = 10;
         this.spaceshipX = tool.scW / 2;
         this.spaceshipY = 0;
         this.widthFactor = tool.scH / 10;

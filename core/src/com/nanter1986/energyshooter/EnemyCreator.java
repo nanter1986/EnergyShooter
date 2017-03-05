@@ -5,6 +5,7 @@ import com.nanter1986.energyshooter.Enemies.EnemyBad;
 import com.nanter1986.energyshooter.Enemies.EnemySmallBlue;
 import com.nanter1986.energyshooter.Enemies.EnemySuperBad;
 import com.nanter1986.energyshooter.Enemies.EnemyUFO;
+import com.nanter1986.energyshooter.Enemies.FinalBoss;
 import com.nanter1986.energyshooter.Enemies.GreenFast;
 import com.nanter1986.energyshooter.playerships.PlayerShip;
 
@@ -15,11 +16,13 @@ import java.util.Random;
  */
 
 public class EnemyCreator {
+    public static boolean finalBossSpawned=false;
     public static Enemy createEnemies(int sff, int scW,int scH, PlayerShip spaceshipPlayer,int difficulty){
         Random randomSpawn = new Random();
         Random whereToRandomlySpawnX = new Random();
         int spawn = randomSpawn.nextInt(sff);
         int xRandom = whereToRandomlySpawnX.nextInt(scW);
+
         Enemy enemy=null;
         if(difficulty==0){
             if (spawn < 50) {
@@ -198,9 +201,17 @@ public class EnemyCreator {
             if (spawn < 100) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
+        }else if(difficulty==22 && finalBossSpawned==false){
+            enemy=new FinalBoss(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            finalBossSpawned=true;
+
         }
 
         return enemy;
 
+    }
+
+    public static void resetBossFight(){
+        finalBossSpawned=false;
     }
 }

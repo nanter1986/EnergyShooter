@@ -28,7 +28,7 @@ public class PlayershipBlue extends PlayerShip {
     private static final Texture spaceshipCoolBlue=new Texture(Gdx.files.internal("coolBlue.png"));
 
     public PlayershipBlue(int screenW, int screenH) {
-        this.spaceshipHealth = 40;
+        this.spaceshipHealth = 10;
         this.spaceshipX = screenW / 2;
         this.spaceshipY = 0;
         this.widthFactor = screenW / 6;
