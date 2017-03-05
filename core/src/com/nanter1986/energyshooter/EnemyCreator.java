@@ -91,7 +91,7 @@ public class EnemyCreator {
                 enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }else if (spawn < 59 ) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 100) {
+            }else if (spawn < 70) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==7){
@@ -103,10 +103,46 @@ public class EnemyCreator {
                 enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }else if (spawn < 62 ) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 100) {
+            }else if (spawn < 70) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==8){
+            if (spawn < 50) {
+                enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            } else if (spawn < 52) {
+                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 54) {
+                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 56 ) {
+                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 80) {
+                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }
+        }else if(difficulty==9){
+            if (spawn < 50) {
+                enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            } else if (spawn < 52) {
+                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 54) {
+                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 56 ) {
+                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 100) {
+                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }
+        }else if(difficulty==10){
+            if (spawn < 50) {
+                enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            } else if (spawn < 53) {
+                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 56) {
+                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 59 ) {
+                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }else if (spawn < 100) {
+                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            }
+        }else if(difficulty==11){
             if (spawn < 50) {
                 enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             } else if (spawn < 55) {
@@ -118,48 +154,12 @@ public class EnemyCreator {
             }else if (spawn < 100) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
-        }else if(difficulty==9){
-            if (spawn < 50) {
-                enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            } else if (spawn < 56) {
-                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 62) {
-                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 68 ) {
-                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 100) {
-                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }
-        }else if(difficulty==10){
-            if (spawn < 50) {
-                enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            } else if (spawn < 57) {
-                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 64) {
-                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 71 ) {
-                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 100) {
-                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }
-        }else if(difficulty==11){
-            if (spawn < 50) {
-                enemy=new EnemySmallBlue(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            } else if (spawn < 60) {
-                enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 70) {
-                enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 80 ) {
-                enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 100) {
-                enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }
         }else if(difficulty==12){
             if (spawn < 10) {
                 enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 30) {
+            }else if (spawn < 20) {
                 enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 40 ) {
+            }else if (spawn < 25 ) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }else if (spawn < 60) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
@@ -167,9 +167,9 @@ public class EnemyCreator {
         }else if(difficulty==13){
             if (spawn < 10) {
                 enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 35) {
+            }else if (spawn < 20) {
                 enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 50 ) {
+            }else if (spawn < 30 ) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }else if (spawn < 85) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
@@ -177,9 +177,9 @@ public class EnemyCreator {
         }else if(difficulty==14){
             if (spawn < 10) {
                 enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 40) {
+            }else if (spawn < 25) {
                 enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 60 ) {
+            }else if (spawn < 35 ) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }else if (spawn < 90) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
@@ -187,9 +187,9 @@ public class EnemyCreator {
         }else if(difficulty==14){
             if (spawn < 10) {
                 enemy=new EnemyUFO(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 40) {
+            }else if (spawn < 30) {
                 enemy=new EnemyBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
-            }else if (spawn < 70 ) {
+            }else if (spawn < 40 ) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }else if (spawn < 100) {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
@@ -199,7 +199,7 @@ public class EnemyCreator {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==21){
-            if (spawn < 50) {
+            if (spawn < 40) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==22 && finalBossSpawned==false){
