@@ -83,9 +83,12 @@ public class f5s1 extends PlayerShip {
     }
 
     @Override
-    public void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
+    public int drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
+        int hitC=0;
+
         float speedModifier;
         if(touchedDown==true){
+            hitC =-4;
             speedModifier=2*spaceshipSpeed;
         }else{
             speedModifier=1*spaceshipSpeed;
@@ -145,6 +148,7 @@ public class f5s1 extends PlayerShip {
                 e.health -= damage;
             }
         }
+        return hitC;
     }
 
     @Override

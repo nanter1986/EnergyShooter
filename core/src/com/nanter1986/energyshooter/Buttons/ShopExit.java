@@ -17,6 +17,5 @@ public class ShopExit extends TouchableButtons {
         this.buttonH=(int)(screenH/10);
         this.buttonY=0;
         texture= new Texture(Gdx.files.internal("forward.png"));
-        Gdx.app.log("button",buttonX+" "+buttonW+" "+buttonY+" "+buttonH+" "+screenW+" "+screenH);
     }
 }

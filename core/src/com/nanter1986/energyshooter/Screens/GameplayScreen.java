@@ -103,15 +103,22 @@ public class GameplayScreen implements Screen{
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         stateOfGame=tool.prefs.getInteger("gamestate",1);
-        stateOfGame=75;
+        if(stateOfGame>75){
+            stateOfGame=1;
+            tool.prefs.putInteger("gamestate",1);
+            tool.prefs.flush();
+        }
 
         shipIndex=tool.prefs.getInteger("shipindex",0);
         money=prefs.getInteger("money");
+
+        stateOfGame=75;
 
         l = Levels.levelReturner(stateOfGame);
         if(backgroundMusic!=null) {
             backgroundMusic.dispose();
         }
+        Gdx.app.log("level"," "+stateOfGame);
         makePlayLevel(l);
     }
 
@@ -119,6 +126,7 @@ public class GameplayScreen implements Screen{
     public void show() {
         spaceshipPlayer = SpaceshipChooseHelper.chosePlane(tool);
         if(stateOfGame==75){
+            EnemyCreator.resetBossFight();
             spaceshipPlayer.spaceshipHealth=100;
         }
         artifactsTakeEffect();
@@ -354,15 +362,18 @@ public class GameplayScreen implements Screen{
     }
 
     private void drawLaser(float d, ArrayList<Enemy> enemies) {
-        spaceshipPlayer.drawLaser(d,enemies,tool.batch,tool.font);
+        hitCounter=spaceshipPlayer.drawLaser(d,enemies,tool.batch,tool.font);
     }
 
     private void drawSpaceship() {
+
+
         if(hitCounter<0){
+
             tool.batch.setColor(Color.RED);
             spaceshipPlayer.updatePosition(tool.batch);
             tool.batch.setColor(Color.WHITE);
-            hitCounter++;
+
         }else{
             spaceshipPlayer.updatePosition(tool.batch);
         }
@@ -405,7 +416,8 @@ public class GameplayScreen implements Screen{
     }
 
     public void renderGame(float delta){
-        if (Gdx.input.justTouched() && spaceshipPlayer.died == true) {
+        this.hitCounter++;
+        if (Gdx.input.justTouched() && spaceshipPlayer.died == true && stateOfGame<76) {
 
             EnemyCreator.resetBossFight();
             game.setScreen(new Shop(game));
@@ -415,18 +427,22 @@ public class GameplayScreen implements Screen{
 
         }
         if (killsTotal > killsRequired - 1 && spaceshipPlayer.died==false) {
-
             stateOfGame++;
-
-            tool.prefs.putInteger("shipindex",shipIndex);
-            tool.prefs.putInteger("gamestate",stateOfGame);
-            tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
-            tool.prefs.flush();
-            game.setScreen(new Shop(game));
+            if(stateOfGame==76){
+                stateOfGame=1;
+                tool.prefs.putInteger("shipindex",shipIndex);
+                tool.prefs.putInteger("gamestate",stateOfGame);
+                tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
+                tool.prefs.flush();
+                game.setScreen(new EndScreen(game));
+            }else{
+                tool.prefs.putInteger("shipindex",shipIndex);
+                tool.prefs.putInteger("gamestate",stateOfGame);
+                tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
+                tool.prefs.flush();
+                game.setScreen(new Shop(game));
+            }
             backgroundMusic.dispose();
-           // tool.batch.dispose();
-            //dispose();
-
         }
         //nukeField();
         createEnemies();

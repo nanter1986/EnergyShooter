@@ -39,12 +39,12 @@ public class FinalBoss extends Enemy {
             if(y>screenHeight-widthFactor*2){
                 y = y - widthFactor/50;
             }else{
-                if(badCenter>goodCenter){
+                if(badCenter>goodCenter+5){
                     x = x - widthFactor/30;
                     if(this.x<5){
                         this.x=5;
                     }
-                }else{
+                }else if(badCenter<goodCenter-5){
                     x = x + widthFactor/30;
                     if(this.x>screenWidth-5){
                         this.x=screenWidth-5;

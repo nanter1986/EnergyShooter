@@ -83,8 +83,9 @@ public class PlayershipBlue extends PlayerShip {
     }
 
     @Override
-    public void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
+    public int drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
         float speedModifier;
+        int hitC=0;
         if (touchedDown == true) {
             speedModifier = 2 * spaceshipSpeed;
         } else {
@@ -103,6 +104,7 @@ public class PlayershipBlue extends PlayerShip {
         }
         if (Gdx.input.isTouched() && spaceshipHealth > 10) {
             touchedDown = true;
+            hitC =-4;
         } else {
             touchedDown = false;
         }
@@ -154,6 +156,7 @@ public class PlayershipBlue extends PlayerShip {
                 e.health -= damage;
             }
         }
+        return hitC;
     }
 
     @Override

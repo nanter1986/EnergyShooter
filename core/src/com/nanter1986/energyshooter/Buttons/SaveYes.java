@@ -19,6 +19,5 @@ public class SaveYes extends TouchableButtons {
         this.buttonY=(int)screenH*2/10;
         texture= new Texture(Gdx.files.internal("menubutton.png"));
         textureOn=new Texture(Gdx.files.internal("menuyesbutton.png"));
-        Gdx.app.log("buttons",buttonX+" "+buttonY+" "+buttonW+" "+buttonH);
     }
 }

@@ -82,83 +82,83 @@ public class Levels {
         }else if(gamestate==36){
             l=new Playlevel("Stage:Earth 6/6","earth.ogg","earth.jpg","meteor",12,3000,36,480,9);
         }else if(gamestate==37){
-            l=new Playlevel("Stage:Africa 1/6","graysky.mp3","africa.png","cloud",12,3000,37,500,10);
+            l=new Playlevel("Stage:Africa 1/6","europe.ogg","africa.png","cloud",12,3000,37,500,10);
         }else if(gamestate==38){
-            l=new Playlevel("Stage:Africa 2/6","graysky.mp3","africa.png","cloud",12,3000,38,500,10);
+            l=new Playlevel("Stage:Africa 2/6","europe.ogg","africa.png","cloud",12,3000,38,500,10);
         }else if(gamestate==39){
-            l=new Playlevel("Stage:Africa 3/6","graysky.mp3","africa.png","cloud",12,3000,39,500,10);
+            l=new Playlevel("Stage:Africa 3/6","europe.ogg","africa.png","cloud",12,3000,39,500,10);
         }else if(gamestate==40){
-            l=new Playlevel("Stage:Africa 4/6","graysky.mp3","africa.png","cloud",12,3000,40,500,10);
+            l=new Playlevel("Stage:Africa 4/6","europe.ogg","africa.png","cloud",12,3000,40,500,10);
         }else if(gamestate==41){
-            l=new Playlevel("Stage:Africa 5/6","graysky.mp3","africa.png","cloud",12,3000,41,500,10);
+            l=new Playlevel("Stage:Africa 5/6","europe.ogg","africa.png","cloud",12,3000,41,500,10);
         }else if(gamestate==42){
-            l=new Playlevel("Stage:Africa 6/6","graysky.mp3","africa.png","cloud",12,3000,42,500,10);
+            l=new Playlevel("Stage:Africa 6/6","europe.ogg","africa.png","cloud",12,3000,42,500,10);
         }else if(gamestate==43){
-            l=new Playlevel("Stage:Asia 1/6","graysky.mp3","asia.png","cloud",12,3000,42,500,11);
+            l=new Playlevel("Stage:Asia 1/6","europe.ogg","asia.png","cloud",12,3000,42,500,11);
         }else if(gamestate==44){
-            l=new Playlevel("Stage:Asia 2/6","graysky.mp3","asia.png","cloud",12,3000,42,510,11);
+            l=new Playlevel("Stage:Asia 2/6","europe.ogg","asia.png","cloud",12,3000,42,510,11);
         }else if(gamestate==45){
-            l=new Playlevel("Stage:Asia 3/6","graysky.mp3","asia.png","cloud",12,3000,42,520,11);
+            l=new Playlevel("Stage:Asia 3/6","europe.ogg","asia.png","cloud",12,3000,42,520,11);
         }else if(gamestate==46){
-            l=new Playlevel("Stage:Asia 4/6","graysky.mp3","asia.png","cloud",12,3000,42,530,11);
+            l=new Playlevel("Stage:Asia 4/6","europe.ogg","asia.png","cloud",12,3000,42,530,11);
         }else if(gamestate==47){
-            l=new Playlevel("Stage:Asia 5/6","graysky.mp3","asia.png","cloud",12,3000,42,540,11);
+            l=new Playlevel("Stage:Asia 5/6","europe.ogg","asia.png","cloud",12,3000,42,540,11);
         }else if(gamestate==48){
-            l=new Playlevel("Stage:Asia 6/6","graysky.mp3","asia.png","cloud",12,3000,42,550,11);
+            l=new Playlevel("Stage:Asia 6/6","europe.ogg","asia.png","cloud",12,3000,42,550,11);
         }else if(gamestate==49){
-            l=new Playlevel("Stage:Australia 1/6","graysky.mp3","australia.png","cloud",12,3000,42,560,12);
+            l=new Playlevel("Stage:Australia 1/6","europe.ogg","australia.png","cloud",12,3000,42,560,12);
         }else if(gamestate==50){
-            l=new Playlevel("Stage:Australia 2/6","graysky.mp3","australia.png","cloud",12,3000,42,570,12);
+            l=new Playlevel("Stage:Australia 2/6","europe.ogg","australia.png","cloud",12,3000,42,570,12);
         }else if(gamestate==51){
-            l=new Playlevel("Stage:Australia 3/6","graysky.mp3","australia.png","cloud",12,3000,42,580,12);
+            l=new Playlevel("Stage:Australia 3/6","europe.ogg","australia.png","cloud",12,3000,42,580,12);
         }else if(gamestate==52){
-            l=new Playlevel("Stage:Australia 4/6","graysky.mp3","australia.png","cloud",12,3000,42,590,12);
+            l=new Playlevel("Stage:Australia 4/6","europe.ogg","australia.png","cloud",12,3000,42,590,12);
         }else if(gamestate==53){
-            l=new Playlevel("Stage:Australia 5/6","graysky.mp3","australia.png","cloud",12,3000,42,600,12);
+            l=new Playlevel("Stage:Australia 5/6","europe.ogg","australia.png","cloud",12,3000,42,600,12);
         }else if(gamestate==54){
-            l=new Playlevel("Stage:Australia 6/6","graysky.mp3","australia.png","cloud",12,3000,42,610,12);
+            l=new Playlevel("Stage:Australia 6/6","europe.ogg","australia.png","cloud",12,3000,42,610,12);
         }else if(gamestate==55){
-            l=new Playlevel("Stage:Europe 1/6","graysky.mp3","europe.png","cloud",12,3000,42,620,13);
+            l=new Playlevel("Stage:Europe 1/6","europe.ogg","europe.png","cloud",12,3000,42,620,13);
         }else if(gamestate==56){
-            l=new Playlevel("Stage:Europe 2/6","graysky.mp3","europe.png","cloud",12,3000,42,630,13);
+            l=new Playlevel("Stage:Europe 2/6","europe.ogg","europe.png","cloud",12,3000,42,630,13);
         }else if(gamestate==57){
-            l=new Playlevel("Stage:Europe 3/6","graysky.mp3","europe.png","cloud",12,3000,42,640,13);
+            l=new Playlevel("Stage:Europe 3/6","europe.ogg","europe.png","cloud",12,3000,42,640,13);
         }else if(gamestate==58){
-            l=new Playlevel("Stage:Europe 4/6","graysky.mp3","europe.png","cloud",12,3000,42,650,13);
+            l=new Playlevel("Stage:Europe 4/6","europe.ogg","europe.png","cloud",12,3000,42,650,13);
         }else if(gamestate==59){
-            l=new Playlevel("Stage:Europe 5/6","graysky.mp3","europe.png","cloud",12,3000,42,660,13);
+            l=new Playlevel("Stage:Europe 5/6","europe.ogg","europe.png","cloud",12,3000,42,660,13);
         }else if(gamestate==60){
-            l=new Playlevel("Stage:Europe 6/6","graysky.mp3","europe.png","cloud",12,3000,42,670,13);
+            l=new Playlevel("Stage:Europe 6/6","europe.ogg","europe.png","cloud",12,3000,42,670,13);
         }else if(gamestate==61){
-            l=new Playlevel("Stage:N.America 1/6","graysky.mp3","northamerica.png","cloud",12,3000,42,680,14);
+            l=new Playlevel("Stage:N.America 1/6","europe.ogg","northamerica.png","cloud",12,3000,42,680,14);
         }else if(gamestate==62){
-            l=new Playlevel("Stage:N.America 2/6","graysky.mp3","northamerica.png","cloud",12,3000,42,690,14);
+            l=new Playlevel("Stage:N.America 2/6","europe.ogg","northamerica.png","cloud",12,3000,42,690,14);
         }else if(gamestate==63){
-            l=new Playlevel("Stage:N.America 3/6","graysky.mp3","northamerica.png","cloud",12,3000,42,700,14);
+            l=new Playlevel("Stage:N.America 3/6","europe.ogg","northamerica.png","cloud",12,3000,42,700,14);
         }else if(gamestate==64){
-            l=new Playlevel("Stage:N.America 4/6","graysky.mp3","northamerica.png","cloud",12,3000,42,710,14);
+            l=new Playlevel("Stage:N.America 4/6","europe.ogg","northamerica.png","cloud",12,3000,42,710,14);
         }else if(gamestate==65){
-            l=new Playlevel("Stage:N.America 5/6","graysky.mp3","northamerica.png","cloud",12,3000,42,720,14);
+            l=new Playlevel("Stage:N.America 5/6","europe.ogg","northamerica.png","cloud",12,3000,42,720,14);
         }else if(gamestate==66){
-            l=new Playlevel("Stage:N.America 6/6","graysky.mp3","northamerica.png","cloud",12,3000,42,730,14);
+            l=new Playlevel("Stage:N.America 6/6","europe.ogg","northamerica.png","cloud",12,3000,42,730,14);
         }else if(gamestate==67){
-            l=new Playlevel("Stage:S.America 1/6","graysky.mp3","southamerica.png","cloud",12,3000,42,740,15);
+            l=new Playlevel("Stage:S.America 1/6","europe.ogg","southamerica.png","cloud",12,3000,42,740,15);
         }else if(gamestate==68){
-            l=new Playlevel("Stage:S.America 2/6","graysky.mp3","southamerica.png","cloud",12,3000,42,750,15);
+            l=new Playlevel("Stage:S.America 2/6","europe.ogg","southamerica.png","cloud",12,3000,42,750,15);
         }else if(gamestate==69){
-            l=new Playlevel("Stage:S.America 3/6","graysky.mp3","southamerica.png","cloud",12,3000,42,760,15);
+            l=new Playlevel("Stage:S.America 3/6","europe.ogg","southamerica.png","cloud",12,3000,42,760,15);
         }else if(gamestate==70){
-            l=new Playlevel("Stage:S.America 4/6","graysky.mp3","southamerica.png","cloud",12,3000,42,770,15);
+            l=new Playlevel("Stage:S.America 4/6","europe.ogg","southamerica.png","cloud",12,3000,42,770,15);
         }else if(gamestate==71){
-            l=new Playlevel("Stage:S.America 5/6","graysky.mp3","southamerica.png","cloud",12,3000,42,780,15);
+            l=new Playlevel("Stage:S.America 5/6","europe.ogg","southamerica.png","cloud",12,3000,42,780,15);
         }else if(gamestate==72){
-            l=new Playlevel("Stage:S.America 6/6","graysky.mp3","southamerica.png","cloud",12,3000,42,790,15);
+            l=new Playlevel("Stage:S.America 6/6","europe.ogg","southamerica.png","cloud",12,3000,42,790,15);
         }else if(gamestate==73){
-            l=new Playlevel("Stage:Antarctica 1/3","graysky.mp3","antarctica.png","cloud",12,3000,42,1000,20);
+            l=new Playlevel("Stage:Antarctica 1/3","europe.ogg","antarctica.png","cloud",12,3000,42,1000,20);
         }else if(gamestate==74){
-            l=new Playlevel("Stage:Antarctica 2/3","graysky.mp3","antarctica.png","cloud",12,3000,42,1000,21);
+            l=new Playlevel("Stage:Antarctica 2/3","europe.ogg","antarctica.png","cloud",12,3000,42,1000,21);
         }else if(gamestate==75){
-            l=new Playlevel("Stage:Antarctica 3/3","graysky.mp3","antarctica.png","cloud",12,3000,42,1,22);
+            l=new Playlevel("Stage:Antarctica 3/3","europe.ogg","antarctica.png","cloud",12,3000,42,1,22);
         }
         return l;
     }

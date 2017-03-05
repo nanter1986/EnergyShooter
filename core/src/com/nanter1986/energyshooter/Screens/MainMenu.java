@@ -57,6 +57,7 @@ public class MainMenu implements Screen{
         }
         if(saveYes.isButtonTouched() && saveManage==true){
             tool.prefs.clear();
+            tool.prefs.flush();
             Gdx.app.log("mon",""+tool.prefs.getInteger("money"));
             saveManage=false;
 

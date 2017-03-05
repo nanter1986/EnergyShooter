@@ -1,5 +1,6 @@
 package com.nanter1986.energyshooter;
 
+import com.badlogic.gdx.Gdx;
 import com.nanter1986.energyshooter.Enemies.Enemy;
 import com.nanter1986.energyshooter.Enemies.EnemyBad;
 import com.nanter1986.energyshooter.Enemies.EnemySmallBlue;
@@ -194,17 +195,17 @@ public class EnemyCreator {
                 enemy=new GreenFast(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==20){
-            if (spawn < 50) {
+            if (spawn < 30) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==21){
-            if (spawn < 100) {
+            if (spawn < 50) {
                 enemy=new EnemySuperBad(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
             }
         }else if(difficulty==22 && finalBossSpawned==false){
             enemy=new FinalBoss(xRandom, spaceshipPlayer.spaceshipY, scW, scH);
+            Gdx.app.log("boss","boss spawned");
             finalBossSpawned=true;
-
         }
 
         return enemy;

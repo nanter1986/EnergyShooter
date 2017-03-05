@@ -45,7 +45,6 @@ public class MenuMaker {
         }
         if(saveYes.isButtonTouched() && saveManage==true){
             tool.prefs.clear();
-            Gdx.app.log("mon",""+tool.prefs.getInteger("money"));
             saveManage=false;
 
         }

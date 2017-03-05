@@ -16,7 +16,6 @@ public class ShopLeft extends TouchableButtons {
         this.buttonH=(int)(screenH/10);
         this.buttonY=(int)(screenH-this.buttonH);
         texture= new Texture(Gdx.files.internal("leftshop.png"));
-        Gdx.app.log("button",buttonX+" "+buttonW+" "+buttonY+" "+buttonH+" "+screenW+" "+screenH);
     }
 
 

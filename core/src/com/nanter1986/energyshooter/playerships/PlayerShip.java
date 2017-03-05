@@ -72,7 +72,7 @@ public abstract class PlayerShip implements Collidable {
 
     public abstract void updatePosition(SpriteBatch b);
 
-    public abstract void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font);
+    public abstract int drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font);
 
     @Override
     public float positionX() {

@@ -146,10 +146,9 @@ public class LaserOfPlayer implements Collidable {
 
     public void updatePosition(SpriteBatch b, ArrayList<Enemy>enemies){
         if(enemies.size()>0){
-            Gdx.app.log("outEnemy",enemies.get(0).positionX()+" "+enemies.get(0).positionY()+" "+ enemies.get(0).whatType());
-            if(positionX()<enemies.get(0).positionX()){
+            if(positionX()<enemies.get(0).positionX()+enemies.get(0).width()/2){
                 x=x+widthFactor;
-            }else if(positionX()>enemies.get(0).positionX()){
+            }else if(positionX()>enemies.get(0).positionX()+enemies.get(0).width()/2){
                 x=x-widthFactor;
             }
         }
@@ -190,7 +189,6 @@ public class LaserOfPlayer implements Collidable {
 
     public void playSound(){
         laserSound.play(0.3f);
-        Gdx.app.log("lasersound",this.typeOfLaser);
     }
 
 

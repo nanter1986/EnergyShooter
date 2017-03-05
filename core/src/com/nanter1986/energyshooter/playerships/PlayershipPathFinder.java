@@ -24,8 +24,9 @@ public class PlayershipPathFinder extends f5s1{
     }
 
     @Override
-    public void drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
+    public int drawLaser(float d, ArrayList<Enemy> enemies, SpriteBatch b, BitmapFont font) {
         float speedModifier;
+        int hitC=0;
         if(touchedDown==true){
             speedModifier=2*spaceshipSpeed;
         }else{
@@ -44,6 +45,7 @@ public class PlayershipPathFinder extends f5s1{
         }
         if (Gdx.input.isTouched() && spaceshipHealth>10){
             touchedDown=true;
+            hitC =-4;
         }else{
             touchedDown=false;
         }
@@ -86,5 +88,6 @@ public class PlayershipPathFinder extends f5s1{
                 e.health -= damage;
             }
         }
+        return hitC;
     }
 }
