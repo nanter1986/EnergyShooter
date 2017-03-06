@@ -112,7 +112,7 @@ public class GameplayScreen implements Screen{
         shipIndex=tool.prefs.getInteger("shipindex",0);
         money=prefs.getInteger("money");
 
-        stateOfGame=75;
+        //stateOfGame=75;
 
         l = Levels.levelReturner(stateOfGame);
         if(backgroundMusic!=null) {

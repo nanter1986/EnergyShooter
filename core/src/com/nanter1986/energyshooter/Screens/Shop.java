@@ -158,7 +158,7 @@ public class Shop implements Screen {
         temp.add(new ShopItem("Bat",2000,new Texture(Gdx.files.internal("coolBlue.png")),prefs));
         temp.add(new ShopItem("Sinister",3000,new Texture(Gdx.files.internal("sinister.png")),prefs));
         temp.add(new ShopItem("Manta",5000,new Texture(Gdx.files.internal("manta.png")),prefs));
-        temp.add(new ShopItem("PathFinder",10000,new Texture(Gdx.files.internal("pathfinder.png")),prefs));
+        temp.add(new ShopItem("PathFinder",10,new Texture(Gdx.files.internal("pathfinder.png")),prefs));
         itemList.clear();
         itemIterator=0;
         itemRotator=0;
