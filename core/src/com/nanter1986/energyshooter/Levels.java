@@ -106,17 +106,17 @@ public class Levels {
         }else if(gamestate==48){
             l=new Playlevel("Stage:Asia 6/6","europe.ogg","asia.png","cloud",12,3000,42,550,11);
         }else if(gamestate==49){
-            l=new Playlevel("Stage:Australia 1/6","europe.ogg","australia.png","cloud",12,3000,42,560,12);
+            l=new Playlevel("Stage:Australia 1/6","australia.ogg","australia.png","cloud",12,3000,42,560,12);
         }else if(gamestate==50){
-            l=new Playlevel("Stage:Australia 2/6","europe.ogg","australia.png","cloud",12,3000,42,570,12);
+            l=new Playlevel("Stage:Australia 2/6","australia.ogg","australia.png","cloud",12,3000,42,570,12);
         }else if(gamestate==51){
-            l=new Playlevel("Stage:Australia 3/6","europe.ogg","australia.png","cloud",12,3000,42,580,12);
+            l=new Playlevel("Stage:Australia 3/6","australia.ogg","australia.png","cloud",12,3000,42,580,12);
         }else if(gamestate==52){
-            l=new Playlevel("Stage:Australia 4/6","europe.ogg","australia.png","cloud",12,3000,42,590,12);
+            l=new Playlevel("Stage:Australia 4/6","australia.ogg","australia.png","cloud",12,3000,42,590,12);
         }else if(gamestate==53){
-            l=new Playlevel("Stage:Australia 5/6","europe.ogg","australia.png","cloud",12,3000,42,600,12);
+            l=new Playlevel("Stage:Australia 5/6","australia.ogg","australia.png","cloud",12,3000,42,600,12);
         }else if(gamestate==54){
-            l=new Playlevel("Stage:Australia 6/6","europe.ogg","australia.png","cloud",12,3000,42,610,12);
+            l=new Playlevel("Stage:Australia 6/6","australia.ogg","australia.png","cloud",12,3000,42,610,12);
         }else if(gamestate==55){
             l=new Playlevel("Stage:Europe 1/6","europe.ogg","europe.png","cloud",12,3000,42,620,13);
         }else if(gamestate==56){
