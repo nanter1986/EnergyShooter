@@ -12,8 +12,10 @@ import com.nanter1986.energyshooter.Screens.MainMenu;
 public class EnergyShooter extends Game {
 
 	EnergyShooter enGame;
+	private AdsController adsController;
 
-	public EnergyShooter() {
+	public EnergyShooter(AdsController adsController) {
+		this.adsController=adsController;
 		this.enGame = this;
 
 
@@ -21,7 +23,7 @@ public class EnergyShooter extends Game {
 
 	@Override
 	public void create () {
-		setScreen(new MainMenu(enGame));
+		setScreen(new MainMenu(enGame,adsController));
 
 	}
 

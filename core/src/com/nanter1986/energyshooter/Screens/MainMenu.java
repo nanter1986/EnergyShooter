@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.nanter1986.energyshooter.AdsController;
 import com.nanter1986.energyshooter.Buttons.MenuPlay;
 import com.nanter1986.energyshooter.Buttons.MenuSettings;
 import com.nanter1986.energyshooter.Buttons.SaveManager;
@@ -34,8 +35,10 @@ public class MainMenu implements Screen{
     EnergyShooter game;
     DisplayToolkit tool;
     Music backgroundMusic;
+    private AdsController adsController;
 
-    public MainMenu(EnergyShooter game) {
+    public MainMenu(EnergyShooter game,AdsController adsController) {
+        this.adsController=adsController;
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     }
@@ -51,7 +54,7 @@ public class MainMenu implements Screen{
     public void render(float delta) {
 
         if(playB.isButtonTouched()){
-            game.setScreen(new Shop(game));
+            game.setScreen(new Shop(game,adsController));
             backgroundMusic.dispose();
         }
         if(settingsB.isButtonTouched()){

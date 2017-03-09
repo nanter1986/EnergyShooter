@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.nanter1986.energyshooter.AdsController;
 import com.nanter1986.energyshooter.Artifacts.Artifact;
 import com.nanter1986.energyshooter.Artifacts.BasicShield;
 import com.nanter1986.energyshooter.Artifacts.Damager;
@@ -98,9 +99,11 @@ public class GameplayScreen implements Screen{
     private boolean effectsDone=false;
     private int spawnFrequencyFactor;
     private int hitCounter=0;
+    private AdsController adsController;
 
 
-    public GameplayScreen(EnergyShooter game) {
+    public GameplayScreen(EnergyShooter game,AdsController adsController) {
+        this.adsController=adsController;
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         stateOfGame=tool.prefs.getInteger("gamestate",1);
@@ -421,7 +424,7 @@ public class GameplayScreen implements Screen{
         if (Gdx.input.justTouched() && spaceshipPlayer.died == true && stateOfGame<76) {
 
             EnemyCreator.resetBossFight();
-            game.setScreen(new Shop(game));
+            game.setScreen(new Shop(game,adsController));
             backgroundMusic.dispose();
             //tool.batch.dispose();
             //dispose();
@@ -435,14 +438,14 @@ public class GameplayScreen implements Screen{
                 tool.prefs.putInteger("gamestate",stateOfGame);
                 tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
                 tool.prefs.flush();
-                game.setScreen(new EndScreen(game));
+                game.setScreen(new EndScreen(game,adsController));
             }else{
                 tool.prefs.putInteger("shipindex",shipIndex);
                 tool.prefs.putInteger("gamestate",stateOfGame);
                 tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
                 tool.prefs.flush();
 
-                game.setScreen(new Shop(game));
+                game.setScreen(new Shop(game,adsController));
             }
             backgroundMusic.dispose();
         }

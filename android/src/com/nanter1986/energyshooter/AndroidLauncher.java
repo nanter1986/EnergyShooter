@@ -21,7 +21,7 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new EnergyShooter(), config);
+		initialize(new EnergyShooter(this), config);
 		setupAds();
 	}
 

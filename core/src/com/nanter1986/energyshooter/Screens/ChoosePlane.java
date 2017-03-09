@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.nanter1986.energyshooter.AdsController;
 import com.nanter1986.energyshooter.Buttons.ShopBuy;
 import com.nanter1986.energyshooter.Buttons.ShopExit;
 import com.nanter1986.energyshooter.Buttons.ShopLeft;
@@ -27,6 +28,7 @@ public class ChoosePlane implements Screen{
 
     EnergyShooter game;
     DisplayToolkit tool;
+    private AdsController adsController;
 
 
     public static int iterator=0;
@@ -36,7 +38,8 @@ public class ChoosePlane implements Screen{
     public TouchableButtons r;
     public TouchableButtons c;
 
-    public ChoosePlane(EnergyShooter game) {
+    public ChoosePlane(EnergyShooter game,AdsController adsController) {
+        this.adsController=adsController;
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         l=new ShopLeft(tool);
@@ -71,7 +74,7 @@ public class ChoosePlane implements Screen{
         }else if (c.isButtonTouched()) {
             prefs.putString("choosenPlane",owned.get(iterator).name);
             prefs.flush();
-            game.setScreen(new EquipScreen(game));
+            game.setScreen(new EquipScreen(game,adsController));
 
         }
 

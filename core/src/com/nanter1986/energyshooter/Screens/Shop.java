@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.nanter1986.energyshooter.AdsController;
 import com.nanter1986.energyshooter.Buttons.ShopBuy;
 import com.nanter1986.energyshooter.Buttons.ShopExit;
 import com.nanter1986.energyshooter.Buttons.ShopLeft;
@@ -42,9 +43,11 @@ public class Shop implements Screen {
     public TouchableButtons b;
     public TouchableButtons e;
     int money;
+    private AdsController adsController;
 
 
-    public Shop(EnergyShooter game) {
+    public Shop(EnergyShooter game,AdsController adsController) {
+        this.adsController=adsController;
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         l=new ShopLeft(tool);
@@ -95,7 +98,7 @@ public class Shop implements Screen {
                 itemIterator = itemList.size() - 1;
             }
         }else if (e.isButtonTouched()) {
-           game.setScreen(new ChoosePlane(game));
+           game.setScreen(new ChoosePlane(game,adsController));
         }
 
 

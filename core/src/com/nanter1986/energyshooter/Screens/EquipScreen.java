@@ -117,14 +117,14 @@ public class EquipScreen implements Screen{
                             @Override
                             public void run() {
                                 System.out.println("Interstitial app closed");
-                                game.setScreen(new GameplayScreen(game));
+                                game.setScreen(new GameplayScreen(game,adsController));
                             }
                         });
                     } else {
                         System.out.println("Interstitial ad not (yet) loaded");
                     }
                 }else{
-                    game.setScreen(new GameplayScreen(game));
+                    game.setScreen(new GameplayScreen(game,adsController));
                 }
             }
         }
