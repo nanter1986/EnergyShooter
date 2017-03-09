@@ -3,6 +3,7 @@ package com.nanter1986.energyshooter.Screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.nanter1986.energyshooter.Buttons.MenuPlay;
@@ -32,6 +33,7 @@ public class MainMenu implements Screen{
     public static Texture logo=new Texture(Gdx.files.internal("logo.png"));
     EnergyShooter game;
     DisplayToolkit tool;
+    Music backgroundMusic;
 
     public MainMenu(EnergyShooter game) {
         this.game = game;
@@ -41,6 +43,8 @@ public class MainMenu implements Screen{
     @Override
     public void show() {
         makeButtons(tool);
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("europe.ogg"));
+        backgroundMusic.play();
     }
 
     @Override
@@ -48,6 +52,7 @@ public class MainMenu implements Screen{
 
         if(playB.isButtonTouched()){
             game.setScreen(new Shop(game));
+            backgroundMusic.dispose();
         }
         if(settingsB.isButtonTouched()){
 

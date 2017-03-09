@@ -99,6 +99,7 @@ public class GameplayScreen implements Screen{
     private int spawnFrequencyFactor;
     private int hitCounter=0;
 
+
     public GameplayScreen(EnergyShooter game) {
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -440,6 +441,7 @@ public class GameplayScreen implements Screen{
                 tool.prefs.putInteger("gamestate",stateOfGame);
                 tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
                 tool.prefs.flush();
+
                 game.setScreen(new Shop(game));
             }
             backgroundMusic.dispose();

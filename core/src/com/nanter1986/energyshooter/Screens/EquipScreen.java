@@ -1,9 +1,11 @@
 package com.nanter1986.energyshooter.Screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.nanter1986.energyshooter.AdsController;
 import com.nanter1986.energyshooter.Artifacts.Artifact;
 import com.nanter1986.energyshooter.Artifacts.BasicShield;
 import com.nanter1986.energyshooter.Artifacts.Damager;
@@ -46,8 +48,10 @@ public class EquipScreen implements Screen{
     public static TouchableButtons proceed;
     public static boolean madeButtons = false;
     ArrayList<Artifact>artifacts=new ArrayList<Artifact>();
+    private AdsController adsController;
 
-    public EquipScreen(EnergyShooter game) {
+    public EquipScreen(EnergyShooter game,AdsController adsController) {
+        this.adsController=adsController;
         this.game = game;
         this.tool=new DisplayToolkit(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         left1 = new EquipSlotLeft1(tool);
@@ -107,11 +111,22 @@ public class EquipScreen implements Screen{
                 prefs.putBoolean(artifacts.get(it1).name,true);
                 prefs.putBoolean(artifacts.get(it2).name,true);
                 prefs.flush();
-                game.setScreen(new GameplayScreen(game));
-
+                if(Gdx.app.getType() == Application.ApplicationType.Android){
+                    if (adsController.isWifiConnected()) {
+                        adsController.showInterstitialAd(new Runnable() {
+                            @Override
+                            public void run() {
+                                System.out.println("Interstitial app closed");
+                                game.setScreen(new GameplayScreen(game));
+                            }
+                        });
+                    } else {
+                        System.out.println("Interstitial ad not (yet) loaded");
+                    }
+                }else{
+                    game.setScreen(new GameplayScreen(game));
+                }
             }
-
-
         }
 
         first = artifacts.get(it1);
