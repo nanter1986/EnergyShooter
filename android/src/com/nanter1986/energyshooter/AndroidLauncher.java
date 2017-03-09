@@ -17,11 +17,13 @@ import com.nanter1986.energyshooter.EnergyShooter;
 public class AndroidLauncher extends AndroidApplication implements AdsController{
 	private static final String INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-1155245883636527/5492163094";
 	InterstitialAd interstitialAd;
+	boolean connected;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new EnergyShooter(this), config);
+		connected=false;
 		setupAds();
 	}
 
@@ -32,6 +34,12 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 		AdRequest.Builder builder = new AdRequest.Builder();
 		AdRequest ad = builder.build();
 		interstitialAd.loadAd(ad);
+		if(interstitialAd.isLoaded()){
+			connected=true;
+			Gdx.app.log("adshow","loaded true");
+		}
+
+
 	}
 
 	@Override
@@ -47,19 +55,25 @@ public class AndroidLauncher extends AndroidApplication implements AdsController
 							AdRequest.Builder builder = new AdRequest.Builder();
 							AdRequest ad = builder.build();
 							interstitialAd.loadAd(ad);
+
 						}
 					});
 				}
 				interstitialAd.show();
+
+
 			}
 		});
 	}
 
 	@Override
 	public boolean isWifiConnected() {
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		boolean check=false;
+		if(connected){
+			check=true;
+		}
 
-		return (ni != null && ni.isConnected());
+
+		return check;
 	}
 }

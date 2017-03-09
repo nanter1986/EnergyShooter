@@ -17,6 +17,6 @@ public class MenuSettings extends TouchableButtons {
         this.buttonX=0;
         this.buttonH=(int)screenH/10;
         this.buttonY=(int)screenH*4/10;
-        texture= new Texture(Gdx.files.internal("menusettingsbutton.png"));
+        texture= new Texture(Gdx.files.internal("helpbutton.png"));
     }
 }

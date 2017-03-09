@@ -108,21 +108,27 @@ public class EquipScreen implements Screen{
                 }
 
             }else if (proceed.isButtonTouched()) {
+                Gdx.app.log("adshow","touched");
                 prefs.putBoolean(artifacts.get(it1).name,true);
                 prefs.putBoolean(artifacts.get(it2).name,true);
                 prefs.flush();
                 if(Gdx.app.getType() == Application.ApplicationType.Android){
-                    if (adsController.isWifiConnected()) {
+                    if(adsController.isWifiConnected()){
                         adsController.showInterstitialAd(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("Interstitial app closed");
+                                Gdx.app.log("adshow","loaded");
                                 game.setScreen(new GameplayScreen(game,adsController));
                             }
                         });
-                    } else {
-                        System.out.println("Interstitial ad not (yet) loaded");
+                    }else{
+                        Gdx.app.log("adshow","not loaded");
+                        game.setScreen(new GameplayScreen(game,adsController));
                     }
+
+
+
+
                 }else{
                     game.setScreen(new GameplayScreen(game,adsController));
                 }

@@ -58,7 +58,8 @@ public class MainMenu implements Screen{
             backgroundMusic.dispose();
         }
         if(settingsB.isButtonTouched()){
-
+            game.setScreen(new HelpScreen(game,adsController));
+            backgroundMusic.dispose();
         }
         if(saveB.isButtonTouched()){
             saveManage=true;
