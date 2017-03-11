@@ -5,7 +5,7 @@ package com.nanter1986.energyshooter;
  */
 
 public interface AdsController {
-    void showInterstitialAd (Runnable then);
-    boolean isWifiConnected();
+    void showOrLoadInterstitialAd ();
+
 
 }

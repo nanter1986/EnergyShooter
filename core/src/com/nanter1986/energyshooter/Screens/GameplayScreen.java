@@ -444,7 +444,6 @@ public class GameplayScreen implements Screen{
                 tool.prefs.putInteger("gamestate",stateOfGame);
                 tool.prefs.putInteger("money",money+(int)spaceshipPlayer.spaceshipHealth);
                 tool.prefs.flush();
-
                 game.setScreen(new Shop(game,adsController));
             }
             backgroundMusic.dispose();
