@@ -130,17 +130,17 @@ public class Levels {
         }else if(gamestate==60){
             l=new Playlevel("Stage:Europe 6/6","europe.ogg","europe.png","cloud",12,3000,42,670,13);
         }else if(gamestate==61){
-            l=new Playlevel("Stage:N.America 1/6","europe.ogg","northamerica.png","cloud",12,3000,42,680,14);
+            l=new Playlevel("Stage:N.America 1/6","northamerica.ogg","northamerica.png","cloud",12,3000,42,680,14);
         }else if(gamestate==62){
-            l=new Playlevel("Stage:N.America 2/6","europe.ogg","northamerica.png","cloud",12,3000,42,690,14);
+            l=new Playlevel("Stage:N.America 2/6","northamerica.ogg","northamerica.png","cloud",12,3000,42,690,14);
         }else if(gamestate==63){
-            l=new Playlevel("Stage:N.America 3/6","europe.ogg","northamerica.png","cloud",12,3000,42,700,14);
+            l=new Playlevel("Stage:N.America 3/6","northamerica.ogg","northamerica.png","cloud",12,3000,42,700,14);
         }else if(gamestate==64){
-            l=new Playlevel("Stage:N.America 4/6","europe.ogg","northamerica.png","cloud",12,3000,42,710,14);
+            l=new Playlevel("Stage:N.America 4/6","northamerica.ogg","northamerica.png","cloud",12,3000,42,710,14);
         }else if(gamestate==65){
-            l=new Playlevel("Stage:N.America 5/6","europe.ogg","northamerica.png","cloud",12,3000,42,720,14);
+            l=new Playlevel("Stage:N.America 5/6","northamerica.ogg","northamerica.png","cloud",12,3000,42,720,14);
         }else if(gamestate==66){
-            l=new Playlevel("Stage:N.America 6/6","europe.ogg","northamerica.png","cloud",12,3000,42,730,14);
+            l=new Playlevel("Stage:N.America 6/6","northamerica.ogg","northamerica.png","cloud",12,3000,42,730,14);
         }else if(gamestate==67){
             l=new Playlevel("Stage:S.America 1/6","southamerica.ogg","southamerica.png","cloud",12,3000,42,740,15);
         }else if(gamestate==68){
