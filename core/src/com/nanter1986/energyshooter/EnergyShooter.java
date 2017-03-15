@@ -21,6 +21,12 @@ public class EnergyShooter extends Game {
 
 	}
 
+	public EnergyShooter() {
+		this.enGame = this;
+
+
+	}
+
 	@Override
 	public void create () {
 		setScreen(new MainMenu(enGame,adsController));
